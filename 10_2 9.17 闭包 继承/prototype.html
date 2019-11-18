@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>prototype</title>
+    <script type="text/javascript">
+        /**
+        *原型：prototype(数据类型是一个Object类型)
+                函数特有的属性，也就是说其他对象没有prototype属性
+        *特点：
+            原型上的属性和方法都可以被实例对象继承
+        *继承：
+            就是从外部直接得到的属性或方法。
+        *ES3&5中普通的函数都可以当成构造函数
+
+        *__proto__:每个对象都会自动拥有该属性（包括函数）
+        *__proto__:是可以省略的（也同样具有特殊性）
+
+        *实例对象__proto__绝对等于类的prototype
+        *原型的继承的实现原理：就是因为__proto__===prototype来实现原型继承
+
+        *所有的引用类型对象都会默认继承Object类
+        */
+
+        // function fn(){
+
+        // }
+        // var _obj=new Array();
+        // console.log(fn.prototype);//Object
+        // console.log(_obj.prototype);//undefined,只有函数有prototype属性
+   
+        // function fn(){
+        //     var leg=4;
+        //     var run=function(){
+        //         console.log("this fn can run");
+        //     };
+        //     this.sleep=function(){//实例方法
+        //         console.log("this fn can sleep");
+        //     };
+        // }
+
+        // fn.prototype.eat=function(){//原型方法
+        //     console.log("this fn can eat");
+        // }
+
+        // var _f=new fn();//new fn();是一个实例对象，_f是一个实例对象
+        // console.log(_f);//输出函数fn
+        // _f.eat();//this fn can eat
+
+///////////////////////////////////////////////////////////////////////
+        function fn(){
+            this.leg={
+                fl:4,
+                fr:4,
+                bl:4,
+                br:4
+            };
+            this.sleep=function(){//实例方法
+                console.log("this fn can sleep");
+            };
+        }
+        
+        fn.prototype.eat=function(){//原型方法
+            console.log("this fn can eat");
+        }
+
+        var _f=new fn();
+        console.log(_f);//输出函数fn
+        console.log(_f.leg);//{f1: 4, fr: 4, bl: 4, br: 4}
+        console.log(_f.leg.fl);//4
+        console.log(_f.__proto__);//输出eat方法
+
+        _f.eat();//this fn can eat;
+        _f.__proto__.eat();//this fn can eat;
+///////继承的原理////////////////////////////////////////////////////
+        // function fn(){
+        //     this.leg={
+        //         fl:4,
+        //         fr:4,
+        //         bl:4,
+        //         br:4
+        //     };
+        //     this.sleep=function(){//实例方法
+        //         console.log("this fn can sleep");
+        //     };
+        // }
+        // fn.prototype.eat=function(){//原型方法
+        //     console.log("this fn can eat");
+        // }
+        // var _f=new fn();
+        // console.log(fn.prototype);//输出eat方法
+        // console.log(_f.__proto__);//输出eat方法
+        // console.log(fn.prototype===_f.__proto__);//true
+        // _f.eat();//this fn can eat
+        // fn.prototype.eat();//this fn can eat
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

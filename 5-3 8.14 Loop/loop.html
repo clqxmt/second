@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>循环</title>
+    <script type="text/javascript">
+    /*
+       //输出0-100
+       var i=0;
+       function f1(){
+            while(i++<=100){
+            document.write(i-1+",");
+            }
+       }
+    //   f1();
+
+     //输出0-100
+    function f2(){
+        while(i<=100){
+           document.write(i+++",");
+
+        }
+    }
+    // f2();
+
+     //输出0-100
+    function f3(){
+        while(true){
+            document.write(i+++",");
+            if(i>100){
+                break;
+            }
+        }
+    }
+    // f3();
+
+     //输出0-100
+    function f4(){
+        for(i=0;i<=100;i++){
+        document.write(i+",");
+       }
+    }
+    // f4();
+
+     //输出0-100
+    function f5(){
+        do{
+           document.write(i+++",");
+        }while(i<=100);
+    }
+    f5();*/
+
+   // 输出0-100的奇数
+   /*  function f1(){ //错误的逻辑思维，不能输出奇数
+      var i=1;
+      do{
+          if(i%2!=0){
+            document.write(i+++",");//++不能写在这，会造成死循环
+            //刚开始i=1，输出一次1之后i变为2，2<100,2%2==0，不执行输出语句，
+            //那么此时也就不会执行i++,但是2<100,依旧会执行2%2==0,此时依旧不执行输出语句，
+            //会一直这样死循环下去，
+          }
+      }while(i<=100);
+    } */
+   // 输出0-100的奇数:正确的输出结果
+   /*  function f2(){
+        var i=1;
+        do{
+            if(i%2!=0){
+                document.write(i+",");
+            }
+            i++;
+        }while(i<=100);
+    }
+    f2();
+ */
+
+ 
+    //for循环输出0-100同时为3和7倍数的数字
+      function f1(){
+          for(var i=0;i<=100; i++){//循环100次
+              if(i%3==0 && i%7==0){
+                  document.write(i+",");
+              }
+          }
+      }
+     // f1();
+
+     //优化写法
+     function f2(){
+         for(var i=0; i<=100; i+=7){//先找出0-100中7的倍数，然后再判断是否为3的倍数，这样只执行15次
+             if(i%3==0 && i%7==0){
+                 document.write(i+",");
+             }
+         }
+     }
+     f2();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

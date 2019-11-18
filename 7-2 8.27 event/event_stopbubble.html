@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>阻止事件冒泡</title>
+    <style>
+        html,body{
+            width:100%; height:100%; margin:0; padding:0;
+        }
+        #outer{
+            width:500px; height:500px; background-color:red; margin: 10px;
+        }
+        #middle{
+            width:300px; height:300px; background-color:yellow;
+        }
+        #inner{
+            width:100px; height:100px; background-color:green;
+            position: absolute; top:80px; left:80px;
+        }
+    </style>
+    <script type="text/javascript">
+        //阻止事件冒泡:e.stopPropagation||e.cancelBubble=false;
+        window.onload=function(){
+            var _outer=document.getElementById("outer");
+            var _middle=document.getElementById("middle");
+            var _inner=document.getElementById("inner");
+            _outer.onclick=function(e){
+                e=e||event;
+                var _target=e.target||e.which;
+                e.stopPropagation?e.stopPropagation():e.cancelBubble=true;
+                console.log(this.id);
+                console.log(_target.id);
+            };
+            _middle.onclick=function(e){
+                e=e||event;
+                var _target=e.target||e.srcElement;
+                console.log(this.id);
+                console.log(_target.id);
+            };
+
+            _inner.onclick=function(e){
+                e=e||event;
+                var _target=e.target||e.which;
+                //e.stopPropagation();//非低版本IE阻止事件冒泡
+                //e.cancelBubble=true;//低版本IE阻止事件冒泡
+
+                //解决兼容性
+                //给inner加过阻止事件冒泡后再点击inner就不会往外扩散
+                //此时只会在控制台打印inner的id名
+                e.stopPropagation?e.stopPropagation():e.cancelBubble=true;
+                console.log(this.id);
+                console.log(_target.id);
+            };
+        }
+    </script>
+</head>
+<body>
+    <div id="outer">
+        <div id="middle">
+            <div id="inner"></div>
+        </div>
+    </div>
+</body>
+</html>

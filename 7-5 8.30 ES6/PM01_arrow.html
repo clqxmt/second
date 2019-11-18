@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>箭头函数</title>
+    <script type="text/javascript">
+        /*
+            箭头函数：
+                *和匿名函数的相似处：
+                    都可以赋值给变量
+                    都可以赋值给事件
+                    自调用的方式和匿名函数一样
+                    和匿名函数一样传参
+                    和匿名函数一样有返回值
+                *和匿名函数的区别：
+                    箭头函数不影响this指向
+                    箭头函数没有arguments参数
+                    箭头函数不能被new关键字调用
+                *语法：
+                    形参只有一个参数时，左边的小括号可以省略
+                    箭头函数的函数体只有一句话时，大括号也可以省略
+                总结：只有函数可以影响this指向
+
+                Array instanceof Function:表示检测Array是否是Function的实例，返回值为Boolean类型，是就返回true，不是就返回false
+        */
+        //1.赋值给变量
+        var _fn=function(a){
+            console.log(a);//1
+        }
+        _fn(1);
+
+        let _arrow=(a)=>{
+            console.log(a);//2
+        }
+        _arrow(2);
+
+        //2.箭头函数中this指向window
+        window.onload=function(){
+            const _demo=document.getElementById("demo");
+            // _demo.onclick=function(){
+            //     console.log(this);//指向demo
+            // };
+            _demo.onclick=()=>{
+                console.log(this);//指向window
+            }
+        };
+
+        //3.箭头函数可以传参，可以自调用，有返回值
+        var _fn=(function (_type){
+            return (_type);
+        })("anonymous");
+        console.log(_fn);//输出anonymous
+
+        var _arrow1=((_type)=>{
+            return (_type);
+        })("arrow");
+        console.log(_arrow1);//输出arrow
+
+        //4.箭头函数中没有arguments参数对象
+        (function(_type){
+            console.log(arguments);//输出一个arguments数组
+        })("anonymous");
+       
+
+        ((_type)=>{
+           // console.log(arguments);//报错arguments is not defined
+        })("arrow");
+
+        //5.箭头函数不能被new关键字调用
+        var _arr=new Array();
+        console.log(Array instanceof Function);//true
+        function f(){
+            this.fly=true;
+            this.run=true;
+        }
+        console.log(f instanceof Function);//true
+        let _bird=new f();
+        console.log(_bird);//输出函数块f
+        let _dog=new function(){
+            this.functions=["shout","eat","run"];
+        }();
+        console.log(_dog);//输出函数_dog
+        // let _cat=new ()=>{//会报错Malformed arrow function parameter list
+        //                   //变形的箭头函数参数列表
+        //     this.function=["shout","eat","run"];
+        // }();
+
+        //6.箭头函数形参就一个时左边的小括号可以省略
+        let _arrow3=a=>{
+            console.log(a);//输出90
+        }
+        _arrow3(10);
+
+        //7.箭头函数函数体中只有一条语句时右边的大括号可以省略
+        var _arrow4=(a)=>console.log(a);//输出10
+        _arrow4(10);
+        
+
+console.log(b);
+    </script>
+</head>
+<body>
+    <div id="demo" style="width:100px;height:100px; background-color:red;"></div>
+</body>
+</html>

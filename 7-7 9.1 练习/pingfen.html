@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>评分</title>
+    <style>
+        *{margin:0px; padding: 0px}
+		#rank{width:135px; margin:10px auto; height: 28px;}
+		#rank ul{height: 28px; margin-bottom: 10px;}
+		#rank li{width:27px; float: left; height:28px;  background: url(star.gif) no-repeat 0 0; list-style: none;}
+		#rank .active{background: url(star.gif) no-repeat 0 -29px;}
+		#rank p{width: 134px; height: 28px; border:1px solid #CCC; text-align: center; line-height: 28px; display: none;}
+    </style>
+    <!-- <script type="text/javascript">
+        /* let _str=["较差","较差","一般","推荐","力荐"];
+        function createEle(_body){
+            let _rank=document.createElement("div");
+            _rank.id="rank";
+            _body.appendChild(_rank);
+            let _ul=document.createElement("ul");
+            _rank.appendChild(_ul);
+            let _li;
+            for(let i=0;i<5;i++){
+                _li=document.createElement("li");
+                _ul.appendChild(_li);
+            }
+            let _p=document.createElement("p");
+            _rank.appendChild(_p);
+        }
+        function events(_ul){
+            for(let i=0;i<_ul.children.length;i++){
+                _ul.children[i].onmouseover=function(){
+                    for(let n=0;n<=i;n++){
+                       _ul.children[n].className="active";
+                    }
+                    _ul.parentNode.children[1].style.display="block";
+                    _ul.parentNode.children[1].innerHTML=_str[i];
+                }
+                _ul.children[i].onmouseout=function(){
+                    for(let n=0;n<=i;n++){
+                        _ul.children[n].className="";
+                    }
+                    _ul.parentNode.children[1].style.display="none";
+                }
+            }
+        }
+        function main(){
+            let _body=document.getElementsByTagName("body")[0];
+            createEle(_body);
+            events(_body.children[0].children[0]);
+        } */
+        window.onload=main;
+   
+   
+    </script> -->
+    <!-- 面向对象的写法 -->
+    <!-- <script type="text/javascript">
+        class Score{
+            constructor(){
+                this._str=["较差","较差","一般","推荐","力荐"];
+            }
+            createEle(_body){
+                let _div=document.createElement("div");
+                _body.appendChild(_div);
+                _div.id="rank";
+                let _ul=document.createElement("ul");
+                _div.appendChild(_ul);
+                let _li;
+                for(let i=0;i<5;i++){
+                    _li=document.createElement("li");
+                    _ul.appendChild(_li);
+                }
+                let _p=document.createElement("p");
+                _div.appendChild(_p);
+            }
+            events(_ul){
+                let _me=this;
+                for(let i=0;i<_ul.children.length;i++){
+                    _ul.children[i].onmouseover=function(){
+                        for(let n=0;n<=i;n++){
+                            _ul.children[n].className="active";
+                        }
+                        _ul.parentNode.children[1].style.display="block";
+                        _ul.parentNode.children[1].innerHTML=_me._str[i];
+
+                    }
+                    _ul.children[i].onmouseout=function(){
+                        for(let m=0;m<=i;m++){
+                            _ul.children[m].className="";
+
+                        }
+                        _ul.parentNode.children[1].style.display="none";
+                    }
+                }
+            }
+        }
+        function main(){
+            var _body=document.getElementsByTagName("body")[0];
+            let _score=new Score();
+            _score.createEle(_body);
+            _score.events(_body.children[0].children[0]);
+        }
+        window.onload=main;
+    </script> -->
+    <!-- 使用var声明变量 -->
+    <script type="text/javascript">
+        class Score{
+            constructor(){
+                this._str=["较差","较差","一般","推荐","力荐"];
+            }
+            createEle(_body){
+                var _div=document.createElement("div");
+                _body.appendChild(_div);
+                _div.id="rank";
+                var _ul=document.createElement("ul");
+                _div.appendChild(_ul);
+                var _li;
+                for(var i=0;i<5;i++){
+                    _li=document.createElement("li");
+                    _ul.appendChild(_li);
+                }
+                var _p=document.createElement("p");
+                _div.appendChild(_p);
+            }
+            events(_ul){
+                var _me=this;
+                for(var i=0;i<_ul.children.length;i++){
+                    _ul.children[i].index=i;//使用var声明的i，需要手动把i保存下来
+                    _ul.children[i].onmouseover=function(){
+                        for(var n=0;n<=this.index;n++){
+                            _ul.children[n].className="active";
+                        }
+                        _ul.parentNode.children[1].style.display="block";
+                        _ul.parentNode.children[1].innerHTML=_me._str[this.index];
+                    }
+                    _ul.children[i].onmouseout=function(){
+                        for(var n=0;n<=this.index;n++){
+                            _ul.children[n].className="";
+                        }
+                        _ul.parentNode.children[1].style.display="";
+                        
+                    }
+                }
+            }
+        }
+        function main(){
+            var _body=document.getElementsByTagName("body")[0];
+            var _score=new Score();
+            _score.createEle(_body);
+            _score.events(_body.children[0].children[0]);
+        }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

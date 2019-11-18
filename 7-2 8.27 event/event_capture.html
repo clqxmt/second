@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件捕获</title>
+    <style>
+        html,body{
+            width:100%; height:100%; margin:0; padding:0;
+        }
+        #outer{
+            width:500px; height:500px; background-color:red; margin: 10px;
+        }
+        #middle{
+            width:300px; height:300px; background-color:yellow;
+        }
+        #inner{
+            width:100px; height:100px; background-color:green;
+            position: absolute; top:80px; left:80px;
+        }
+        #demo{
+            width:100px; height:100px; background-color:red;
+        }
+        div{width:100px;height:100px;background:#0ff;float:left;margin-left:10px;margin-bottom:10px;}
+    </style>
+    <script type="text/javascript">
+        window.onload=function(){
+            var _outer=document.getElementById("outer");
+            var _middle=document.getElementById("middle");
+            var _inner=document.getElementById("inner");
+            /*
+                总结：
+                    事件捕获就是外层的事件向内层收缩的过程。
+                    事件监听器：用来监听事件是否有发生
+            */
+
+            /**事件监听器
+              *addEventListener || attachEvent
+              *有三个参数：
+                *第一个参数：表示事件类型
+                *第二个参数：表示事件处理函数
+                *第三个参数：Boolean类型值，true表示选择事件捕获机制，false表示事件非捕获机制（也叫冒泡机制）
+            
+            
+            */
+            _outer.addEventListener("click",function(e){
+                console.log(this.id);
+            },true);
+            _middle.addEventListener("click",function(e){
+                console.log(this.id);
+            },true);
+            _inner.addEventListener("click",function(e){
+                console.log(this.id);
+            },true);
+///////////////////////////////////////////////////////////////////////////////////////////////
+            //事件监听器
+            /*总结：
+              *事件监听器可以给同一个元素的相同的事件类型添加多个事件处理函数
+              *而用点onclick这种方式不能给同一个元素的相同事件类型，添加多个事件处理函数
+
+              *事件监听器的移除
+                removeEventListener(依然是三个参数);
+            */
+            var _demo=document.getElementById("demo");
+            //点击_demo时在控制台输出second
+            _demo.onclick=function(){
+                console.log("first");
+            };
+            _demo.onclick=function(){//相同类型的事件第二个事件覆盖第一个事件
+                console.log("second");
+            };
+
+            //点击_demo时在控制台输出first、second
+            _demo.addEventListener("click",function(){
+                console.log("first");
+            },true);
+            _demo.addEventListener("click",function(){
+                console.log("second");
+            },true);
+
+///////////////////////////////////////////////////////////////////////////////////
+            function handle(){
+                console.log(this.id);
+            }
+            _demo.addEventListener("mouseover",handle,true);
+            //给_demo添加一个监听器，当在demo上点击时删除对demo中mouseover事件的监听
+            _demo.addEventListener("click",function(){
+                _demo.removeEventListener("mousemover",handle,true);
+            },true);
+
+////////////////////////////////////////////////////////////////////////////////////
+
+            //添加监听器和删除监听器的兼容写法
+
+            //addEventListener||attachEvent的兼容写法
+            function listener(_target,_type,_handle,_capture){
+                if(_target.addEventListener){//判断浏览器是否有addEventListener
+                    _target.addEventListener(_type,_handle,_capture);
+                }else{
+                    _target.attachEvent("on"+_type,handle,_capture);//attachEvent是低版本IE浏览器给元素添加监听器的方式
+
+                }
+            };
+
+            //removeEventListener||detachEvent的兼容写法
+            function detach(_target,_type,_handle,_capture){
+                if(_target.removeEventListener){
+                    _target.removeEventListener(_type,_handle,_capture);
+                }else{
+                    _target.detachEvent("on"+_type,_handle,_capture);
+                }
+            }
+
+            function handle(){
+                console.log(123);
+            };
+            /*调用函数传四个参数，
+              *第一个参数表示给谁添加监听器
+              *第二个参数表示事件类型，监听什么事件
+              *第三个参数表示事件处理函数，
+              *第四个参数表示是否使用捕获机制
+            */
+            listener(_demo,"click",handle,true);//添加监听器
+            detach(_demo,"click",handle,true);//删除监听器
+////////////////////////////////////////////////////////////////////////////////////////
+            //循环创建10个div，并分别给10个div添加点击事件
+            var _body=document.getElementsByTagName("body")[0];
+            function create(){
+                var _div;
+                for(var i=0;i<10;i++){
+                    _div=document.createElement("div");
+                    //_div.onclick=function(){
+                    //     cosnole.log(i);//点击任何div都会输出10
+                    // };
+
+                    //下面用匿名函数保存变量的方式，将当前的i的值保存下来
+                    (function(n){
+                        _div.onclick=function(){
+                            console.log(n);//可以正确输出
+                        }
+                    })(i);
+                    _body.appendChild(_div);
+                }
+            }
+            //create();
+            //循环创建10个div，并分别给10个div添加点击事件
+            function create1(){
+                var _div;
+                for(var i=0;i<10;i++){
+                    _div=document.createElement("div");
+                    _div.onclick=function(){
+                        for(var n=0;n<_body.children.length;n++){
+                            //用当前对象和body中的所有子元素进行核对，如果发现相同就说明找到当前对象的位置了
+                            if(this===_body.children[n]){
+                                console.log(n);//可以正确输出
+                                break;
+                            }
+                        }
+                    };
+                    _body.appendChild(_div);
+                }
+            }
+            //create1();
+///////////////////////////////////////////////////////////////////////////////////////////
+            //事件委托：JS中利用事件冒泡的机制，将子元素的事件委托给父元素。
+            //循环创建10个div
+            function create2(){
+                var _div;
+                for(var i=0;i<10;i++){
+                    _div=document.createElement("div");
+                    _body.appendChild(_div);
+                }
+            }
+            function delegate(){
+                
+                _body.onclick=function(e){
+                    e=e||event;
+                    var _target=e.target||e.srcElement;
+                    console.log(_target);
+                    if(_target.tagName.toLowerCase()==="div"){
+                        for(var i=0;i<_body.children.length;i++){
+                            if(_target===_body.children[i]){
+                                console.log(i);
+                                break;
+                            }
+                        }
+                    }
+                };
+            }
+            create2();
+            //委托父级元素完成当前div的点击事件
+            delegate();
+           
+        }
+    </script>
+</head>
+<body>
+    <div id="outer">
+        <div id="middle">
+            <div id="inner"></div>
+        </div>
+    </div>
+    <div id="demo"></div>
+</body>
+</html>

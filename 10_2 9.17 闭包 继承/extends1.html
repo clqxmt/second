@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>call & apply继承</title>
+    <script type="text/javascript">
+        /**
+        *call && apply 继承
+        *   函数都有call和apply方法，普通对象没有这两个方法
+        *   call & apply的语法基本相同
+        *   call方法的第二个参数开始，才是给函数传递参数
+        *   call方法的第一个参数一般情况下是用来继承用
+        *
+        *call & apply方法继承的属性和方法都是实例属性和实例方法。
+        *   不能继承类的原型上的属性和方法
+        *
+        *call方法传参数是一个一个传递
+        *apply方法传递参数是一个数组。数组可以包含很多数据
+        */
+
+        // function Animal(){
+        //     this.leg=4;
+        //     this.run=function(){
+        //         console.log("this animal can run");
+        //     }
+        // }
+
+        // var _cat={};
+        // Animal.call(_cat);
+        // console.log(_cat,10,20)//输出Object和10,20，Object下有leg属性和run方法
+
+        // var a=0;
+        // Animal.call(a);
+        // console.log(a);//0
+
+        ///多继承
+        function Animal(a,b,c){
+            console.log(a,b,c);
+            this.leg=4;
+            this.run=function(){
+                console.log("this animal can run");
+            }
+        }
+        function Cat(){
+            this.catch=function(){
+                console.log("this cat is catching");
+            }
+        }
+        Cat.prototype.eat=function(){
+            console.log("eat");
+        }
+        var _fcc={
+            weight:"5kg"
+        };
+        Animal.call(_fcc,10,1000,10000);
+        console.log(_fcc);//有weight:"5kg",leg属性，run方法
+        Cat.call(_fcc);  //没传参数
+        console.log(_fcc);//{weight: "5kg", leg: 4, run: ƒ, catch: ƒ} 
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

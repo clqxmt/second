@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript">
+    //1.计算两个数字的和、差、积、商。
+        function work1(a,b){
+            document.write(a+"+"+b+"="+(parseInt(a)+parseInt(b))+"<br>");
+            document.write(a+"-"+b+"="+(a-b)+"<br>");
+            document.write(a+"*"+b+"="+a*b+"<br>");
+            document.write(a+"/"+b+"="+parseFloat(a/b));
+        }
+        //work1(2,5);
+
+        //2.计算三个数字的大小，按从小到大顺序输出
+        function work2(a,b,c){
+            var _arr=[a,b,c];
+            var _center=null;
+            for(n=0;n<_arr.length-1;n++){
+                for(i=_arr.length-1; i>n; i--){
+                    if(_arr[i]<_arr[i-1]){
+                        _center=_arr[i-1];
+                        _arr[i-1]=_arr[i];
+                        _arr[i]=_center;
+                    }
+                }
+            }
+            document.write(_arr);
+        }    
+        //work2(3,7,9);
+
+        //3.编写任意个数字的求和、差、积、商的函数
+        function work3(){
+            var _sum=0;
+            var _sum1=0,_sum2=1,_sum3=Math.pow(arguments[0],2);
+            var _str="";
+            for(var n=0;n<arguments.length; n++){
+                _sum+=arguments[n];
+                _sum1-=arguments[n];
+                _sum2*=arguments[n];
+                _sum3/=arguments[n];
+                /* if(n==arguments.length-1){
+                    _str+=arguments[n];
+                }else{
+                    _str+=arguments[n]+",";
+                } */
+                _str+=n==arguments.length-1?arguments[n]:arguments[n]+",";
+                
+            }
+           
+            // document.write(_str+"的和:"+_sum+"<br>"+_str+"的差:"+(_sum1+arguments[0]*2)+"<br>"+_str+"的积:"+_sum2+"<br>"+_str+"的商:"+parseFloat(_sum3));
+            document.write(_str+"的和:"+_sum+"、差:"+(_sum1+arguments[0]*2)+"、积:"+_sum2+"、商:"+parseFloat(_sum3));
+        }
+        //work3(4,2,1,8);
+        
+
+        //4.编写生成4位数字验证码的函数，并生成10次，同时将结果存入数组
+        function work4(){
+            var _arr=[];
+            var _str="";
+            for(var n=0;n<10;n++){
+                for(var i=0;i<4;i++){
+                    _str+=Math.floor(Math.random()*10);
+                }
+                _arr.push(_str);
+                _str="";
+            }
+            console.log(_arr);
+            document.write(_arr);
+        }
+        //work4();
+
+        //5.编写一个函数，计算任意两个数字之间所能组成的奇数个数，数字必须是个位数。比如： 计算0-3之间能组成的奇数个是01、21、03、13、23、31
+        function work5(a,b){
+            // var _str=prompt("请输入两个数字","");
+            var n;
+            var _arr=[];
+            var _arr1=[""+a+b,""+b+a];
+            if(a<b){
+                n=a+1;
+                while (n != b) {
+                    _arr.push(n);
+                    n=n+1;
+                }
+                console.log(_arr);
+            }else{
+                n=b+1;
+                while(n!=a){
+                    _arr.push(n);
+                    n=n+1;
+                }
+                console.log(_arr);
+            }
+            //_arr1.push(""+a+b);
+            for(var m=0;m<arguments.length;m++){
+                for(var i=0;i<_arr.length;i++){
+                   _arr1.push(""+arguments[m]+_arr[i]);
+                   _arr1.push(""+_arr[i]+arguments[m]);
+                   if(i!=_arr.length-1 && m!=_arr.length-1){
+                     _arr1.push(""+_arr[i]+_arr[i+1]);
+                     _arr1.push(""+_arr[i+1]+_arr[i]);
+                   }
+                   
+               }
+               
+            }
+            console.log(_arr1);
+            document.write(a+"-"+b+"能组成的奇数有:");
+            for(var j=0;j<_arr1.length;j++){
+                if(_arr1[j]%2!=0){
+                    document.write(_arr1[j]+(j==_arr1.length-1?"":","));
+                }
+            }
+            
+        }
+       // work5(0,3);
+
+
+        /*6.某个公司采用公用电话传递数据，数据是四位的整数，在传递过程中是加密的，
+        加密规则如下：每位数字都加上5,然后用除以10的余数代替该数字，再将第一位和第四位交换，
+        第二位和第三位交换，请编写一个函数，传入原文，输出密文
+        */
+
+        function work6(){
+            var _str=prompt("请输入一个四位的整数","");
+            var _arr=[];
+            var _empty=null;
+            var a;
+            for(var n=0;n<_str.length;n++){
+                _arr.push(_str[n]);
+                // _str[n]=(Number(_str[n])+5)%10;
+            }
+            for(var i=0;i<_arr.length;i++){
+                _arr[i]=(Number(_arr[i])+5)%10;
+            }
+            console.log(_arr);
+            
+            console.log(""+_arr[3]+_arr[2]+_arr[1]+_arr[0]);
+           /* for(var m=0;m<_arr.length;m++){
+               console.log(_arr[m]);
+           } */
+        }
+        work6();
+
+
+        //7.利用递归求两个数字的最大公约数
+        var _sum=1;
+        var n=1;
+        var _empty=null;
+        function work7(a,b){
+           if(a<b){//判断a是否小于b,如果小于b交换位置,因为被除数要比除数大，否则下面判断a除以b的余数时永远不会为0
+                _empty=a;
+                a=b;
+                b=_empty;
+           }
+           if(a%b==0){//判断a%b是否为0，如果为0,直接返回b，b就是两个数的最大公约数
+               return b;
+           }else{//如果a%b!=0,把b的值赋给a,a%b的余数赋给b,递归调用函数work7,判断a%b是否等于0,如果等于0就返回b,如果不等于0继续调用
+               _empty=a;
+               a=b;
+               b=_empty%b;
+              _sum*=work7(a,b);
+           }
+              return _sum ; 
+        /*例如40,60
+           40<60，交换位置a=60,b=40
+           a%b=60%40!=0
+           a=40;b=60%40=20
+           _sum*=work(40,20);
+           40>20;
+           40%20==0;
+           return 20,此时的b是返回给了调用函数work7(40,2)了
+           _sum*=20=20;
+           return _sum;返回给了调用函数work7(40,60);
+           console.log(work(40,60))输出20
+        */
+            
+        }
+        //console.log(work7(80,60));
+
+
+        //8.编写一个函数，输入n为偶数时，调用函数求1/2+1/4+...+1/n,当输入n为奇数时，调用函数求/1+1/3+...+1/n
+        var _sum=0;
+        // var n=0;
+        function work8(a){
+           /*  var _a=prompt("请输入一个正整数","");
+            if(_a%2==0){
+                for(var i=2;i<=_a;i+=2){
+                    _sum+=1/i;
+                }
+            }else{
+                for(var n=1;n<=_a;n+=2){
+                    _sum+=1/n;
+                }
+            }
+            console.log(_sum.toFixed(2)); */
+            if(a<=0){
+                console.log(_sum.toFixed(2));
+                return;
+                
+            }
+            if(a%2==0){
+                // n+=2;
+                _sum+=1/a;
+               work8(a-2);
+            }else{
+                _sum+=1/a;
+                work8(a-2);
+            }
+            
+        }
+       // work8(4);
+
+        //9.使用函数完成任意数字阶乘的计算。要求：页面输入任意数字，点击按钮后计算阶乘
+        window.onload=function(){
+            var _txt=document.getElementById("txt");
+            var _btn=document.getElementById("btn");
+            var _txt1=document.getElementById("txt1");
+            var _result=1;
+            _btn.onclick=function(){
+                for(var n=_txt.value;n>0;n--){
+                    _result*=n;
+                }
+                _txt1.value=_txt.value+"的阶乘为"+_result;
+            }
+        }
+        
+        /*10.山上有一口缸可以装50升水，现在有15升水。老和尚叫小和尚下山挑水，每次可以挑5升。
+          问：小和尚要挑几次水才可以把水缸挑满？通过编程解决这个问题。
+        */
+       function work10(){
+            /* if(a==50){
+                return;
+            } */
+            console.log("要挑"+(50-15)/5+"次水才可以把水缸挑满");
+       }
+       work10();
+
+
+       /*11.定义一个含有30个整型元素的数组，按顺序分别赋予从2开始的偶数；
+         然后按顺序每五个数求出一个平均值，放在另一个数组中并输出。试编程。
+       */
+       function work11(){
+           var _arr=[];
+           var _sum=0;
+           var _arr1=[];
+            for(var n=0;n<30;n++){
+                _arr.push(Math.floor(Math.random()*100));
+            }
+            console.log(_arr); 
+            for(var i=0,m=2,j=1;i<_arr.length;m+=2,i++,j++){
+                _arr[i]=_arr[i]+m;
+                _sum+=_arr[i];
+                if(j%5==0){
+                    _arr1.push(_sum/5);
+                    _sum=0;
+                }
+            }
+            console.log(_arr);
+            console.log(_arr1);
+       }
+       work11();
+
+
+       //12.通过循环按行顺序为一个5×5的二维数组a赋1到25的自然数，然后输出该数组的左下半三角。试编程。
+       function work12(){
+           var _arr=[];
+           var _arr1=[];
+           var n=0;
+                for(var i=1,j=1;i<=25;i++,j++){
+                    _arr1.push(i);
+                }
+                for(var n=0;n<5;n++){
+                    _arr[n]=_arr1.splice(0,5);
+                }
+               console.log(_arr);
+               for(var m=0;m<_arr.length;m++){
+                   for(var j=0;j<=m;j++){
+                       document.write(_arr[m][j]+" ");
+                   }
+                   document.write("<br>");
+               }
+       }
+       work12();
+
+
+       //13.随机生成一个五位以内的数，然后输出该数共有多少位，每位分别是什么
+       function work13(){
+            var a=String(Math.floor(Math.random()*90000));
+            
+            // a=String(a);
+            console.log("随机出来了一个"+a.length+"位数");
+            console.log("这个数是："+a);
+            /* for(var n=0;n<a.length;n++){
+                console.log(a);
+            } */
+       }
+       work13();
+
+       //14.数组的冒泡排序
+       function work14(){
+            var _empty=null;
+            var _arr=[];
+            for(var i=0;i<10;i++){
+                _arr.push(Math.floor(Math.random()*900+100));
+            }
+            console.log(_arr);
+            /* for(var n=0;n<_arr.length-1;n++){
+                for(var m=0;m<_arr.length-1-n;m++){
+                    if(_arr[m]>_arr[m+1]){
+                        _empty=_arr[m];
+                        _arr[m]=_arr[m+1];
+                        _arr[m+1]=_empty;
+                    }
+                }
+            } */
+            for(var n=0;n<_arr.length-1;n++){
+                for(var i=_arr.length-1;i>n;i--){
+                    if(_arr[i]<_arr[i-1]){
+                        _empty=_arr[i];
+                        _arr[i]=_arr[i-1];
+                        _arr[i-1]=_empty;
+                    }
+                }
+            }
+            console.log(_arr);
+       }
+       //work14();
+
+       //15.数组的选择排序
+       function work15(){
+            var _arr=[];
+            for(var i=0;i<10;i++){
+                _arr.push(Math.floor(Math.random()*900+100));
+            }
+            console.log(_arr);
+            var _empty=null;
+            var _c;
+            for(var n=0;n<_arr.length-1;n++){
+                _c=n;
+                for(var m=_c+1;m<_arr.length;m++){
+                    if(_arr[m]<_arr[_c]){
+                        _c=m;
+                    }
+                }
+                if(_c!=n){
+                    _empty=_arr[_c];
+                    _arr[_c]=_arr[n];
+                    _arr[n]=_empty;
+                }
+            }
+            console.log(_arr);
+       }
+       //work15();
+
+       //16.编写函数map(arr) 把数组中的每一位数字都增加30%
+       var _arr=[];
+       for(var i=0;i<5;i++){
+                _arr.push(Math.floor(Math.random()*90+10));
+            }
+       function map(arr){
+            // var _arr=[];
+           
+            console.log(arr);
+            for(var n=0;n<arr.length;n++){
+                arr[n]=parseInt(arr[n]*(1+30/100));
+            }
+            console.log(arr);
+       }
+       //map(_arr);
+
+
+        //17.编写函数has(arr , 60) 判断数组中是否存在60这个元素，返回布尔类型
+        function has(arr,b){
+            console.log(arr);
+            var _sum=0;
+            for(var n=0;n<arr.length;n++){
+                if(arr[n]==60){
+                    _sum+=1;
+                }
+            }
+            console.log(Boolean(_sum));
+        } 
+        has(_arr,60);
+
+        //18.编写函数norepeat(arr) 将数组的重复元素去掉，并返回新的数组
+        var _arr=[2,3,2,2,3,3,4,5,6,4,3,5,4];
+        function norepeat(arr){
+            for(var n=0;n<arr.length-1;n++){
+                for(var i=n+1;i<_arr.length;i++){
+                    if (arr[n] == arr[i]) {
+                        arr.splice(i--, 1);
+                    }
+                }
+                
+            }
+            console.log(arr);
+        }
+        // norepeat(_arr);
+
+        //19.有一个从小到大排好序的数组。现输入一个数，要求按原来的规律将它插入数组中。
+        function work19(a){
+            var _arr=[0,1,3,5,8];
+            for(var n=0;n<_arr.length;n++){
+                if(_arr[n]>a){
+                    _arr.splice(n,0,a);
+                    break;
+                } 
+            }
+            console.log(_arr);
+        }
+        work19(4);
+
+        /*20.使用JSON形式创建一个对象，该对象存储一个学生的信息，
+        该对象包含学号、身份证、年龄、性别、所学专业等属性信息，同时该对象包含一个自我介绍的方法，
+        用来输出该对象的所有信息
+        */
+        function work20(){
+            var _obj={
+                id:"123456",
+                cart:"12324234234324",
+                age:19,
+                sex:"男",
+                major:"IT",
+                introduction:function(){
+                    console.log("id:123456,cart:12324234234324,age:19sex:男,major:IT");
+                }
+            };
+            for(var i in _obj){
+                // for(var )
+                console.log(_obj[i]);
+            }
+        }
+        work20();
+
+        //二维数组求和
+        function work21(){
+            var _sum=0;
+            var _arr = [
+                [63, 14, 68, 29, 74, 96],
+                [2, 40, 12, 37, 37, 87],
+                [43, 18, 33, 54, 34, 56],
+                [26, 35, 66, 38, 31, 62],
+                [9, 66, 95, 74, 42, 93],
+                [38, 37, 46, 10, 42, 22]
+            ];
+            
+            for(var n=0;n<_arr.length;n++){
+                for(var i=0;i<_arr[n].length;i++){
+                    _sum+=_arr[n][i];
+                }
+            }
+            console.log(_sum);
+        }
+        work21();
+
+        //二维数组排序
+        function work22(){
+            var _arr=[[8,5,0,3,1],[9,5,7,3,1],[7,8,6,4,5]];
+             
+            _arr.sort(function(a,b){
+                return a-b;
+            })
+            
+            console.log(_arr);
+        }
+        //work22();
+
+        //JSON格式数据排序
+        function work23(){
+            var _data={
+                title:["ID","name","price","sold","praise"],
+                list:[{
+                    ID:20,name:"小米",price:"1000",sold:8000,praise:899
+                },{
+                    ID:18,name:"华为",price:"2000",sold:8999,praise:5000
+                },{
+                    ID:30,name:"苹果",price:"5000",sold:5000,praise:5000
+                },{
+                    ID:31,name:"vivo",price:"1500",sold:2000,praise:1500
+                },{
+                    ID:28,name:"oppo",price:"1300",sold:1000,praise:1000
+                }]
+            };
+            
+            /* for(var n in _obj){
+                for(var i=0;i<_obj[n].length;i++){
+                    
+                }
+            } */
+        }
+        //work23();
+    </script>
+</head>
+<body>
+    <input type="text" id="txt">
+    <input type="button" id="btn" value="计算">
+    <input type="text" id="txt1"><br>
+</body>
+</html>

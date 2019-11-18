@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript">
+      //使用函数的连续调用同时输出阶乘3和阶乘5
+       function fn(n){
+           var _value=1;
+           for(var i=n; i>0; i--){
+               _value*=i;
+           }
+           document.write(_value+"<br>");
+           return fn;
+           //fn(3)执行完毕后，把fn返回给fn(3),此时fn(3)就是一个函数，此时fn(3)(5)就相当于fn(5),
+       }
+       fn(3)(5);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

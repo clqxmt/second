@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归打印三角形</title>
+    <script type="text/javascript">
+        function triangle(r_s,r_o,c_s,c_o){
+            if(r_s<r_o){
+                return;
+            }
+            
+            (function fc(c_s,c_o){
+                if(c_s>c_o){
+                    return;
+                }
+                
+                if(Math.abs(r_s)+Math.abs(c_s)<=5){
+                    document.write("*");
+                }else{
+                    document.write("-");
+                }
+                fc(c_s+1,c_o);
+            })(c_s,c_o);
+            document.write("<br>");
+            triangle(r_s-1,r_o,c_s,c_o);
+        }
+        triangle(0,-5,0,5);//输出直角边在左边的倒三角形
+        document.write("<br>");
+        triangle(5,0,0,5);//输出直角边在左边的正三角形
+        document.write("<br>");
+        triangle(5,0,-5,0);//输出直角在右边的正三角形
+        document.write("<br>");
+        triangle(0,-5,-5,0);//输出直角边在右边的倒三角形
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

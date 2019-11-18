@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>京东</title>
+    <link rel="stylesheet" href="jd.css">
+    <script type="text/javascript">
+        //监听器的兼容写法
+        function detach(_target,_type,_handle,_capture){
+            if(_target.removeEventListener){
+            _target.removeEventListener(_type,_handle,_capture);
+            }else{
+            _target.detachEvent("on"+_type,_handle,_capture);
+        }
+        function myjdover(_div){
+            var _dl=[];
+            for(var i=0;i<4;i++){
+                _dl[i]=document.createElement("dl");
+                _div.appendChild(_dl[i]);
+            }
+            var _dd=[];
+            for(var n=0;n<10;n++){
+                _dd[n]=document.createElement("dd");
+            }
+            for(var m=0,j=3;j<6;m++,j++){
+                _dl[0].appendChild(_dd[m]);
+                _dl[1].appendChild(_dd[j]);
+            }
+            var _text=["待处理订单","返修退换货","降价商品","消息","我的问答","我的关注","我的京豆","我的白条","我的优惠券","我的理财"];
+            // _dd[0].innerText="待处理订单";
+            // _dd[1],innerText="返修退换货";
+            // _dd[2].innerText=""
+            for(var k=0;k<_dd.length;k++){
+                _dd[k].innerText=_text[k];
+                _dd[k].index=k;
+                _dd[k].onmouseover=function(){
+                    var a=this.index;
+
+                    _dd[a].style.color="#f10215";
+                    console.log(this.index);
+                }
+            }
+           
+            
+            
+        }
+        function myjd(){
+            var _a=this.getElementsByTagName("a")[0];
+            var _em=this.getElementsByTagName("em")[0];
+            var _div=_a.getElementsByTagName("div")[0];
+            _a.style.color="#f10215";
+            // _a.style.borderColor="#cbcbcb";
+            // _a.style.backgroundColor="#fff";
+            _a.className="active";
+            _em.style.opacity=1;
+            
+            
+            
+        }
+        function _top(){
+            var _top1=document.getElementById("top1");
+            var _i=_top1.getElementsByTagName("i")[0];
+            var _ul=_top1.getElementsByTagName("ul")[0];
+            var _li=_ul.getElementsByTagName("li");
+            var _a=_ul.getElementsByTagName("a");
+            _i.onmouseover=_li[1].onmouseover=_li[3].onmouseover=function(){
+                this.style.color="#f10215";
+            }
+            _i.onmouseout=_li[1].onmouseout=_li[3].onmouseout=function(){
+                this.style.color="#999";
+            }
+            var _div=[];
+            for(var i=0;i<4;i++){
+                _div[i]=document.createElement("div");
+            }
+            _a[0].appendChild(_div[0]);
+            _a[1].appendChild(_div[1]);
+            _a[2].appendChild(_div[2]);
+            _a[3].appendChild(_div[3]);
+            //_a[4].appendChild(_div[4]);
+            _li[2].onmouseover=myjd;
+            myjdover(_div[0]);//我的京东onmouseover时显示出来的div
+            detach(_a,mouseover,myjd,true);
+        }
+        window.onload=function(){
+            _top();
+        }
+    </script>
+</head>
+<body>
+    <div id="top">
+        <div id="top1">
+            <a href="#">
+                <img src="img/dizhi.png" alt="">
+                北京
+            </a>
+            <i>你好，请登录</i>
+            <ul>
+                <li>免费注册</li><span>|</span>
+                <li>我的订单</li><span>|</span>
+                <li><a>我的京东<b>&or;</b></a><em></em></li><span>|</span>
+                <li>京东会员</li><span>|</span>
+                <li><a>企业采购<b>&or;</b></a></li><span>|</span>
+                <li><a>客户服务<b>&or;</b></a></li><span>|</span>
+                <li><a>网站导航<b>&or;</b></a></li><span>|</span>
+                <li>手机京东</li>
+            </ul>
+        </div>
+    </div>
+    <div id="logo">
+        <div id="logo1">
+            <img src="img/logo.jpg" alt="">
+            <form action="">
+                <input type="text" id="txt" value="游戏">
+                <input type="button" id="btn">
+                <ul>
+                    <li>用品狂欢购</li>
+                    <li>月饼礼盒</li>
+                    <li>月饼礼盒</li>
+                    <li>月饼礼盒</li>
+                    <li>月饼礼盒</li>
+                    <li>月饼礼盒</li>
+                    <li>月饼礼盒</li>
+                    <li>月饼礼盒</li>
+                    <li>月饼礼盒</li>
+                </ul>
+            </form>
+            <span>购物车</span>
+            <img src="img/erweima.png" alt="">
+            <ol>
+                <li>秒杀</li>
+                <li>优惠券</li>
+                <li>品牌闪购</li>
+                <li>品牌闪购</li>
+                <li>品牌闪购</li>
+                <li>品牌闪购</li>
+                <li>品牌闪购</li>
+                <li>品牌闪购</li>
+                <li>品牌闪购</li>
+                <li>品牌闪购</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

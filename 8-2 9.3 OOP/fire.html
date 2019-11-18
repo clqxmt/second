@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>烟花</title>
+    <style type="text/css">
+        *{margin:0;padding:0}
+        html,body{width:100%;height:100%;background:#000;position:relative;}
+        #fire{width:5px;height:15px;background:#fff;position:absolute;bottom:0;}
+        span{width:5px;height:5px;position:absolute;display:block;}
+    </style>
+    <script type="text/javascript">
+        /*
+            1.鼠标在网页中点击从下面出来一个火花
+            2.当火花到达鼠标点击的位置时爆炸
+            3.火花爆炸创建多个颜色不相同的div
+            4.让这些div散开
+            5.散开后在下落
+        */
+
+        function FireWorks(){
+            this.body=document.getElementsByTagName("body")[0];
+            this.x=0;
+            this.y=0;
+            this.fire;
+            this.timer=null;
+            this.height=document.documentElement.clientHeight||document.body.clientHeight;
+            this.width=document.documentElement.clientWidth||document.body.clientWidth;
+            this.spans=document.getElementsByTagName("span");
+            this.open=function(){
+                // console.log(this.spans.length);
+                var _me=this;
+                var _sum=0;
+                console.log("_sum="+_sum);
+                clearInterval(this.timer);
+                this.timer=setInterval(function(){
+                    _sum+=1;
+                    //当_sum的值小于等于20时，使span运动，表示只让每个span运动20次
+                    if(_sum<=20){
+                        for(var i=0;i<_me.spans.length;i++){
+                            //计算出一个left每次需要运动的距离，20为一共需要运动的次数
+                            _step=Math.floor((_me.spans[i]._left-_me.spans[i].offsetLeft)/20);
+                           
+                            //使第i个span的left每次增加_step个像素
+                            _me.spans[i].style.left=_me.spans[i].offsetLeft+_step+"px";
+                            //计算出一个top每次需要运动的距离，50为一共需要运动的次数
+                            _step=Math.floor((_me.spans[i]._top-_me.spans[i].offsetTop)/50);
+                            //使第i个span的top每次增加_step个像素
+                            _me.spans[i].style.top=_me.spans[i].offsetTop-_step+"px";
+                        }
+                    }else{//当_sum大于20小于80时，使span下落
+                        for(var n=0;n<_me.spans.length;n++){
+                            _me.spans[n].style.top=_me.spans[n].offsetTop+_me.height/50+"px";
+                        }
+                    }
+                    if(_sum>=80){//当span的运动次数大于80时，删除span
+                        // clearInterval(_me.tiemr);
+                        for(var m=0;m<_me.spans.length;m++){
+                            _me.body.removeChild(_me.spans[m]);
+                        }
+                        
+                    }
+                    
+                },30);
+            }
+               
+          
+            this.createSpan=function(){
+                
+                var _span;
+                for(var i=0;i<50;i++){
+                    _span=document.createElement("span");
+                    // _span.className="small_div";
+                    _span.style.backgroundColor="rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")";
+                    _span._left=Math.floor(Math.random()*(this.width-5));//给_div添加一个属性，用来存储随机出来的div需要移动的left目标值
+                    _span._top=Math.floor(Math.random()*(this.height));//给_div添加一个属性，用来存储随机出来的div需要移动的top目标值
+                    //给span标签一个初始的left，top值为鼠标的位置
+                    _span.style.left=this.x+"px";
+                    _span.style.top=this.y+"px";
+                    this.body.appendChild(_span);
+                }
+                this.open();//使span标签(碎片)散开
+            }
+            //删除火花
+            this.fireRemove=function(){
+                clearInterval(this.timer);//把使火花移动的定时器关闭
+                this.body.removeChild(this.fire);//删除火花
+                this.createSpan();//去创建多个span标签，作为火花爆炸的碎片
+            }
+            //使火花移动起来
+            this.fireMove=function(){
+                var _me=this;
+                this.timer=setInterval(function(){
+                    _me.fire.style.left=_me.x+"px";
+                    _me.fire.style.top=_me.fire.offsetTop-5+"px";
+                    if(_me.fire.offsetTop<=_me.y){//当火花移动到鼠标的位置时把火花删除
+                        _me.fireRemove();
+                        
+                    }
+                },30);
+            }
+            this.createFire=function(){
+                this.fire=document.createElement("div");
+                this.fire.id="fire";
+                this.body.appendChild(this.fire);
+                this.fireMove();//使火花移动起来
+            }
+            this.events=function(){
+                var _me=this;
+                this.body.onmousedown=function(e){
+                    clearInterval(_me.timer);
+                    e=e||event;
+                    _me.x=e.clientX;//当鼠标点击的时候保存下来鼠标的位置
+                    _me.y=e.clientY;
+                   
+                    _me.createFire();//去创建一个div火花
+                }
+            }
+        }
+        function main(){
+            var _fire=new FireWorks();
+            // _fire.createEle();
+            _fire.events();
+        }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

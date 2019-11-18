@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>碰撞运动</title>
+    <style>
+        *{margin:0;padding:0;}
+        html,body{width:100%;height:100%}
+        #cater{width:500px;height:500px;border:1px solid #ff0;margin:0 auto;position:relative;}
+        #cater div{width:100px;height:100px;background:#f00;border-radius:50%;position:absolute;top:150px;}
+        #cater #_left{left:0;}
+        #cater #_right{right:0;}
+    </style>
+    <script type="text/javascript">
+        function createDiv(_body){
+            var _c=document.createElement("div");
+            _body.appendChild(_c);
+            _c.id="cater";
+            var _child=document.createElement("div");
+            _c.appendChild(_child);
+            _child.id="_left";
+            _child=document.createElement("div");
+            _c.appendChild(_child);
+            _child.id="_right";
+        }
+        function move(_nodes){
+            var sign=1;
+            var timer=setInterval(function(){
+                // var _width=document.documentElement.
+                _nodes[0].style.left=_nodes[0].offsetLeft+5*sign+"px";
+                _nodes[1].style.left=_nodes[1].offsetLeft-5*sign+"px";
+                if(_nodes[1].offsetLeft-_nodes[0].offsetLeft<=_nodes[0].offsetWidth){
+                    sign*=-1;
+                }
+                // if(_nodes[0].offsetLeft+_nodes[0].offsetWidth>=_nodes[0].parentNode.offsetWidth/2){
+                //     sign*=-1;
+                // }
+                if(_nodes[0].offsetLeft<=0){
+                    sign*=-1
+                }
+            },30);
+        }
+        function main(){
+            var _body=document.getElementsByTagName("body")[0];
+            createDiv(_body);
+            move(_body.children[0].children);
+        }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

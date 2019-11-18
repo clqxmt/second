@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>快速排序</title>
+    <script type="text/javascript">
+        //随机生成10个三位数
+        function init(){
+            var _arr=[];
+            for(var i=0;i<10;i++){
+                _arr[i]=Math.floor(Math.random()*900+100);
+            }
+            return _arr;
+        }
+        //对上面产生的10个随机数进行从小到大排序(使用的是快速排序)
+        function quick_sort(){
+            //var _arr=[8,5,0,3,1];
+            var _arr=init();//调用init()函数，把返回的_arr数组赋值给_arr
+            console.log(_arr);
+            var _empty=null;
+            for(n=0; n<_arr.length-1; n++){//循环_arr数组中的所有元素
+                for(i=n+1; i<_arr.length; i++){//用第n位上元素和后面的元素进行比较
+                //如果第n位上的元素大于第i位上的元素就进行交换,由于在交换值，所以第n位上的元素一直在不断变化
+                    if(_arr[n]>_arr[i]){
+                        _empty=_arr[n];
+                        _arr[n]=_arr[i];
+                        _arr[i]=_empty;
+                    }
+                }
+            }
+            console.log(_arr);
+        }
+        quick_sort();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

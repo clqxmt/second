@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Es5中新增的数组方法forEach</title>
+    <script type="text/javascript">
+        //forEach()方法：用于调用数组中的每个元素，并将元素传递给回调函数           
+        function each(){
+            var _arr=["a",1,2,"b"];
+            _arr.forEach(function(_ele,_index/*,_origin*/){//这里面的参数只是用来接收实参
+                // console.log(arguments);
+                console.log(_ele,_index);
+            });
+        }
+        //each();
+        /*
+         *fx接收到_arr.foreach1传过来的实参
+         *fx=function(_ele,_index,_origin){
+               console.log(_ele);
+             }
+         *for循环进行循环数组,this指向调用此函数的对象(_arr1)
+         *循环过程中调用fx函数并且给fx函数传值,就是给function(_ele,_index,_origin){
+            console.log(_ele);}函数传值
+         *形参_ele,_index,_origin就会接收到值
+         *console.log就可以输出了
+        */
+        //forEach方法在JS中的封装方法(执行过程)
+        //prototype可以向对象添加属性和方法
+        /*
+         *prototype的语法：
+              *object.prototype.name=value;
+        */
+        Array.prototype.foreach1=function (fx){//给数组对象添加了一个方法foreach1,这样数组对象(_arr1)就可以去调用它(foreach1)了
+            // var _arr1=["a",1,2,"b"];
+            for(var n=0;n<this.length; n++){
+                 fx(this[n],n,this);
+            }
+        }
+        var _arr1=["a",1,2,"b"];
+        /*_arr1调用foreach1方法就相当于调用foreach1函数
+         *function(_ele,_index,_origin){  
+            console.log(_ele);
+          }函数块就相当于是一个实参传给了形参fx
+        */
+        _arr1.foreach1(function(_ele,_index,_origin){
+            console.log(_ele);
+        });
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

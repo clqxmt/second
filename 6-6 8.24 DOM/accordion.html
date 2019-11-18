@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #div1{width:1000px;margin:0 auto;position:relative;height:326px;overflow: hidden;}
+        #div1 img{width:782px;position:absolute;}
+        
+    </style>
+    <script type="text/javascript">
+        function getStyle(_obj,_attr){
+                if(getComputedStyle){
+                    return getComputedStyle(_obj,null)._attr;
+                }else{
+                    return _obj.currentStyle[_attr];
+                }
+            }
+        window.onload=function(){
+            var _img=document.getElementsByTagName("img");
+           for(var n=0;n<_img.length;n++){
+               
+                _img[n].style.left=n*200+"px";
+                
+            } 
+            // _img[4].style.left=20+"px";
+            for(var i=0;i<_img.length;i++){
+                _img[i].onmouseover=function(){
+                    //_img[i].style.left=(-(n*100))+"px";
+                    alert(i);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+            <img src="images/_01.jpg" alt="">
+            <img src="images/_02.jpg" alt="">
+            <img src="images/_03.jpg" alt="">
+            <img src="images/_04.jpg" alt="">
+            <img src="images/_05.jpg" alt="">
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Es5中新增的reduce方法</title>
+    <script type="text/javascript">
+        //reduce()方法接收一个函数作为累加器，数组中的每个元素(从左到右)开始合并，最终为一个值
+        function _reduce(){
+            var _str="";
+            var arr = ["apple","orange","banana"];
+             str=arr.reduce(function(prev,next){
+                console.log("prev:"+prev);
+                console.log("next:"+next);
+                return prev+" "+next;
+                
+            },"xyz");//如果给的有一个参数就从这个参数开始累加，如果没有就从arr[0]开始累加
+                     //此处只能给一个字符串
+            console.log(str);
+        }
+        //_reduce();
+
+
+        function reduce1(){
+            var arr = ["apple","orange","banana"];
+            var _prev;
+            if(arguments.length!=0){//判断函数是否接收到了参数,如果接收到了就把这个参数赋值给_prev
+                _prev=arguments[0];
+            }else{//如果没有就给_prev赋值一个空值
+                _prev="";
+            }
+            for(var n=0;n<arr.length; n++){
+                _prev=(function(prev,next){//每次都把已经累加在一起的值赋给_prev,作为下一次累加的上一个值
+                    return prev+" "+next;
+                })(_prev,arr[n]);//给自调用的函数传两个参数,_prev代表上一个值(已经累加在一起的值)
+                                //arr[n]代表下一个需要累加进去的值
+            }
+            console.log(_prev);
+        }
+       reduce1();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

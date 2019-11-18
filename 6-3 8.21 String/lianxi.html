@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>课堂练习</title>
+    <script type="text/javascript">
+        function secondArray(){
+            //声明二维数组
+            var _arr=[1,2,3][3,4,5];//错误的声明方式
+            var _arr1=[[6,7,8],[9,10,11]];
+            //var _arr2=new Object([12,13,14][15,16,17]);//错误的声明方式
+            var _arr3=new Object([[16,17,18],[19,20,21]]);
+            var _arr4=new Object();
+            _arr4[0]=[1,2,3];
+            _arr4[1]=[2,3,4];
+
+            var a=[1,2,3];
+            var b=[2,3,4];
+            var c=[5,6,7];
+            var _arr5=[a,b,c];
+
+            //二位数组的访问
+            console.log(_arr1[0][2]);//输出8,_arr1[0]访问到的是[6,7,8],[6,7,8]中的第2个元素是8
+            console.log(_arr3[0][2]);//输出18
+            console.log(_arr4[0][2]);//输出3
+            console.log(_arr5[0][2]);//输出3
+
+            //遍历
+            for(var n=0; n<_arr1.length; n++){//先把_arr1中的第一层元素循环出来
+                for(var i=0; i<_arr1[n].length; i++){//循环_arr1中第一层元素下的元素
+                    console.log(_arr1[n],_arr1[n][i]);//输出_arr1中的所有第一层元素和所有第二层元素
+                }
+            }
+            
+        }
+        //secondArray();
+
+
+        //数组去重方法1:使用splice()
+        function rr(){
+            var _arr=[8,5,0,3,1,8,5,0,3,1,8,8,8,5,2,2,2]; 
+            for(var n=0;n<_arr.length-1;n++){
+                for(var i=n+1; i<_arr.length;i++){
+                    if(_arr[n]==_arr[i]){
+                        _arr.splice(i--,1);
+                    }
+                }
+            }
+            console.log(_arr);
+        }
+        rr();
+        //数组去重方法2:使用indexOf()
+        function rr1(){
+            var _arr=[8,5,0,3,1,8,5,0,3,1,8,8,8,5,2,2,2];
+            var _empty=[];
+            for(var n=0;n<_arr.length; n++){
+               /*  for(var i=0; i<_empty.length;i++){
+                    if(_arr[n]==_empty[])
+                } */
+                if(_empty.indexOf(_arr[n])<0){
+                    _empty.push(_arr[n]);
+                }
+            }
+            console.log(_empty);
+        }
+        rr1();
+
+        //数组去重方法3:
+        function rr2(){
+            var _arr=[8,5,0,3,1,8,5,0,3,1,8,8,8,5,2,2,2]; 
+            var _empty=[];
+            var _flag;
+            for(var n=0; n<_arr.length;n++){
+                _flag=1;
+                for(var i=0; i<_empty.length; i++){
+                    if(_arr[n]==_empty[i]){
+                        _flag=0;
+                        break;
+                    }
+                }
+                if(_flag==1){
+                    _empty.push(_arr[n]);
+                }
+            }
+            console.log(_empty);
+        }
+        rr2();
+
+        //数组取出方法4:利用字面量对象
+        function rr3(){
+            var _arr=[8,5,0,3,1,8,5,0,3,1,8,8,8,5,2,2,2]; 
+            var _obj={};
+            for(var n=0; n<_arr.length;n++){
+                _obj[_arr[n]]=_arr[n];
+            }
+            var _temp=[];
+            for(var k in _obj){
+                _temp.push(_obj[k]);
+            }
+            console.log(_temp);
+        }
+        rr3();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

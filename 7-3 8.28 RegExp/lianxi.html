@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>课堂练习</title>
+    <script type="text/javascript">
+        function f11(){
+   
+            // var _s="12345678901";
+            // var _reg=/(13[04])/g
+            var _s=prompt("请输入","");
+            // var _reg=/^[0-8][0-7]\d{4}$/g;
+            var _reg=/^\d\d{4}\d$/g;
+            /* if(_reg.test(_s)){
+                alert("true");
+            }else{
+                alert("false");
+            } */
+            var _reg1=/^\w+@[a-z0-9]+(-[0-9a-z]+)*(\.[a-z]+)+$/g;
+            /* if(_reg1.test(_s)){
+                alert("true");
+            }else{
+                alert("false");
+            } */
+            var _ip=/\b(25[0-5]|2[0-4]\d|1\d{2}|[0-9]\d?)\b(\.\b(25[0-5]|2[0-4]\d|1\d{2}|[0-9]\d?)\b){3}/g;
+            if(_ip.test(_s)){
+                alert("true");
+            }else{
+                alert("false");
+            }
+        }
+        f11();
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

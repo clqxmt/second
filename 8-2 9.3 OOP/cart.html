@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>购物车</title>
+    <script type="text/javascript">
+        function Cart(){
+            this.body=document.getElementsByTagName("body")[0];
+            this.storage=null;//用来存放从localStorage中取出的数据
+            this.take=function(){
+                this.storage=window.localStorage.getItem("BK1917cart");
+                //判断localstorage中是否有数据，也就是判断该用户是否为新用户
+                //如果为新用户就把this.storage变为一个空数组，以防下面对this.storage遍历时出错
+                if(!this.storage){
+                    this.storage=[];
+                }else{
+                    //把从localStorage中取出的字符串数据转为对象格式，方便操作
+                    this.storage=JSON.parse(this.storage);
+                }
+            }
+            this.save=function(){
+               //把对象数据格式，转为字符串格式存入localStorage
+                window.localStorage.setItem("BK1917cart",JSON.stringify(this.storage));
+            }
+            //添加商品
+            this.add=function(_id,_conter,_config){
+                let _has=0;//做一个标记，为0表示在localStorage没有找到需要添加进来的商品
+                this.take();
+                for(var i=0;i<this.storage.length;i++){
+                    //如果购物车中已经有了该商品，就使该商品的原有数量加上添加该商品的数量的就行了
+                    if(this.storage[i]["ID"]===_id && this.storage[i]["config"]===_config){
+                        this.storage[i].conter+=_conter;
+                        _has=1;
+                        //this.save();
+                        break;
+                    }
+                }
+                //如果购物车中还没有该商品，就把该商品添加进购物车
+                if(_has===0){
+                    this.storage.push({
+                        "ID":_id,
+                        "conter":_conter,
+                        "config":_config
+                    });
+                   
+                }
+                this.save();
+            }
+
+
+            //减少某件商品的数量
+            this.reduce=function(_id,_conter,_config){
+                this.take();
+                for(var i=0;i<this.storage.length;i++){
+                    if(this.storage[i].ID===_id && this.storage[i].config===_config){
+                        if(this.storage[i].conter<=_conter){
+                            this.storage.splice(i,1);
+                        }else{
+                            this.storage[i].conter-=_conter;
+                        }
+                    }
+                }
+                this.save();
+
+            }
+
+            //统计购物车中所有商品的总数量
+            this.statistical=function(){
+                this.take();
+                var _sum=0;
+                for(var i=0;i<this.storage.length;i++){
+                    _sum+=this.storage[i].conter;
+                }
+                alert("一共"+_sum+"件商品");
+            }
+
+
+            //直接在文本框中输入修改商品数量
+            this.change=function(_id,_conter,_config){
+                this.take();
+                //用正则表达式匹配在文本框中输入是否为数字
+                if(/^[1-9]\d*$/g.test(_conter+"")){
+                    for(var i=0;i<this.storage.length;i++){
+                        if(this.storage[i].ID===_id && this.storage[i].config===_config){
+                                this.storage[i].conter=_conter;
+                                this.save();
+                                break;
+                        }
+                    }
+                }else{
+                    
+                    alert("请重新输入");
+                }
+                
+                
+            }
+
+            //删除购物车中的某件商品
+            this.remove=function(_id,_config){
+                this.take();
+                for(var i=0;i<this.storage.length;i++){
+                    if(this.storage[i].ID===_id && this.storage[i].config===_config){
+                        this.storage.splice(i,1);
+                        this.save();
+                        break;
+                    }
+                }
+                
+            }
+
+            //清空购物车
+            this.clear=function(){
+                this.take();
+                this.storage=[];
+                save();
+            }
+        }
+
+        //测试
+        function main(){
+            var _cart=new Cart();
+            // _cart.add("123",5,"红|M");
+            // _cart.reduce("123",1,"红|M");
+            // _cart.change("123",10,"红|M");
+            
+            _cart.remove("123","红|M");
+            // _cart.statistical();
+        }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

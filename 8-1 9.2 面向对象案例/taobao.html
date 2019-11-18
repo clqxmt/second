@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>淘宝轮播图</title>
+    <style>
+        *{margin:0;padding:0;}
+        html,body{width:100%;height:100%;}
+        #contarin{width:782px;height:326px;margin:0 auto;position:relative;overflow:hidden;}
+        #big_ul{width:3910px;height:326px;position:absolute;}
+        #big_ul img{width:782px;height:326px;display:inline-block;}
+        #small_ul{
+            position: absolute;
+			left:325px;
+			bottom: 20px;
+        }
+        #small_ul li{
+            width: 20px;
+			height: 20px;
+			background-color: #3e3e3e;
+			border-radius: 10px;
+			color: #fff;
+			text-align: center;
+			font-size: 12px;
+			line-height: 20px;
+			cursor: pointer;
+			margin: 0 5px;
+            float:left;
+            list-style:none;
+        }
+        #small_ul .active{
+            background:rgb(255,0,0,0.5);
+        }
+        #contarin .arr{
+			position: absolute;
+			width: 40px;
+			height: 50px;
+			font-size: 35px;
+			font-family: "黑体";
+			line-height: 50px;
+			background-color: rgba(0,0,0,0.3);
+			color: #fff;
+			text-align: center;
+			top: 125px;
+			cursor: pointer;
+			display: none;
+		}
+        #contarin #prev{
+			left: 0;
+		}
+		#contarin #next{
+			right: 0;
+		}
+    </style>
+    <script ref="text/javascript" src="animate.js"></script>
+    <script type="text/javascript">
+        function Shuffling(){
+            this.body=document.getElementsByTagName("body")[0];
+            this._contarin;
+            this.lis=null;
+            this.timer=null;
+            this.index=0;
+            this._animate=new Animate();
+            this.createEle=function(){
+                this._contarin=document.createElement("div");
+                this._contarin.id="contarin";
+                this.body.appendChild(this._contarin);
+                var _ul=document.createElement("ul");
+                _ul.id="big_ul";
+                this._contarin.appendChild(_ul);
+                var _img;
+                for(var i=0;i<5;i++){
+                    _img=document.createElement("img");
+                    _img.src="../images/_0"+(i+1)+".jpg";
+                    _ul.appendChild(_img);
+                }
+                _ul=document.createElement("ul");
+                _ul.id="small_ul";
+                this._contarin.appendChild(_ul);
+                var _li;
+                for(var n=0;n<5;n++){
+                    _li=document.createElement("li");
+                    _li.innerText=n+1;
+                    _ul.appendChild(_li);
+               }
+               var _prev=document.createElement("div");
+               _prev.id="prev";
+               _prev.className="arr";
+               _prev.innerHTML="&lt;";
+               this._contarin.appendChild(_prev);
+               var _next=document.createElement("div");
+               _next.id="next";
+               _next.className="arr";
+               _next.innerHTML="&gt;";
+               this._contarin.appendChild(_next);
+            }
+            /* this.move=function(index){
+                var _me=this;
+                this._animate.clear();
+                this._animate(document.getElementById("big_ul")).move({
+                    left:-index*782+"px"
+                },600,function(){
+                    _me._animate.delay(function(){
+
+                    },0);
+                })
+            } */
+
+            //图片移动时改变li标签的背景颜色
+            
+            this.change=function(_lc,_ms){
+                for(var i=0;i<this.lis.length;i++){
+                    this.lis[i].className="";
+                }
+
+                this.lis[_lc].className="active";
+                this.auto(_lc,_ms);
+            }
+            //点击向左的箭头时调用的方法
+            this.prev=function(index){
+                if(index==0){
+                   index=5;
+                }
+                index=index-1;
+                this.index=index;
+                this.change(index,0);
+                //this.move(index);
+            }
+
+            //点击向右的箭头时调用的方法
+            this.next=function(_index){
+                _index=_index+1;
+                
+                if(_index==5){
+                   _index=0;
+                }
+                this.index=_index;
+                this.change(_index,0);
+                // this.move(_index);
+            }
+
+
+            this.auto=function(i,_ms){
+                this.index=i;
+                var _me=this;
+                this._animate.clear();
+                new Animate(document.getElementById("big_ul")).move({
+                    left:-i*782+"px"
+                },600,function(){
+                    _me._animate.delay(function(){
+                        if(i>=4){
+                            i=-1;
+                        }
+                        // console.log(_ul.offsetLeft);
+                        
+                        _me.change(i+1,_ms);
+                    },_ms);
+                })
+                
+            }
+
+            //事件
+            this.events=function(){
+                var _me=this;
+                var _prev=document.getElementById("prev");
+                var _next=document.getElementById("next");
+                this._contarin.onmouseover=function(){
+                    _prev.style.display="block";
+                    _next.style.display="block";
+                }
+                this._contarin.onmouseout=function(){
+                    _prev.style.display="none";
+                    _next.style.display="none";
+                   // _me.arrow("none");
+                }
+                _prev.onclick=function(){
+                    // alert(1);
+                    _me._animate.clear();
+                    _me.prev(_me.index);
+
+                }
+                _next.onclick=function(){
+                    _me._animate.clear();
+                    _me.next(_me.index);
+                    // _me.auto(_me.index);
+                }
+                this.lis=document.getElementsByTagName("li");
+                
+                for( let n=0;n<this.lis.length;n++){
+                    // this.lis[this.n].index=this.n;
+                    
+                    if(n==0){
+                        this.lis[0].className="active";
+                    }
+                    this.lis[n].onclick=function(){
+                        _me.index=n;
+                        console.log(this);
+                        _me.change(n);
+                        
+                    }
+                   
+                }
+            }
+        }
+        function main(){
+            var _shuffling=new Shuffling();
+            _shuffling.createEle();
+            _shuffling.events();
+            _shuffling.auto(0,2000);
+            // _shuffling.smallUl();
+        }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

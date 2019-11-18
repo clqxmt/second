@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归计算1-50的奇数和</title>
+    <script type="text/javascript">
+      var _sum=0;
+       function odd(n){
+            if(n==0){
+                return;
+            }
+            
+            if(n%2!=0){
+               _sum+=n; 
+            }
+           odd(n-1) ;
+            if(n==50){
+                document.write(_sum);
+            }
+           
+            
+       }
+       
+       odd(50);
+      
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

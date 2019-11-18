@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>打字游戏</title>
+    <style>
+        *{margin:0;padding:0;}
+        html,body{width:100%;height:100%; position:relative;}
+        span{width:20px;height:20px;position:absolute;top:0;border:1px solid #ccc; border-radius:5px;text-align:center;line-height:20px;}
+    </style>
+    <script type="text/javascript">
+        /*打字游戏需求和问题分析
+         *如何知道用户按下的是键盘上的哪个键
+         *比较网页中的字母和用户按下的字母，
+         *当用户按下的键和网页上的字母相同时，把这个字母删除(只删除一个)
+         *如何在网页中显示字母
+         *如何让字母下落
+        */
+        function compare(_value){
+            var _body=document.getElementsByTagName("body")[0];
+            var _span=document.getElementsByTagName("span");
+            console.log(_value);
+            for(var i=0;i<_span.length;i++){//循环body里面的span标签
+                if(_value==_span[i].innerText){//判断用户按下的键是否和span标签里的内容相同
+                                               //如果相同就删除并结束循环，这样能保证即使网页中有多个需要删除的字母也只会删除一个
+                    _body.removeChild(_span[i]);
+                    break;
+                }
+            }
+
+        };
+        function events(){
+            document.onkeypress=function(e){//当有键盘按下并松开时执行该事件
+                
+                e=e||event;//解决事件兼容问题
+                console.log(e.keyCode || e.which);//e.keyCode||e.which解决获取键码值的兼容问题
+                compare(String.fromCharCode(e.keyCode||e.which));//把获取到的键码值转换为字母
+                                                                //并作为参数传给函数compare()和网页中的内容进行比较
+            };
+            
+        };
+        function drop(){
+            var _body=document.getElementsByTagName("body")[0];
+            var _span=document.getElementsByTagName("span");
+            var _height=document.documentElement.clientHeight||document.body.clientHeight;//解决兼容问题获取浏览器可视区的高度
+            for(var i=0;i<_span.length;i++){//循环body中的span标签
+                _span[i].style.top=_span[i].offsetTop+35+"px";//让第i个span标签的top值每次增加35px
+                if(_span[i].offsetTop>=_height){//如果_span[i]的top值大于或等于浏览器可视区的高度,就是当_span[i]跑出浏览器能看见的范围的时候
+                    _body.removeChild(_span[i]);//把这个span从body中删除
+                }
+            }
+
+        }
+        function random(){
+            var _body=document.getElementsByTagName("body")[0];
+            var _end=document.getElementById("end");
+            
+            var timer=setInterval(function(){
+                _end.onclick = function () {//当点击结束时关闭定时器
+                    clearInterval(timer);
+                }
+                var _span=document.createElement("span");//创建一个span标签
+                var _width=document.documentElement.clientWidth||document.body.clientWidth;//解决获取可视区宽度的兼容问题
+                drop();//调用drop()函数使字母往下掉,写在这能保证每个字母都是从top为0的地方出现的
+                       //第一次调用此函数时,网页中没有任何内容,第二次调用时,第一个字母已经出现,此时top为0,然后调用此函数让它往下掉
+                var a=String.fromCharCode(Math.floor(Math.random()*26)+65);//随机出一个大写字母
+                var b=String.fromCharCode(Math.floor(Math.random()*26)+97);//随机出一个小写字母
+                var _arr=[a,b];//把随机出来的大小写字母放在一个数组中
+                var _index=Math.floor(Math.random()*_arr.length);//再从数组中随机一个数组的下标
+                _span.appendChild(document.createTextNode(_arr[_index]));//把随机出的数组索引号上的值通过创建文本的方式添加到span标签中
+                var _left=Math.floor(Math.random()*(_width-_span.offsetWidth));//给span标签随机出一个left值
+                //_width是可视区的宽度，减去span自身的宽度(_span.offsetWidth)就是span标签left值的取值范围
+                // console.log(_left);
+                _body.appendChild(_span);//把span标签添加到body中
+                _span.style.left=_left+"px";//把随机出来的left值_left赋给span的style属性中的left
+                
+            },1000);
+        };
+        function start(){
+            var _start=document.getElementById("start");
+            
+            _start.onclick=function(){
+                events();
+                random();
+            }
+            
+        }
+        window.onload=function(){
+            start();
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="开始" id="start">
+    <input type="button" value="结束" id="end">
+</body>
+</html>

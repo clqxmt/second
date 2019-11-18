@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>淘宝轮播图</title>
+    <style>
+            *{margin:0;padding:0;}
+            html,body{width:100%;height:100%;}
+            #contarin{width:782px;height:326px;margin:0 auto;position:relative;overflow:hidden;}
+            #big_ul{width:3910px;height:326px;position:absolute;}
+            #big_ul img{width:782px;height:326px;display:block;float:left;}
+            #small_ul{
+                position: absolute;
+                left:325px;
+                bottom: 20px;
+            }
+            #small_ul li{
+                width: 20px;
+                height: 20px;
+                background-color: #3e3e3e;
+                border-radius: 10px;
+                color: #fff;
+                text-align: center;
+                font-size: 12px;
+                line-height: 20px;
+                cursor: pointer;
+                margin: 0 5px;
+                float:left;
+                list-style:none;
+            }
+            #small_ul .active{
+                background:rgb(255,0,0,0.5);
+            }
+            #contarin .arr{
+                position: absolute;
+                width: 40px;
+                height: 50px;
+                font-size: 35px;
+                font-family: "黑体";
+                line-height: 50px;
+                background-color: rgba(0,0,0,0.3);
+                color: #fff;
+                text-align: center;
+                top: 125px;
+                cursor: pointer;
+                display: none;
+            }
+            #contarin #prev{
+                left: 0;
+            }
+            #contarin #next{
+                right: 0;
+            }
+        </style>
+        <script rel="text/javascript" src="animate.js"></script>
+        <script type="text/javascript">
+
+            function Slider(){
+                this.lis=document.getElementsByTagName("li");
+                this.index=0;
+                this._animate=new Animate();
+                this.auto=function(){
+                    var _me=this;
+                    
+                    
+                    new Animate(document.getElementById("big_ul")).move({
+                        left:-_me.index*782+"px"
+                    },600,function(){
+                        _me._animate.delay(function(){
+                            if(_me.index>=4){
+                                _me.index=-1;
+                            }
+                            _me.index++;
+                            _me.change();
+                        },2000)
+                    })
+                }
+                this.change=function(){
+                    this._animate.clear();
+                    for(var i=0;i<this.lis.length;i++){
+                        this.lis[i].className="";
+                    }
+                    this.lis[this.index].className="active";
+                   
+                    this.auto();
+                }
+                
+                this.events=function(_contarin){
+                    var _prev=document.getElementById("prev");
+                    var _next=document.getElementById("next");
+                    var _me=this;
+                    _contarin.onmouseover=function(){
+                        _prev.style.display="block";
+                        _next.style.display="block";
+                    };
+                    _contarin.onmouseout=function(){
+                        _prev.style.display="none";
+                        _next.style.display="none";
+                    };
+                    _prev.onclick=function(){
+
+                        _me.index-=1;
+                        if(_me.index<0){
+                            _me.index=4;
+                        }
+                        _me.change();
+                    };
+                    _next.onclick=function(){
+                        _me.index+=1;
+                        if(_me.index>=5){
+                            _me.index=0;
+                        }
+                        _me.change();
+                    };
+                    for(let i=0;i<_me.lis.length;i++){
+                        if(i==0){
+                            _me.lis[i].className="active";
+                        }
+                        _me.lis[i].onclick=function(){//i值是0-4
+                            _me.index=i;
+                            // alert(_me.index);
+                            _me.change();
+                        }
+                    }
+                }
+            }
+            function main(){
+                var _contarin=document.getElementById("contarin");
+                var _slider=new Slider();
+                _slider.events(_contarin);
+                _slider.auto(0);
+            }
+            window.onload=main;
+        </script>
+</head>
+<body>
+    <div id="contarin">
+        <ul id="big_ul">
+            <img src="../images/_01.jpg" alt="">
+            <img src="../images/_02.jpg" alt="">
+            <img src="../images/_03.jpg" alt="">
+            <img src="../images/_04.jpg" alt="">
+            <img src="../images/_05.jpg" alt="">
+        </ul>
+        <ul id="small_ul">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+        <div id="prev" class="arr"><</div>
+        <div id="next" class="arr">></div>
+    </div>
+</body>
+</html>

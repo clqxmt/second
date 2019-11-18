@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+    <style type="text/css">
+         *{
+            margin:0;padding:0;
+        }
+        #container{
+            width:800px;
+            height:300px;
+            position:relative;
+            margin:100px auto;
+        }
+        #container #slider{
+            width:800px;
+            height:300px;
+
+        }
+        #container #slider ul{
+            width:4000px;
+            height:300px;
+            position:absolute;
+        }
+        #container #slider ul img{
+            float:left;
+            /* vertical-align:top; */
+        }
+        #container #nav{
+            /* margin:20px auto; */
+            position:absolute;
+            bottom:10px;
+            left:325px;
+        }
+        #container #nav li{
+            list-style:none;
+            float:left;
+            width:20px;
+            height:20px;
+            margin-right:10px;
+            background-color:#000;
+            color:#fff;
+            border-radius:50%;
+            line-height:20px;
+            text-align:center;
+            font-size:12px;
+            font-family:"微软雅黑";
+            cursor:pointer;
+            
+        }
+        #container #nav li.current{
+            background-color:#f00;
+        }
+        .arrow{
+            display:block;
+            width:50px;
+            height:50px;
+            background-color:rgba(0,0,0,0.5);
+            font-size:35px;
+            color:#fff;
+            font-weight:blod;
+            line-height:50px;
+            text-align:center;
+            position:absolute;
+            top:125px;
+            cursor:pointer;
+        }
+        #prev{
+            left:5px;
+        }
+        #next{
+            right:5px;
+        }
+        
+    </style>
+    <script type="text/javascript">
+        
+        function Slider(){
+            //缓冲运动
+            this.step=0;
+            this.target=0;
+            this.timer;
+            this.speed=function(){
+                // target=i*-800;
+                var _me=this;
+                timer=setInterval(function(){
+                    _me.step+=(_me.target-_me.step)/10;
+                    _me.$("big_ul").style.left=_me.step+"px";
+                },20);
+
+            }
+            this.auto=function(_index){
+                // var _index=Math.abs(this.target/800);
+                if(_index==0){
+                    _index=5;
+                }
+                // this.target=(_index+1)*-800;
+                this.target=(_index+1)*-800;
+                this.setCurrent(_index+1);
+            }
+            //使用ID获取元素
+            this.$=function(id){
+                return document.getElementById(id);
+            }
+            //创建导航条
+            this.createLi=function(){
+                var _imgs=this.$("big_ul").getElementsByTagName("img");
+                var _li;
+                var _me=this;
+                var _index;
+                
+                for(var i=0;i<_imgs.length;i++){
+                    _li=document.createElement("li");
+                    _li.innerHTML=i+1;
+                    if(i==0){
+                        _li.className="current";
+                    }
+                    _li.index=i;
+                    _li.onclick=function(){
+                        _me.target=this.index*-800;
+                        _me.setCurrent(this.index);
+                        console.log(this.index);
+                        // _me.speed();
+                        
+                    }
+                    _me.$("nav").appendChild(_li);
+                }
+            }
+            //设置导航的背景颜色
+            this.setCurrent=function(_index){
+                var _lis=this.$("nav").getElementsByTagName("li");
+                console.log(_lis.length);
+                for(var i=0;i<_lis.length;i++){
+                    _lis[i].className="";
+                }
+                _lis[_index].className="current";
+                this.auto(_index);
+            }
+
+            //点击向右的箭头时
+            this.prev=function(){
+                var _me=this;
+                var _index;
+                this.$("prev").onclick=function(){
+                    _index=Math.abs(_me.target/800);
+                    if(_index==0){
+                        _index=5;
+                    }
+                    _me.target=(_index-1)*-800;
+                    _me.setCurrent(_index-1);
+                }
+            }
+            //点击向左箭头时
+            this.next=function(){
+                var _me=this;
+                var _index;
+                this.$("next").onclick=function(){
+                    _index=Math.abs(_me.target/800);
+                    if(_index==4){
+                        _index=-1;
+                    }
+                    _me.target=(_index+1)*-800;
+                    _me.setCurrent(_index+1);
+                }
+            }
+            
+        }
+        function main(){
+            var _slider=new Slider();
+            _slider.createLi();
+            
+            _slider.speed();
+            _slider.prev();
+            _slider.next();
+            _slider.auto(0);
+
+        }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    <div id="container">
+        <div id="slider">
+            <ul id="big_ul">
+                <img src="imgs/1.jpg" alt="">
+                <img src="imgs/2.jpg" alt="">
+                <img src="imgs/3.jpg" alt="">
+                <img src="imgs/4.jpg" alt="">
+                <img src="imgs/5.jpg" alt="">
+            </ul>
+        </div>
+        <ul id="nav">
+            <!-- <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li> -->
+        </ul>
+        <span class="arrow" id="prev"><</span>
+        <span class="arrow" id="next">></span>
+    </div>
+</body>
+</html>

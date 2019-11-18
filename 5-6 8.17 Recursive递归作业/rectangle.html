@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归打印长方形</title>
+    <script type="text/javascript">
+        function rectangle(r,c){
+            if(r==0){
+                return;
+            }
+            rectangle(r-1);
+           
+              (function fc(c){
+                if(c==0){
+                    return;
+                }
+                fc(c-1);
+                document.write("*");
+            })(10)  
+            
+           document.write("<br>");
+        }
+        rectangle(10,0);
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

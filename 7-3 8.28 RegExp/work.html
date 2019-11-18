@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>作业</title>
+    <script type="text/javascript">
+        function work1(){
+            //文件后缀名过滤
+            var _s=prompt("","");
+            var _file=/^[^/\\<>\|:''*?]\.(png|jpg|gif)$/g;
+            if(_file.test(_s)){
+                alert("可以上传");
+            }else{
+                alert("过滤");
+            }
+        }
+       work1();
+        function work2(){
+            //身份证号验证
+            var _s=prompt("","");
+            //41 2721 1997 07 10 4284
+            var _cart=/^[0-8][0-7]\d{4}(1\d{3}|20\d{2})(1[0-2]|0[1-9])(0[1-9]|[1-2]\d|3[0-1])\d{3}([0-9]|X)$/g;
+            if(_cart.test(_s)){
+                alert("true");
+
+            }else{
+                alert("false");
+            }
+        }
+        //work2();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

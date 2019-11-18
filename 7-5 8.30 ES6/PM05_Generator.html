@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Generator</title>
+    <script type="text/javascript">
+        /*
+            指针：保存内存地址的变量
+
+        */
+
+        function* fn(){
+            yield 11;//表示语句段
+            yield 12;
+            yield 13;
+            yield 14;
+            return 15;
+        }
+        let _g=fn();//返回Generator对象
+        console.log(_g);
+        let _o=_g.next();//next方法返回值是一个字面量对象
+        console.log(_o);
+        /*
+        输出：Object
+             done: false  //是不是最后一个,如果是最后一个done的值为true
+             value: 11  //第一个yield的值
+        */
+        console.log(_o.value,_o.done);//输出11 false
+        console.log(_g.next().value);//12
+        console.log(_g.next().value);//13
+        console.log(_g.next().value);//14
+        var _o1=_g.next();
+        console.log(_o1.value,_o1.done);//15 true
+
+        function f(){
+            console.log("11");//没输出,因为函数没被调用
+        }
+        console.log(f);//输出f函数
+
+        function* f1(){
+            let a=yield 11;//下面语句传的值传给了这里的a
+            yield a+88;
+            return 10;
+        }
+        let _g1=f1();
+        let _next=_g1.next();
+        console.log(_next.value);//输出11
+        _next=_g1.next();
+       // console.log(_next.value);//如果没给a传值，输出的是NaN,因为a=yield 11
+        _next=_g1.next(12);//输出100 传递给上一个yield表达式
+        console.log(_next.value);
+
+        //使f1,f2,f3按顺序从上到下的顺序执行
+        function* Queue(){
+            yield function f1(_g2){
+                window.setTimeout(function(){
+                    console.log(3);
+                    _g2.next().value(_g2);
+                },3000);
+            }
+            yield function f2(_g2){
+                window.setTimeout(function(){
+                    console.log(2);
+                    _g2.next().value(_g2);
+                },2000);
+            };
+            yield function f3(_g2){
+                window.setTimeout(function(){
+                    console.log(1);
+                    
+                },1000);
+            }
+        }
+        let _g2=Queue();
+        let _next1=_g2.next();//{value:function(){},done:false}
+        _next1.value(_g2);//获取到第一个yield的值是一个函数，把_g2作为参数传给这个函数
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

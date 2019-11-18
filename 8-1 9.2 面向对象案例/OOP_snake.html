@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        body{ position:relative; margin:0px; width:100%; height:100%;}
+        #head,#food{ background-color:red; width:10px; height:10px; position:absolute; left:10px;
+            top:10px; right:0px; bottom:0px; z-index:1;}
+        .body{ background-color:darkred; width:10px; height:10px; position:absolute;
+            left:10px; top:10px; right:0px; bottom:0px; z-index:0;opacity:1;}
+    </style>
+    <script type="text/javascript">
+        /*
+            1.创建一个head和三个body
+            2.创建food,并给food随机出一个位置(是10的倍数，并且不能超过可视区的宽高度)
+            3.使用上下左右键控制它移动(不能移动到可视区外边)
+            4.移动它去吃食物
+        */
+        function Snake(){
+            this.body=document.getElementsByTagName("body")[0];
+            this.width=document.documentElement.clientWidth||document.body.clientWidth;
+            this.height=document.documentElement.clientHeight||document.body.clientHeight;
+            this.timer=null;
+            this._food=null;
+            this.createEle=function(){
+                var _head=document.createElement("div");
+                _head.id="head";
+                _head.style.left="30px";
+                this.body.appendChild(_head);
+                var _body;
+                for(var i=2;i>=0;i--){
+                    _body=document.createElement("div");
+                    _body.style.left=i*10+"px";
+                    _body.className="body";
+                    this.body.appendChild(_body);
+                }
+            }
+            this.food=function(){
+                var _me=this;
+                this._food=document.createElement("div");
+                this._food.id="food";
+                this.body.appendChild(this._food);
+                    this._food.style.left=Math.floor((_me.width-10)*(Math.random())/10)*10+"px";
+                    this._food.style.top=Math.floor((_me.height-10)*(Math.random())/10)*10+"px";
+                   
+                    if(this._food.offsetLeft==0){
+                        this._food.style.left="10px";
+                    }
+                    if(this._food.offsetTop==0){
+                        this._food.style.top="10px";
+                    }
+            }
+
+            //让蛇吃食物:当蛇的头部的left值和top值都和食物的left值和top值相同时，让当前食物消失
+            //再调用this.food方法去创建一个新食物
+            //蛇吃过食物需要是蛇身变长10像素：创建一个类名为.body的div添加到蛇尾的后边
+            this.eat=function(){
+                if(this.body.children[0].offsetLeft==this._food.offsetLeft && this.body.children[0].offsetTop==this._food.offsetTop){
+                    this.body.removeChild(this._food);
+                    var _body=document.createElement("div");
+                    _body.className="body";
+                    //因为刚创建出来的div的left值和top值都为0所以先让它的透明图为0，等改变过它的left值和top值以后再把透明度设置为1
+                    _body.style.opacity=0;
+                    this.body.appendChild(_body);
+                    this.food();
+                }
+            }
+            //使蛇移动
+            this.move=function(_forward,_sign){//_forward是接收到的是水平或垂直移动._sign接收的是向哪个方向移动
+                //让后一个div的left，top值等于前一个div的left，top值
+                for(var i=this.body.children.length-1-1;i>=1;i--){
+                    this.body.children[i].style.left=this.body.children[i-1].offsetLeft+"px";
+                    this.body.children[i].style.top=this.body.children[i-1].offsetTop+"px";
+                    this.body.children[i].style.opacity=1;
+                }
+                //让第0个div也就是它的头部每次向前移动10个像素
+                //用字符串拼接得出div自身的left或者top值
+                var _offset="offset"+_forward[0].toUpperCase()+_forward.slice(1);
+                console.log(_offset);
+                //使头部每次向指定的方向移动10个像素
+                this.body.children[0].style[_forward]=this.body.children[0][_offset]+(10*_sign)+"px";
+               
+               if(this.body.children[0].offsetLeft>=this.width-10 || this.body.children[0].offsetLeft<=0 ){
+                    console.log("游戏结束");
+                    // alert("游戏结束");
+                     this.move=null;
+                    // clearInterval(this.timer);
+               }
+               if(this.body.children[0].offsetTop>=this.height-10|| this.body.children[0].offsetTop<=0 ){
+                  this.move=null;
+                // clearInterval(this.timer);
+               }
+               //在蛇移动的过程中让它去吃食物
+                this.eat();
+            // this.auto();
+            }
+
+            //自动移动
+            this.auto=function(_forward,_sign){
+                var _me=this;
+                clearInterval(this.timer);//每次调用定时器之前先把前面正在执行的那个定时器给关掉
+                this.timer=setInterval(function(){
+                    _me.move(_forward,_sign);
+                },100);
+            }
+
+            //用上下左右键控制蛇
+            this.events=function(){
+                var _me=this;
+                this.body.onkeydown=function(e){
+                    switch(e.keyCode){
+                        case 37:_me.auto("left",-1);break;
+                        case 38:_me.auto("top",-1);break;
+                        case 39:_me.auto("left",1);break;
+                        case 40:_me.auto("top",1);break;
+                    }
+                }
+            }
+            
+        }
+        function main(){
+            var _snake=new Snake();
+            _snake.createEle();
+            _snake.food();
+            _snake.events();
+            // _snake.auto("left",1);
+            
+        }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

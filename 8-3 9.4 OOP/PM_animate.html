@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        #demo{width:100px;height:100px;background:#0ff;position:absolute;}
+        #demo1{width:100px;height:100px;background:#ff0;position:absolute;}
+    </style>
+    <script type="text/javascript">
+    //v1:实现水平移动
+        /* function Animate(_ele){
+            this.timer=null;
+            this.times=600;
+            this.hz=30;
+            this.step=function(_css){
+                this.time=this.times/this.hz;//需要运动的次数
+                // console.log(_css.left.match(/\d+/g)[0]);
+                this.hs=(Number(_css.left.match(/\d+/g)[0])-_ele.offsetLeft)/this.time;
+            }
+            this.move=function(_css){
+                this.step(_css);
+                var _me=this;
+                var _conter=0;
+                this.timer=setInterval(function(){
+                    _ele.style.left=_ele.offsetLeft+_me.hs+"px";
+                    if(_conter++>=_me.time){
+                        clearInterval(_me.timer);
+                    }
+                },this.hz);
+            }
+        } */
+    //v2:实现水平和垂直一起运动
+        /* function Animate(_ele){
+            this.times=600;
+            this.hz=30;
+            this.timer=null;
+            this.step=function(_css){
+                this.time=this.times/this.hz;
+                this.hs=(Number(_css.left.match(/\d+/g)[0])-_ele.offsetLeft)/this.time;
+                this.vs=(Number(_css.top.match(/\d+/g)[0])-_ele.offsetTop)/this.time;
+            }
+            this.move=function(_css){
+                this.step(_css);
+                var _me=this;
+                var _conter=0;
+                this.timer=setInterval(function(){
+                    _ele.style.left=_ele.offsetLeft+_me.hs+"px";
+                    _ele.style.top=_ele.offsetTop+_me.vs+"px";
+                    if(_conter++>=_me.time){
+                        clearInterval(_me.timer);
+                    }
+                },_me.hz);
+            }
+        } */
+        
+        //v3:实现可以移动单个方向
+        /* function Animate(_ele){
+            this.times=600;
+            this.hz=30;
+            this.timer=null;
+            this.step=function(_css){
+                this.time=this.times/this.hz;
+                if(_css.left){
+                    this.hs=(Number(_css.left.match(/\d+/g)[0])-_ele.offsetLeft)/this.time;
+                }
+                if(_css.top){
+                    this.vs=(Number(_css.top.match(/\d+/g)[0])-_ele.offsetTop)/this.time;
+                }
+            }
+            this.move=function(_css){
+                var _me=this;
+                this.step(_css);
+                var _conter=0;
+                this.timer=setInterval(function(){
+                    if(_css.left){
+                        _ele.style.left=_ele.offsetLeft+_me.hs+"px";
+                    }
+                    if(_css.top){
+                        _ele.style.top=_ele.offsetTop+_me.vs+"px";
+                    }
+                    if(_conter++>=_me.time){
+                        
+                        clearInterval(_me.timer);
+                    }
+                },_me.hz);
+
+            }
+        } */
+
+        //v4:实现两个元素运动
+        /* function Animate(_ele){
+            this.times=600;
+            this.hz=30;
+            this.timer=null;
+            this.step=function(_css){
+                this.time=this.times/this.hz;
+                if(_css.left){
+                    this.hs=(Number(_css.left.match(/\d+/g)[0])-_ele.offsetLeft)/this.time;
+                }
+                if(_css.top){
+                    this.vs=(Number(_css.top.match(/\d+/g)[0])-_ele.offsetTop)/this.time;
+                }
+            }
+            this.move=function(_css){
+                var _me=this;
+                this.step(_css);
+                var _conter=0;
+                this.timer=setInterval(function(){
+                    if(_css.left){
+                        _ele.style.left=_ele.offsetLeft+_me.hs+"px";
+                    }
+                    if(_css.top){
+                        _ele.style.top=_ele.offsetTop+_me.vs+"px";
+                    }
+                    if(_conter++>=_me.time){
+                        if(_css.left){
+                            _ele.style.left=_css.left;
+                        }
+                        if(_css.top){
+                            _ele.style.top=_css.top;
+                        }
+                        clearInterval(_me.timer);
+                    }
+                },_me.hz);
+            }
+        } */
+
+        //v5:实现自定义运动时长
+        /* function Animate(_ele){
+            this.hz=30;
+            this.timer=null;
+            this.step=function(_css,_times){
+                this.time=_times/this.hz;
+                if(_css.left){
+                    this.hs=(Number(_css.left.match(/\d+/g)[0])-_ele.offsetLeft)/this.time;
+                }
+                if(_css.top){
+                    this.vs=(Number(_css.top.match(/\d+/g)[0])-_ele.offsetTop)/this.time;
+                }
+            }
+            this.move=function(_css,_times){
+                var _me=this;
+                var _conter=0;
+                this.step(_css,_times);
+                this.timer=setInterval(function(){
+                    if(_css.left){
+                        _ele.style.left=_ele.offsetLeft+_me.hs+"px";
+                    }
+                    if(_css.top){
+                        _ele.style.top=_ele.offsetTop+_me.vs+"px";
+                    }
+                    if(_conter++ >= _me.time){
+                        if(_css.left){
+                            _ele.style.left=_css.left;
+                        }
+                        if(_css.top){
+                            _ele.style.top=_css.top;
+                        }
+                        clearInterval(_me.timer);
+                    }
+                },_me.hz);
+            }
+        } */
+
+        //v6:实现两个元素的运动有先后顺序
+       /* function Animate(_ele){
+            this.timer=null;
+            this.hz=30;
+            this.step=function(_css,_times){
+                this.time=_times/this.hz;
+                if(_css.left){
+                    this.hs=(Number(_css.left.match(/\d+/g)[0])-_ele.offsetLeft)/this.time;
+                }
+                if(_css.top){
+                    this.vs=(Number(_css.top.match(/\d+/g)[0])-_ele.offsetTop)/this.time;
+                }
+            }
+            this.move=function(_css,_times,_fx){
+                var _me=this;
+                var _conter=0;
+                this.step(_css,_times);
+                this.timer=setInterval(function(){
+                    if(_css.left){
+                        _ele.style.left=_ele.offsetLeft+_me.hs+"px";
+
+                    }
+                    if(_css.top){
+                        _ele.style.top=_ele.offsetTop+_me.vs+"px";
+                    }
+                    if(_conter++ >= _me.time){
+                        if(_css.left){
+                            _ele.style.left=_css.left;
+                        }
+                        if(_css.top){
+                            _ele.style.top=_css.top;
+                        }
+                        if(typeof _fx==="function"){
+                            _fx();
+                        }
+                        clearInterval(_me.timer);
+                    }
+                },_me.hz);
+            }
+        }*/
+
+       //v7:第二个元素延迟执行
+
+       function Animate(_ele){
+           this.timer=null;
+           this.hz=30;
+           this.step=function(_css,_times){
+               this.time=_times/this.hz;
+               if(_css.left){
+                   this.hs=(Number(_css.left.match(/-*\d+/g)[0])-_ele.offsetLeft)/this.time;
+                   console.log(_css.left.match(/-*\d+/g)[0]);
+               }
+               if(_css.top){
+                   this.vs=(Number(_css.top.match(/^-*\d+/g)[0])-_ele.offsetTop)/this.time;
+               }
+               
+           }
+           this.move=function(_css,_times,_fx){
+               var _me=this;
+               var _conter=0;
+               this.step(_css,_times);
+               this.timer=setInterval(function(){
+                    if(_css.left){
+                        _ele.style.left=_ele.offsetLeft+_me.hs+"px";
+                    }
+                    if(_css.top){
+                        _ele.style.top=_ele.offsetTop+_me.vs+"px";
+                    }
+                    if(_conter++ >= _me.time){
+                        if(_css.left){
+                            _ele.style.left=_css.left;
+                        }
+                        if(_css.top){
+                            _ele.style.top=_css.top;
+                        }
+                        if(typeof _fx==="function"){
+                            _fx();
+                        }
+                        clearInterval(_me.timer);
+                    }
+               },_me.hz);
+           }
+       }
+        function main(){
+           var _animate=new Animate();
+           new Animate(document.getElementById("demo")).move({
+               left:"-800px",
+               top:"500px"
+           },600,function(){
+               this.delay(function(){
+                    new Animate(document.getElementById("demo1")).move({
+                        left:"500px",
+                        top:"500px"
+                    },600);
+               });
+                
+           });
+           
+       } 
+       this.delay=function(_fx){
+            var _me=this;
+            this.timer=setTimeout(function(){
+                clearTimeout(_me.timer);
+                _fx();
+            },2000);
+       }
+       window.onload=main;
+    </script>
+</head>
+<body>
+    <div id="demo"></div>
+    <div id="demo1"></div>
+</body>
+</html>

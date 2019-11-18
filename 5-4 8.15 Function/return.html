@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>return</title>
+    <script type="text/javascript">
+        //return：函数返回值
+
+        //输出阶乘3和阶乘5的和
+        function fn(n){
+            var _value=1;
+            for(var i=n; i>0; i--){
+                _value*=i;
+            }
+           return _value;//把计算出的值返回给调用函数
+        }
+        /* var _three=fn(3);//_three=6;
+        var _five=fn(5);//_five=120;
+        document.write(_three+"+"+_five+"="+(_three+_five)); */
+       document.write(fn(3)+"+"+fn(5)+"="+(fn(3)+fn(5)));//输出126
+
+
+        //return:结束整个函数代码块
+        function f1(n){
+            var _value=1;
+            for(var i=n; i>0; i--){
+                _value*=i;
+                return;//使用return结束整个函数代码块，下面的代码都不再执行，
+            }
+            document.write(_value);
+            return _value;
+        }
+        f1(3);
+        alert(typeof f1(3)); //弹出undefined
+        //因为上面return结束了整个函数代码块，所以return _value;代码没执行，
+        //所以f1(3)没有接收到任何值，所以f1(3)为undefined类型
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

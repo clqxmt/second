@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>正则表达式的符号</title>
+    <script type="text/javascript">
+        /*
+         *正则表达式的符号：
+            ():正则表达式的分组，"组"匹配的结果会缓存到正则的结果中。
+            | :表示或者的意思
+            []:表示或者的意思
+                [a-z0-9%-]:a到z或0-9或%或-
+                [^0-9a-z]:表示非0-9且非a-z
+         *正则表达式的方法：
+            _reg.exec(参数是字符串);
+            //execute:执行的意思，返回值是个类似数组的结果
+            返回结果：
+                结果中的一个元素表示正则表达式匹配到的所有结果
+                第二个或以后的数组元素表示组的结果
+                可以通过数组的方式来获取正则表达式的结果
+                也可以通过正则表达式的类RegExp.$1至$9来获取
+                返回的结果中有一个index和input，它们分别代表:
+                index 属性声明的是匹配文本的第一个字符的位置。
+                input 属性则存放的是被检索的字符串 string
+
+        */
+        function f1(){
+            var _s="good good study";
+            var _reg=/(o)+(d)/g;
+            console.log(_reg.exec(_s));//输出["ood", "o", "d", index: 1, input: "good good study", groups: undefined]
+            var _result=_reg.exec(_s);
+            console.log(_result[10]);//输出undefined,这种写法可以访问到第9个以后
+            console.log(RegExp.$1);//输出o,这种写法最多可以访问到第9个
+            console.log(RegExp.$2);//输出d
+
+        }
+        //f1();
+
+        function f2(){
+            var _s="good good st9u9dy";
+            var _reg=/(\d)\w\1/g;// \1表示引用第一组的结果
+            console.log(_s.match(_reg));//输出9u9
+        }
+        // f2();
+
+        function f3(){
+            var _s="ged gad god study";
+            var _reg=/g(a|o)d/g;
+            var _reg1=/g[ao]d/g;
+            console.log(_s.match(_reg));//输出 ["gad", "god"]
+            console.log(_s.match(_reg1));//输出 ["gad", "god"]
+        }
+        // f3();
+
+        function f4(){
+            var _s="ged gad god study";
+            var _reg=/g(e|a|o)d/g;
+            var _reg1=/g[eao]/g;
+            console.log(_s.match(_reg));//输出["ged", "gad", "god"]
+            console.log(_s.match(_reg));//输出["ged", "gad", "god"]
+        }
+        // f4();
+
+        function f5(){
+            var _s="1234567ged&gadgodstudy";
+            var _reg=/[^0-9a-z]/g;
+            console.log(_s.match(_reg));//输出["&"]
+        }
+        f5();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

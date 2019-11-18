@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>课堂练习</title>
+    <script type="text/javascript">
+       /*  function f1(n){
+            for(i=1; i<=n; i++){
+                document.write(i+",");
+            }
+            document.write("<br>");
+        }
+        f1(50);
+        f1(30); */
+
+        //输出偶数和
+       /*  function even(){
+            var _sum=0;
+            // for(var i=1;i<=100;i++){
+            //     if(i%2==0){
+            //         _sum+=i;
+            //     }
+            // }
+            for(var i=2; i<=100; i+=2){
+                _sum+=i;
+            }
+            return _sum;
+            
+        }
+        document.write(even()+"<br>");
+
+        //输出奇数和
+        function odd(){
+            var _sum=0;
+            for(var i=1; i<100; i+=2){
+                _sum+=i;
+            }
+            
+            return _sum;
+        }
+        document.write(odd()+"<br>");
+        //输出奇数和+偶数和
+        document.write(even()+odd()); */
+
+        /* //简写输出偶数和，奇数和，偶数和+奇数和(传参和return连用)
+        function fn(_start){
+            var _sum=0;
+            for(var i=_start; i<=100; i+=2){
+                _sum+=i;
+            }
+            return _sum;
+        }
+        document.write(fn(1)+"<br>");//输出奇数和
+        document.write(fn(2)+"<br>");//输出偶数和
+        document.write(fn(1)+fn(2));//输出奇数和+偶数和 */
+
+        function f2(n){
+            document.write(n);
+            return f2;
+        }
+        f2(1)(2)(3)(4);//输出1234
+
+      /*   
+       //先调用f2()执行f2(1),执行完会返回一个f2,即f2(1)=f2;
+        //此时f2(1)(2)(3)(4)变为f2(2)(3)(4)
+        //然后再调用f2()执行f2(2),执行完毕返回一个f2,即f2(2)=f2;
+        //此时f2(2)(3)(4)变为f2(3)(4);
+        //然后再调用f2()执行f2(3),执行完毕返回一个f2,即f2(3)=f2;
+        //此时f2(3)(4)变为f2(4)
+        //然后再调用f2()执行f2(4),执行完毕返回一个f2,即f2(4)=f2;
+        //此时f2(4)变为f2,因为f2只是一个代码块，没有再被调用，所以执行结束。
+     */
+
+     //函数变量提升的面试题
+   </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>匿名函数</title>
+    <script type="text/javascript">
+
+     /*  //第一个使用场景：自调用，不需要多处使用，一次性使用
+      //输出1+2+3+4+5的阶乘+6+7+8+9+10的值
+       function f1(){
+          var _sum=0;
+          for(var i=1; i<=10; i++){
+              if(i!=5){
+                  _sum+=i;
+              }else{
+                  _sum+=(function(){
+                        var _value=1;
+                        for(var n=5; n>0; n--){
+                            _value*=n;
+                        }
+                        return _value;//返回值返回给整个匿名函数function()代码块，
+                                    //因为它是自调用，自己既是声明函数也是调用函数
+                                    //(遵循return返回值返回给调用函数),即_sum=_sum+120;
+                  })();//自调用
+              }
+              
+          }
+          return _sum;
+       }
+       document.write(f1()); //输出170 */
+
+       //第二种使用场景：赋值给变量
+       //因为把function()赋值给了变量_fn,所以调用_fn就相当于调用function()
+       var _fn=function(){
+            var _value=1;
+            for(var i=5;i>0;i--){
+                _value*=i; //计算5的阶乘
+            }
+             document.write(_value);
+            return _value; //将_value返回给_fn()调用函数;
+       }
+       _fn();//_fn==120;
+       
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

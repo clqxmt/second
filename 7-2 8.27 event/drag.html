@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>除了中间不能拖拽</title>
+    <style>
+        *{margin:0;padding:0;}
+        #div1{width:500px;height:500px;background:#0ff;position:absolute;}
+       
+        #center{width:300px;height:300px;background:#f00;margin:100px;float:left;}
+    </style>
+    <script type="text/javascript">
+        function drag(){
+            var _div1=document.getElementById("div1");
+            var _center=document.getElementById("center");
+            _div1.onmousedown=function(e){
+                e=e||event;
+                var _x=e.offsetX;
+                var _y=e.offsetY;
+                document.onmousemove=function(e){
+                    e=e||event;
+                    _div1.style.left=e.clientX-_x+"px";
+                    _div1.style.top=e.clientY-_y+"px";
+                };
+            };
+            _center.onmousedown=function(e){
+                e=e||event;
+                e.stopPropagation?e.stopPropagation():e.cancelBubble=false;
+               
+            };
+            _div1.onmouseup=function(){
+                document.onmousemove=null;
+            };
+            
+        };
+
+        window.onload=function(){
+            drag();
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <div id="center"></div>
+    </div>
+</body>
+</html>

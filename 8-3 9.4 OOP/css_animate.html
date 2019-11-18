@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin:0;padding:0;}
+    </style>
+    <script type="text/javascript">
+        function Style(_ele){
+            this.timer=null;
+            this.hz=30;//表示运动的频率
+            this.hs;//
+            this.vs;
+            this._time;
+            this.step=function(_css){
+                for(var k in _css){//遍历字面量对象
+                    if(k=="left" || k=="top"){//如果遍历出来的键时left或top就执行下面的语句
+                        if(_css.left){//如果遍历出来的是left就执行这条语句
+                            this.hs=(parseInt(_css.left)-_ele.offsetLeft)/this._time;//计算出这个元素在水平方向每次要移动多少px
+                        }
+                        if(_css.top){//如果遍历出来的是top就执行这条语句
+                            this.vs=(parseInt(_css.top)-_ele.offsetTop)/this._time;//计算出这个元素在垂直方向每次要移动多少px
+                        }
+                        
+                    }else{//如果遍历出来的键名不是left或top就把这个键值对赋值给元素的style样式
+                        _ele.style[k]=_css[k];
+                    }
+                }
+                
+            }
+            this.move=function(_css,_times,_fx){
+                this._time=_times/this.hz;//用需要运动的总时长除以运动的频率，计算出一共要运动多少次
+                // console.log(this._time);
+                this.step(_css);//调用step方法，计算步数
+                var _me=this;
+                var _sum=0;
+                this.timer=setInterval(function(){
+                    if(_css.left){//如果_css中有left键就执行这条语句
+                        _ele.style.left=_ele.offsetLeft+_me.hs+"px";
+                    }
+                    if(_css.top){//如果_css中有top键就执行这条语句
+                        _ele.style.top=_ele.offsetTop+_me.vs+"px";
+                    }
+                    
+                    _sum+=1;//没调用一次定时器就使_sum+=1,记下来这个元素运动的次数
+                    // console.log(_sum);
+                    if(_sum>=_me._time){//当元素运动的次数和_time需要运动的次数相等时就关闭定时器
+                        if(_css.left){
+                            _ele.style.left=_css.left;//手动把元素的left值变为目标值
+                        }
+                        if(_css.top){
+                            _ele.style.top=_css.top;//手动把元素的top值变为目标值
+                        }
+                        console.log(_ele.offsetLeft,_ele.offsetTop);
+                       clearInterval(_me.timer);
+                       if(typeof _fx==="function"){//如果_fx接收到的参数是函数类型就调用这个函数
+                            _fx(); 
+                       }
+                       
+                    }
+                },_me.hz);
+            }
+        }
+        function main(){
+            /* 传过去的第一个参数是这个元素的CSS样式里面的left值和top值表示目标值，要运动到的位置
+                第二个参数是这个元素一共要运动多长时间
+                第三个参数是一个函数，表示这个元素运动停止以后，执行这个函数，让下一个元素运动，可以按照自己想要的顺序让元素进行运动
+                
+            */
+
+            new Style(document.getElementsByTagName("div")[0]).move({
+                width:"100px",
+                height:"100px",
+                background:"#ff0",
+                position:"absolute",
+                left:"800px",
+                top:"500px"
+            },600,function(){
+                new Style(document.getElementsByTagName("span")[0]).move({
+                    width:"100px",
+                    height:"100px",
+                    backgroundColor:"#f00",
+                    position:"absolute",
+                    left:"500px",
+                    top:"200px"
+                },300,function(){
+                    new Style(document.getElementsByTagName("div")[1]).move({
+                        width:"100px",
+                        height:"100px",
+                        backgroundColor:"#0ff",
+                        position:"absolute",
+                        left:"1000px",
+                        top:"500px"
+                    },1000);
+                });
+            });
+            
+        }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    <div></div>
+    <span></span>
+    <div></div>
+</body>
+</html>

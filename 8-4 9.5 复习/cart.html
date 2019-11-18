@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>购物车</title>
+    <script type="text/javascript">
+        function Cart(){
+            this.storage=[];
+            this.take=function(){
+                this.storage=window.localStorage.getItem("BK1917cart");
+                if(!this.storage){
+                    this.storage=[];
+                }else{
+                    this.storage=JSON.parse(this.storage);
+                }
+                console.log(this.storage);
+            }
+            this.save=function(){
+                window.localStorage.setItem("BK1917cart",JSON.stringify(this.storage));
+            }
+            this.add=function(_id,_conter,_config){
+                // alert(1);
+                this.take();
+                var _has=0;
+                for(var i=0;i<this.storage.length;i++){
+                    if(this.storage[i].ID===_id && this.storage[i].config===_config){
+                        this.storage[i].conter+=_conter;
+                        _has=1;
+                        this.save();
+                        break;
+                    }
+                }
+                if(_has===0){
+                        this.storage.push({
+                            ID:_id,
+                            conter:_conter,
+                            config:_config
+                        });
+                        
+                    }
+                    this.save();
+            }
+            this.reduce=function(_id,_conter,_config){
+                this.take();
+                for(var i=0;i<this.storage.length;i++){
+                    if(this.storage[i].ID===_id && this.storage[i].config===_config){
+                        if(this.storage[i].conter-_conter<=0){
+                            this.remove(_id,_config);
+                        }else{
+                            this.storage[i].conter-=_conter;
+                        }
+                        this.save();
+                        break;
+                    }
+                }
+            }
+            this.change=function(_id,_conter,_config){
+               
+                this.take();
+                var _num;
+                for(var i=0;i<this.storage.length;i++){
+                        if(this.storage[i].ID===_id && this.storage[i].config===_config){
+                            _num=i;
+                            break;
+                        }
+                    }
+                if(/^[1-9]\d*$/g.test(_conter)){
+                            this.storage[_num].conter=_conter;
+                            this.save();
+                            
+                }/* else{
+                    alert("请重新输入");
+                    document.getElementById("change").value=this.storage[_num].conter;
+                } */
+            }
+            this.statistical=function(){
+                this.take();
+                var _sum=0;
+                for(var i=0;i<this.storage.length;i++){
+                    _sum+=this.storage[i].conter;
+                }
+                return _sum;
+            }
+            this.remove=function(_id,_config){
+                this.take();
+                for(var i=0;i<this.storage.length;i++){
+                    if(this.storage[i].ID===_id && this.storage[i].config===_config){
+                        this.storage.splice(i,1);
+                        this.save();
+                        break;
+                    }
+                }
+            }
+            this.events=function(){
+                var _me=this;
+                var _add=document.getElementById("add");
+                var _reduce=document.getElementById("reduce");
+                var _change=document.getElementById("change");
+                var _statistical=document.getElementById("statistical");
+                var _remove=document.getElementById("remove");
+                var _clear=document.getElementById("change");
+                _add.onclick=function(){
+                    // alert(1);
+                    _me.add("123",2,"红|M");
+                }
+                _reduce.onclick=function(){
+                    _me.reduce("123",2,"红|M");
+                }
+                _change.onchange=function(){
+                    _me.change("123",_change.value,"红|M");
+                }
+                _statistical.onclick=function(){
+                   console.log( _me.statistical());
+                }
+                _remove.onclick=function(){
+                    _me.remove("123","红|M");
+                }
+            }
+        }
+        function main(){
+            var _cart=new Cart();
+            // _cart.add("123",2,"红|M");
+            _cart.events();
+        }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    <input type="button" value="+" id="add" >
+    <input type="button" value="-" id="reduce">
+    <input type="text" id="change">
+    <input type="button" value="统计" id="statistical">
+    <input type="button" value="删除" id="remove">
+    <input type="button" value="清空" id="clear">
+</body>
+</html>

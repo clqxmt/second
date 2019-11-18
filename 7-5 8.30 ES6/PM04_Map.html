@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Map集合</title>
+    <script type="text/javascript">
+        /*
+            Map对象的方法：
+                set:设置值
+                get:获取值
+                has:判断是否有这个键
+                delete:删除成员
+                clear:清空成员
+                size:获取Map的长度
+        */
+        let _map=new Map();
+        _map.set("k1","v1");
+        _map.set("k2","v2");
+        _map.set("k3","v3");
+        console.log(_map.get("k1"));//v1
+        
+        _map.delete("k1");
+        console.log(_map.has("k1"));//false
+        console.log(_map.size);//2
+        _map.clear();
+        _map.set(10,function(){});
+        console.log(_map.get(10));//输出f(){}
+
+        //var _obj={function(){}:10};//错误的写法
+
+        //遍历
+        let _map1=new Map();
+        _map1.set("k1","v1");
+        _map1.set("k2","v2");
+        _map1.set("k3","v3");
+        for(let [k,v] of _map1){//对_map1进行遍历
+            console.log(k,v);
+            /*输出
+            k1 v1
+            k2 v2
+            k3 v3
+            */
+        }
+        for(let a in _map1.keys()){
+            console.log(_map1.get(a));
+        }
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>菱形</title>
+    <script type="text/javascript">
+       function lingxing(){
+           for(var n=5; n>=-5; n--){
+               for(var i=-5; i<=5; i++){
+                   if(Math.abs(n)+Math.abs(i)<=5){
+                       document.write("*");
+                   }else{
+                       document.write("-");
+                   }
+               }
+               document.write("<br>");
+           }
+       }
+       lingxing();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

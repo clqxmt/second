@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>京东</title>
+    <style type="text/css">
+        *{margin:0;padding:0;}
+        /* html,body{width:100%;height:100%;background:#e3e4e5} */
+        a{text-decoration:none;}
+        li,ol{list-style:none};
+    </style>
+    <script type="text/javascript">
+        function myjd(/*parent,_span2*/){
+            // alert(parent.tagName);
+            var _header1=document.getElementById("header1");
+            var _ul=_header1.getElementsByTagName("ul")[0];
+            var _a3=_ul.getElementsByTagName("a")[2];
+            var _span3=_a3.getElementsByTagName("span")[0];
+            _a3.style.position="relative";
+            _a3.style.color="#f10215";
+            _span3.style.color="#999"
+            // var _span4=document.createElement("span");
+            // _a3.appendChild(_span4);
+            // _span4.style.position="absolute";
+            // _span4.style.width="";
+            // _span4.style.height="30px";
+            // _span4.style.backgroundColor="#f0f";
+            var _myjd1=document.createElement("div");
+            _a3.appendChild(_myjd1);
+            _myjd1.style.position="absolute";
+            _myjd1.style.height="161px";
+            _myjd1.style.width="280px";
+            _myjd1.style.border="1px solid #ccc";
+            _myjd1.style.backgroundColor="#f0f";
+        };
+        function _header1Style(_header1){
+            _header1.id="header1";
+            _header1.style.width="1190px";
+            _header1.style.height="30px";
+            _header1.style.margin="0 auto";
+            // _header1.style.backgroundColor="#ff0";
+            _header1.style.lineHeight="30px";
+            _header1.style.color="#999";
+            _header1.style.fontSize="12px";
+            var _a=document.createElement("a");
+            _header1.appendChild(_a);
+            var _img=document.createElement("img");
+            _a.appendChild(_img);
+            _img.src="img/dizhi.png";
+            _img.style.marginLeft="8px";
+            _img.style.marginRight="6px";
+            _img.style.verticalAlign="middle";
+            _img.style.marginTop="-2px";
+            _a.appendChild(document.createTextNode("北京"));
+            // _a.style.fontSize="12px";
+            var _span=document.createElement("span");
+            _header1.appendChild(_span);
+            _span.innerText="你好，请登录";
+            // _span.style.fontSize="12px";
+            _span.style.marginLeft="422px";
+           
+
+            var _ul=document.createElement("ul");
+            _header1.appendChild(_ul);
+            _ul.style.float="right";
+            // _ul.style.backgroundColor="#0ff";
+            _ul.style.marginRight="4px";
+            _ul.style.height="30px";
+           
+           
+            var _a1=[];
+            for(var i=0;i<8;i++){
+                _a1[n]=document.createElement("a");
+                _ul.appendChild(_a1[n]);
+                _a1[n].style.borderRight="1px solid #ccc";
+                _a1[n].style.padding="0 12px";
+                
+            }
+            // var _li=[];
+            // var _span1=[];
+            // for(var i=0;i<8;i++){
+            //     _li[n]=document.createElement("li");
+            //     _ul.appendChild(_li[n]);
+            //     _li[n].style.float="left";
+            //     _span1[n]=document.createElement("span");
+            //     _span1[n].appendChild(document.createTextNode("|"));
+            //     _ul.appendChild(_span1[n]);
+               
+            //     // _li[n].style.borderRight="1px solid #ccc";
+            //     _li[n].style.padding="0 12px";
+            // }
+            
+            _ul.children[0].innerText="免费注册";
+            _ul.children[1].innerText="免费注册";
+            _ul.children[2].innerText="免费注册";
+            _ul.children[3].innerText="免费注册";
+            _ul.children[4].innerText="免费注册";
+            _ul.children[5].innerText="免费注册";
+            _ul.children[6].innerText="免费注册";
+            _ul.children[7].innerText="免费注册";
+            
+            //_span是“你好，请登录”
+            _span.onmouseover=_ul.children[1].onmouseover=_ul.children[3].onmouseover=function(){
+                this.style.color="#f10215";
+            };
+            _span.onmouseout=_ul.children[1].onmouseout=_ul.children[3].onmouseout=function(){
+                this.style.color="#999";
+            };
+            
+
+            _ul.children[0].style.paddingLeft="0px";
+            _ul.children[0].style.color=_ul.children[4].style.color="#f10215";
+            _ul.children[7].style.borderRight="none";
+            // _ul.children[4].style.color="#f10215";
+            
+            var _span2=[];
+            for(var n=0;n<4;n++){
+                _span2[n]=document.createElement("span");
+                _span2[n].innerHTML="&or;";
+                _span2[n].style.marginLeft="7px";
+                _span2[n].style.marginRight="1px";
+            }
+            _span2[1].style.color="#999";
+            _ul.children[2].appendChild(_span2[0]);
+            _ul.children[4].appendChild(_span2[1]);
+            _ul.children[5].appendChild(_span2[2]);
+            _ul.children[6].appendChild(_span2[3]);
+            
+            //当鼠标滑到索引值为2(我的京东)上时调用函数myjd
+            _ul.children[2].onmouseover=myjd;
+            _ul.children[2].onmouseout=function(){
+                _ul.children[2].style.color="#999";  
+            };
+
+            
+            
+           
+            
+
+        };
+        function _top(_body){
+            var _header=document.createElement("div");
+            var _header1=document.createElement("div");
+            _body.appendChild(_header);
+            _header.appendChild(_header1);
+            _header.style.width="100%";
+            _header.style.height="30px";
+            _header.style.backgroundColor="#e3e4e5";
+            _header.style.borderTop="1px solid #b6b4b6";
+            _header.style.borderBottom="1px solid #ddd";
+            _header1Style(_header1);
+        };
+        
+        function logoStyle(_logo){
+            //logo图片
+            var _img=document.createElement("img");
+            _logo.appendChild(_img);
+            _img.src="img/logo.jpg";
+            _img.style.marginLeft="59px";
+            _img.style.marginTop="25px";
+            _img.style.float="left";
+
+            //搜索框
+            var _form=document.createElement("form");
+            _logo.appendChild(_form);
+            _form.style.marginTop="25px";
+            _form.style.float="left";
+            var _input=document.createElement("input");
+            _form.appendChild(_input);
+            _input.value="游戏本i7";
+            _input.style.height="32px";
+            _input.style.width="471px";
+            _input.style.border="2px solid #e2231a";
+            _input.style.float="left";
+            _input.style.marginLeft="130px";
+            _input.style.paddingLeft="17px";
+            _input.style.color="#989898";
+            _input.style.fontSize="12px";
+            // _input.style.marginTop="25px";
+            _input.style.background="url(img/zhao.jpg) no-repeat 454px center";
+
+            //搜索按钮
+            var _button=document.createElement("input");
+            _form.appendChild(_button);
+            _button.type="button";
+            _button.style.width="60px";
+            _button.style.height="36px";
+            _button.style.border="none";
+            _button.style.background="#e2231a url(img/sousuo.jpg) no-repeat center";
+            // _button.style.marginTop="25px";
+            _button.style.float="left";
+            // _button.style.marginTop="25px";
+
+            //购物车
+            var _cart=document.createElement("input");
+            _logo.appendChild(_cart);
+            _cart.style.height="32px";
+            _cart.style.width="80px";
+            _cart.style.border="1px solid #eee";
+            _cart.value="我的购物车";
+            _cart.style.paddingLeft="50px";
+            _cart.style.fontSize="12px";
+            _cart.style.color="#e3362c";
+            _cart.style.background="url(img/cart.jpg) no-repeat 19px 2px";
+            _cart.style.marginTop="25px";
+            _cart.style.marginLeft="18px";
+
+            //热搜词
+            var _ul=document.createElement("ul");
+            _form.appendChild(_ul);
+            // _ul.style.width="488px";
+            
+            _ul.style.marginLeft="130px";
+            
+            var _li=[];
+            for(var n=0;n<9;n++){
+                _li[n]=document.createElement("li");
+                _ul.appendChild(_li[n]);
+                _li[n].style.color="#ccc";
+                _li[n].style.fontSize="12px";
+                _li[n].style.float="left";
+                _li[n].style.paddingRight="10px";
+                _li[n].style.marginTop="6px";
+            }
+            
+            _ul.children[0].innerText="家用跑步机";
+            _ul.children[1].innerText="秋季养殖";
+            _ul.children[2].innerText="秋季养殖";
+            _ul.children[3].innerText="秋季养殖";
+            _ul.children[4].innerText="秋季养殖";
+            _ul.children[5].innerText="秋季养殖";
+            _ul.children[6].innerText="秋季养殖";
+            _ul.children[7].innerText="秋季养殖";
+            _ul.children[8].innerText="秋季养殖";
+
+            //小导航
+            var _ol=document.createElement("ol");
+            _logo.appendChild(_ol);
+            _ol.style.fintSize="14px";
+            _ol.style.color="#333";
+            _ol.style.clear="both";
+            _ol.style.marginLeft="215px";
+            _ol.style.fontSize="14px";
+            _ol.style.color="#333";
+            var _li1=[];
+            for(var i=0;i<10;i++){
+                _li1[n]=document.createElement("li");
+                _ol.appendChild(_li1[n]);
+                _li1[n].style.float="left";
+                _li1[n].style.paddingRight="24px";
+                
+            }
+            _ol.children[0].innerText="秒杀";
+            _ol.children[1].innerText="优惠券";
+            _ol.children[2].innerText="品牌闪购";
+            _ol.children[3].innerText="品牌闪购";
+            _ol.children[4].innerText="品牌闪购";
+            _ol.children[5].innerText="品牌闪购";
+            _ol.children[6].innerText="品牌闪购";
+            _ol.children[7].innerText="品牌闪购";
+            _ol.children[8].innerText="品牌闪购";
+            _ol.children[9].innerText="品牌闪购";
+
+            _ol.children[0].style.color=_ol.children[1].style.color="#e1251b";
+
+            //二维码
+            var _er=document.createElement("div");
+            _logo.appendChild(_er);
+            _er.style.width="76px";
+            _er.style.height="76px";
+            _er.style.float="right";
+            _er.style.marginTop="-110px";
+            _er.style.background="#fff";
+            _er.style.textShadow="10px 5px 5px #f7f7f7";
+            var _wei=document.createElement("div");
+            _er.appendChild(_wei);
+            _wei.style.width="66px";
+            _wei.style.height="66px";
+            _wei.style.margin="5px";
+            _wei.style.background="#f6f6f6 url(img/erweima.jpg) no-repeat center";
+        }
+        
+        function logo(_body){
+            var _logo=document.createElement("div");
+            _body.appendChild(_logo);
+            _logo.id="logo";
+            _logo.style.width="1190px";
+            _logo.style.height="140px";
+            _logo.style.borderBottom="1px solid #ddd";
+            _logo.style.margin="0 auto";
+            _logo.style.backgroundColor="#ff0";
+            logoStyle(_logo);
+        };
+        window.onload=function(){
+            var _body=document.getElementsByTagName("body")[0];
+            _body.style.width="100%";
+            _body.style.height="100%"
+            _body.style.backgroundColor="#f4f4f4";
+            _top(_body);
+            logo(_body);
+            
+        };
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

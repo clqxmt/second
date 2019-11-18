@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数方法bind</title>
+    <script type="text/javascript">
+        /*
+            this是不能被重新赋值的。是如何改变指向的？
+            bind是ES6中函数的方法
+            总结：bind的当前对象是个函数，函数内的this指向bind的参数
+
+            bind方法的返回值是个函数
+
+            分析：this不能被赋值，是可以被函数影响改变指向
+        */
+        window.onload=function(){
+            var _demo=document.getElementById("demo");
+            var _div1=document.getElementById("div1");
+            var _body=document.getElementsByTagName("body")[0];
+            _demo.onclick=function(){
+                this.style.left=this.offsetLeft+5+"px";//此时的this指向_demo
+                   
+            }
+            _div1.onclick=function(){
+                this.style.backgroundColor="#"+Math.floor(Math.random()*16777215);
+                //这里的this指向body
+            }.bind(_body);
+
+            
+            Function.prototype.wrap=function(_target){
+                
+            };
+            function fn(){};
+             _demo.onclick=fn.wrap(_body);
+
+             var _obj={
+                 f:function(){
+                     console.log(this);//此处的this指向f:function(){}
+                     (function(){
+                        console.log(this);//此处的this指向window
+                     }());
+                 type:1;
+                 }
+                
+             }
+             _obj.f();
+        }
+    </script>
+</head>
+<body>
+    <div id="demo" style="width:200px;height:200px;background:#f00;position:absolute;"></div>
+    <div id="div1" style="width:200px;height:200px;background:#0ff;position:absolute;top:250px;" ></div>
+</body>
+</html>

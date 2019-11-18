@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>冒泡排序</title>
+    <script type="text/javascript">
+    //冒泡排序是比较的同时进行交换
+        var _arr=[8,5,0,3,1];
+       
+        function bubble_sort(_arr){
+            var _center=null;//声明一个空容器，置换值时使用
+            for(var n=0;n<_arr.length-1; n++){//声明一个循环变量初始值为0,当它小于数组的长度-1时,进行内循环
+                for(var i=_arr.length-1; i>n; i--){//变量i的初始值为数组的长度-1，即数组的最后一个下标
+                    if(_arr[i]<_arr[i-1]){//如果下标为i的数小于它前面(下标为i-1，因为是从后往前比较的)的数,进行交换，
+                                          //即把i下标上的数与前一位进行交换，
+                                          //如果i上的数大于前面的数不执行交换
+                        _center=_arr[i-1];//交换时先把下标为i-1上的数值保存在_center容器中
+                        _arr[i-1]=_arr[i];//然后把下标i(即较小的那个数)上的数值放在i-1的位置上(即向前移动一位)
+                        _arr[i]=_center;//最后把保存在容器中的值放在i下标的位置
+                    }
+                }
+            }
+            document.write(_arr);
+        }
+        bubble_sort(_arr);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

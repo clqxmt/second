@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Json</title>
+    <script type="text/javascript">
+    /*Json的声明语法：
+     *{"key1":"_value1",
+       "key2":"_value2",
+       "key3":"_value"  //最后一个键值对不加逗号
+      }
+      Json是一种数据格式：字面量对象
+
+    */
+    var _obj={//声明并初始化
+        k01:10,
+        k02:11,
+        k03:12
+    }
+        _obj.k01//访问字面量对象
+        _obj["k01"]//第二种访问方式
+    //遍历
+    for(var key in _obj){
+        document.write(_obj[key]);
+    }
+
+    // 声明
+    var _obj={
+        key01:10,
+        key02:11,
+        key03:12
+    }
+    //访问
+    _obj.key01;
+    _obj["key01"];
+    //遍历
+    for(var key in _obj){
+        document.write(_obj[key]);
+    }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

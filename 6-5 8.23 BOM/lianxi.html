@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript">
+        function fn(){
+            /* for(var i=0;i<100; i++){
+
+            } */
+            var i=0;
+            var _timer=setInterval(function(){
+               
+                var x=Math.cos(Math.PI*2/100*i)*300+300;
+                var y=Math.sin(Math.PI*2/100*i)*300+300;
+                document.write('<div style="width:5px;height:5px;background:#f00;position:absolute;left:'+x+'px;top:'+y+'px;"></div>');
+                i++;
+                if(i>100){
+                    clearInterval(_timer);
+                }
+            },60);
+        }
+       // fn();
+        function f1(){
+            var _str="qwqweqeqwffdsfadgdgdfhsfhsfh";
+            /* for(var i=0;i<_str.length;i++){
+                var _s=_str[i];
+            } */
+            var i=0;
+            var _timer=setInterval(function(){
+                document.write(_str.charAt(i++));
+                
+                if(i>_str.length){
+                    clearInterval(_timer);
+                }
+            },100);
+        }
+        //f1();
+        var timer=0;
+        var i=0;
+        var _str="sdagagfadgadffsfd";
+        function f2(){
+            clearTimeout(timer);
+            document.write(_str[i++]);
+            if(i<_str.length){
+                timer=setTimeout(f2,60);
+            }
+        }
+        f2();    
+            
+        
+           
+           
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

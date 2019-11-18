@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>去除数组中的重复元素</title>
+    <script type="text/javascript">
+        //splice():删除元素，并向数组添加新元素，并返回被删除的元素
+
+       //splice()方法可以实现去除数组中的重复元素
+
+       //第一种方式:使用splice方法
+      function f1(){
+        var _arr=[8,5,0,3,1,8,5,0,3,1,8,8,8,5,2,2,2];
+        for(n=0;n<_arr.length-1;n++){//循环数组的所有元素
+            for(i=n+1; i<_arr.length;i++){//拿下标为n的元素和它后面的所有元素进行比较
+                if(_arr[n]==_arr[i]){//如果第i位上的元素和第n上的元素相等就删除
+                    _arr.splice(i--,1);//使用splice方法删除重复的元素
+                    /**使用i--的原因
+                     *splice()方法两个参数的含义：
+                     *第一个参数是从下标为多少的位置开始
+                     *第二个参数是从开始的位置往后删除几个元素
+                     *例如splice(1,2)就是从下标为1的地方开始向后删除2个元素
+                     *使用i--是因为：
+                     *用第一个8为例,当它和i=5位置上的8相比较时,数值相等,就需要进行删除,
+                     *_arr.splice(i--,1)是先执行_arr.splice(i,1),然后i再进行--的(因为右--不参加本次运算,本次运算结束后i才会自减1)
+                     *删除第一个8时是_arr.splice(5,1)把下标为5的位置上的8删除,然后这个下标就会空出来,后面的数会向前移动
+                     *也就是下标5上面此时会变成后面的数值5,i--后i变成4然后去执行for循环里的i++再次变为5,再用下标5上的数和8进行比较
+                     *如果不进行i--,i就是5然后再去执行for循环里的i++会变成6,等于就把下标为5上的数给漏掉了,也就是没有用5和8进行比较
+                    */
+                }
+            }
+        }
+        console.log(_arr);//输出[8,5,0,3,1,2]
+      }
+      //f1();
+
+      //第二种方法:使用indexOf():用来检测指定的子字符串值在字符串中首次出现的位置，
+      //这种方法较简单，但是低版本浏览器可能不兼容indexOf()方法
+      //indexOf()方法如果要检索的字符串没有出现，则返回-1
+      function f2(){
+            var _arr=[8,5,0,3,1,8,5,0,3,1,8,8,8,5,2,2,2];
+            var _empty=[];//声明一个空数组
+            for(n=0;n<_arr.length;n++){//循环_arr数组中元素
+                //判断_empty数组中是否有_arr数组中的第n个元素,小于0就是没有
+                //如果没有就把这个元素添加到_empty数组中
+                if(_empty.indexOf(_arr[n])<0){
+                    _empty.push(_arr[n]);
+                }
+                
+            }
+             _arr=_empty;//把数组_arr赋值为_empty,也可以直接输出_empty
+             console.log(_arr);//输出[8,5,0,3,1,2]
+      }
+      //f2();
+
+      //第三种方法:兼容第二种写法
+      function f3(){
+       var _arr=[8,5,0,3,1,8,5,0,3,1,8,8,8,5,2,2,2];
+       var _empty=[];
+       var _flag=0;//声明一个变量用来做标记，初始值为0
+        for(n=0; n<_arr.length; n++){//循环_arr数组
+            for(i=0; i<_empty.length; i++){//循环数组_empty
+                //使_arr中的第n个元素和_empty中的每一个元素进行比较
+                if(_arr[n]==_empty[i]){
+                    _flag=1;//如果_arr中第n个元素和_empty中的某个元素相等,就给标记_flag赋值为1
+                    break;//如果有一个相等的就可以结束循环了
+                }
+                
+            }
+            if(_flag==0){//如果_flag==0,即_arr数组中的元素和_empty中的每个元素都不相等
+                _empty.push(_arr[n]);//把这个元素添加到_empty中
+            }
+            _flag=0;//每次对_empty循环完毕都需要把标记_flag的值初始为0
+        }
+        _arr=_empty;//把_empty赋值给_arr,也可以直接打印_empty
+        console.log(_arr);//输出[8,5,0,3,1,2]
+      }
+      //f3();
+
+      //第四种方法：使用字面量对象：利用字面量对象中的键是唯一的特性
+      function f4(){
+       var _arr=[8,5,0,3,1,8,5,0,3,1,8,8,8,5,2,2,2]; 
+       var _obj={};//声明一个字面量对象
+            for(n=0;n<_arr.length;n++){//循环_arr数组中的元素
+                _obj[_arr[n]]=_arr[n];//_obj[_arr[n]]意思是给字面量对象_obj添加一个属性_arr[n]
+                                      //_obj[_arr[n]]=_arr[n]是把_arr[n]赋值给属性_arr[n]
+                                      //例如n=0时,_obj[arr[0]]=_arr[n]就是在字面量对象中添加了一个键值对
+                                      //_obj={8:8},然后当循环到第二个8时,由于字面量对象中只能有一个键是8,所以会覆盖前面与它相同的键
+                
+            }
+            var _temp=[];//声明一个空数组
+            for(var k in _obj){//遍历字面量对象_obj中的属性并赋值给k
+            _temp.push(_obj[k]);//通过_obj[k]访问_obj中属性k的值,然后放进空数组
+            }
+            console.log(_temp);
+      }
+      f4();
+     
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

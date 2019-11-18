@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BOM</title>
+    <script type="text/javascript">
+        window.onload=function(){
+            document.getElementById("btn").onclick=function(){
+                window.location.href='P1.html?p1="abc"';//会跳转到P1页面
+            }
+            window.history.replaceState({},"title","#abc");
+
+            
+            var _opener;//用来接收window.open()方法的返回值
+            document.getElementById("open").onclick=function(){
+                _opener=window.open("P1.html");//window.open()返回的是window对象
+            }
+            document.getElementById("close").onclick=function(){
+                _opener.close();//可以在这个页面关闭P1.html页面
+            }
+            document.getElementById("change").onclick=function(){
+                _opener=document.getElementsByTagName("body")[0].innerHTMl="changed";
+                //可以在这个页面对P1.html页面进行修改
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="button" id="btn" value="ToP1">
+    <input type="button" id="open" value="open"> 
+    <input type="button" id="close" value="close">
+    <input type="button" id="change" value="change">
+</body>
+</html>

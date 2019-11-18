@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        html,body{
+            margin:0; padding:0;
+            /*letter-spacing:10px;*/
+            /*line-height:20px;*/
+            width:100%;
+            height:100%;
+        }
+        div{
+            width:635px;height:30px;text-align:center;margin:50px auto;
+        }
+        div input{
+            padding:5px; font-size:14px; color:#555; float:left;
+        }
+        table{
+            width:100%;
+            text-align:center;
+            border-spacing:10px;
+        }
+        /* table tr{
+        } */
+    </style>
+    <script type="text/javascript">
+        var _data={
+            title:["ID","name","price","sold","praise"],
+            list:[{
+                ID:20,name:"小米",price:"1000",sold:8000,praise:899
+            },{
+                ID:18,name:"华为",price:"2000",sold:8999,praise:5000
+            },{
+                ID:30,name:"苹果",price:"5000",sold:5000,praise:5000
+            },{
+                ID:31,name:"vivo",price:"1500",sold:2000,praise:1500
+            },{
+                ID:28,name:"oppo",price:"1300",sold:1000,praise:1000
+            }]
+        };
+        //创建表格的表体
+        function createDataRow(_data){
+            //TODO:在空白处填写代码，根据JSON数据创建表格的列表
+            var _table=document.getElementById("products");
+            var _tr,_td=[];
+           for(var i=0;i<5;i++){
+               _tr=document.createElement("tr");
+               _table.appendChild(_tr);
+               for(var n=0;n<5;n++){
+                    _td[n]=document.createElement("td");
+                    // _td.innerText=_data.list[i][_data.title[1]];
+                    _tr.appendChild(_td[n]);
+               }
+               for(var j=0;j<_td.length;j++){
+                    _td[j].innerText=_data.list[i][_data.title[j]];
+                }
+           }
+        }
+        //创建表格的表头
+        function createTitleRow(_data){
+            //TODO:在空白处填写代码，根据JSON数据创建表格的表头
+            var _table=document.getElementById("products");
+            var _tr=document.createElement("tr");
+            _table.appendChild(_tr);
+            var _th;
+            //console.log(_data.title);
+            for(var i=0;i<_data.title.length;i++){
+                
+                _th=document.createElement("th");
+                _th.innerText=_data.title[i];
+                _tr.appendChild(_th);
+            }
+            
+        }
+
+        
+        function sort(_field,_data,_index){//排序，参数可以自由删减
+            var _products=document.getElementById("products");
+            var _empty=null;
+            var _tr=document.getElementsByTagName("tr");
+            console.log(_tr.length);
+            
+            for(var i=0;i<_data.list.length;i++){
+                for(var n=0;n<_data.list.length-1-i;n++){
+                    if(_data.list[n][_field]*_index>_data.list[n+1][_field]*_index){
+                        _empty=_data.list[n];
+                        _data.list[n]=_data.list[n+1];
+                        _data.list[n+1]=_empty;
+                        
+                    }
+                }
+            }
+            _products.innerText="";
+            createTitleRow(_data);
+             createDataRow(_data);
+            console.log(_data);
+            
+        }
+
+        //当点击input时调用sort方法
+        function events(_data){
+          var _div=document.getElementsByTagName("div")[0];
+        //   var _products=document.getElementById("products");
+          _div.children[0].onclick=function(){
+            //_products.innerText="";
+             sort("ID",_data,1);
+            //  createTitleRow(_data);
+            //  createDataRow(_data);
+          }
+          _div.children[1].onclick=function(){
+            //_products.innerText="";
+             sort("price",_data,-1);
+            //  createTitleRow(_data);
+            //  createDataRow(_data);
+          }
+          _div.children[2].onclick=function(){
+            //_products.innerText="";
+             sort("sold",_data,1);
+            //  createTitleRow(_data);
+            //  createDataRow(_data);
+          }
+          _div.children[3].onclick=function(){
+            //_products.innerText="";
+             sort("praise",_data,1);
+            //  createTitleRow(_data);
+            //  createDataRow(_data);
+          }
+        }
+        function main(){
+            createTitleRow(_data);
+            createDataRow(_data);
+            events(_data);
+        }
+        window.onload=main;
+
+    </script>
+</head>
+<body>
+<table id="products">
+
+</table>
+<div>
+    <input type="button" value="根据ID升序排序"></input>
+    <input type="button" value="根据price降序排序"></input>
+    <input type="button" value="根据sold升序排序"></input>
+    <input type="button" value="根据praise升序排序"></input>
+</div>
+</body>
+</html>

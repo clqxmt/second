@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片透明</title>
+    <style>
+        *{margin:0;padding:0;}
+        img{vertical-align:top;}
+        #div1{width:782px;margin:0 auto;border:5px solid #000; height:400px;}
+        /* #div2{position:relative;} */
+        /* #div2 img{width:782px; position:absolute;} */
+        
+
+        #div1 ul{overflow: hidden;width:100%; margin-top:334px;}
+        #div1 ul img{height:60px;float:left;margin-left:10px;}
+    </style>
+    <script type="text/javascript">
+        window.onload=function(){
+            var _div1=document.getElementById("div1");
+            var _div2=document.getElementById("div2");
+            var _img=_div2.getElementsByTagName("img")[0];
+            var timer=0;
+            var minZindex=2;
+            function getStyle(_obj,_attr){
+                if(getComputedStyle){
+                    return getComputedStyle(_obj,null)._attr;
+                }else{
+                    return _obj.currentStyle[_attr];
+                }
+            }
+            var n=1;
+            while(n<6){
+                    _img.src="images/_0"+n+".jpg";
+                    getStyle(_img,"opacity")=0.5;
+                    n++;
+                }
+                    
+                    if(n>6){
+                        n=1;
+                    }
+           timer=setInterval(function(){
+                // while(n<_img.length){
+/* 
+                    _img[n].style.zIndex=minZindex++;
+                     */
+                
+                
+            },60);
+            //_img.style.opacity="0.5";
+            
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <div id="div2">
+            <!-- <img src="images/_01.jpg" alt="" style="z-index:1;">
+            <img src="images/_02.jpg" alt="">
+            <img src="images/_03.jpg" alt="">
+            <img src="images/_04.jpg" alt="">
+            <img src="images/_05.jpg" alt="">
+            
+ -->
+       <img src="" alt="">
+        </div>
+        <!-- <div id="div3">
+            <ul>
+                <li><img src="images/_01.jpg" alt=""></li>
+                <li><img src="images/_02.jpg" alt=""></li>
+                <li><img src="images/_03.jpg" alt=""></li>
+                <li><img src="images/_04.jpg" alt=""></li>
+                <li><img src="images/_05.jpg" alt=""></li>
+
+            </ul> 
+        </div>-->
+        <ul>
+                <img src="images/_01.jpg" alt="">
+                <img src="images/_02.jpg" alt="">
+                <img src="images/_03.jpg" alt="">
+                <img src="images/_04.jpg" alt="">
+                <img src="images/_05.jpg" alt="">
+
+        </ul>
+        
+    </div>
+</body>
+</html>

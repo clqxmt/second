@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>放大镜</title>
+    <style>
+        *{margin:0;padding:0;}
+        #left{width:300px;height:300px;float:left;margin-top:100px;position:relative;overflow:hidden;}
+        #left img{width:300px;height:300px;}
+        #small{width:100px;height:100px;background:#ccc;opacity:0.5;position:absolute;left:0;top:0;display:none;}
+        #right{width:500px;height:500px;float:left;overflow:hidden;position:relative;}
+        #right img{width:1500px;height:1500px;position:absolute;}
+    </style>
+    <script type="text/javascript">
+        function move(){
+            var _left=document.getElementById("left");
+            var _small=document.getElementById("small");
+            var _right=document.getElementById("right");
+            _left.onmousemove=function(e){
+                e=e||event;
+
+                //当鼠标在_left上移动时，让small显示
+                _small.style.display="block";
+
+               //计算small的left值:为鼠标的位置-small自身宽度的一半
+                _small.style.left=e.clientX-_small.offsetWidth/2+"px";
+
+                //判断如果small的left小于等于负的small自身宽度的一半时(也就是当small的左半部分跑出_left区域时)，就手动把small的left值变为负的small自身宽度的一半(使small的左半部分在_left区域的外边)
+                //当small的left值大于等于_left自身的宽度减去small自身宽度的一半时(也就是当small的右半部分跑出_left区域时)，就手动把small的left值变为_left自身的宽度减去small自身宽度的一半(使small的右半部分在_left区域的外边)
+                //保证small不会跑出_left区域
+                if(_small.offsetLeft<=-50 /*-_small.offsetWidth/2*/){
+                    _small.style.left=-50+"px";
+                }else if(_small.offsetLeft>=250 /*_left.offsetWidth-_small.offsetWidth/2*/){
+                    _small.style.left=250+"px";
+                }
+                
+                //计算small的top值：为鼠标的位置减去_left距离浏览器的定位距离再减去small自身的高度除以2
+                _small.style.top=e.clientY-_left.offsetTop-_small.offsetHeight/2+"px";
+
+
+                //判断如果small的top值小于等于负的small自身宽度的一半时(也就是当small的上半部分跑出_left区域时)，就手动把small的top值变为负的small自身宽度的一半(使small的上半部分在_left区域的外边)
+                //当small的left值大于等于_left自身的宽度减去small自身宽度的一半时(也就是当small的右半部分跑出_left区域时)，就手动把small的left值变为_left自身的宽度减去small自身宽度的一半(使small的右半部分在_left区域的外边)
+                if(_small.offsetTop<=-50 /*-_small.offsetHeight/2*/){
+                    _small.style.top=-50+"px";
+                }else if(_small.offsetTop>=250 /*_left.offsetHeight-_small.offsetHeight/2*/){
+                    _small.style.top=250+"px";
+                }
+                
+                //_right里面的img的left值为负的small的left值乘以5，
+                //因为如果想让_right中的img隐藏的部分显示出来就必须使图片向左或向上移动(因为图片是从左上角加载的，div里面显示的只是图片的左上部分)
+                //乘以5是因为_right比small的宽度大了5倍
+                _right.children[0].style.left=-_small.offsetLeft*5+"px";
+
+                //_right里面的img的top值为负的small的top值乘以5,原理同上
+                _right.children[0].style.top=-_small.offsetTop*5+"px";
+
+            }
+        }
+        window.onload=function(){
+            move();
+        }
+    </script>
+</head>
+<body>
+    <div id="left">
+        <img src="girl.jpg" alt="">
+        <div id="small"></div>
+    </div>
+    <div id="right">
+        <img src="girl.jpg" alt="">
+    </div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>课堂练习</title>
+    <script type="text/javascript">
+        //在数组按1,3,7,15,31,63....的规律添加50个数
+        /* 第一种实现方式
+        var _arr=[];
+        _arr[0]=1;
+        for(i=1;i<50;i++){
+            _arr[i]=_arr[i-1]*2+1;
+        }
+        //console.log(_arr); 
+
+
+        //第二种实现方式
+        
+        var _arr=[];
+        for(i=0,n=1;i<50;i++,n=n*2+1){//i是数组的下标，n是赋给数组的值
+            _arr[i]=n;
+        }
+        console.log(_arr);
+        */
+
+        /*
+        //引用数据类型传参和基础数据类型传参
+        function f1(_array,_a){
+            _array[0]=10;
+            _a=11;
+
+            
+        }
+        function f2(){
+            var _arr=[8,5,0,3,1];
+            var a=10;
+            f1(_arr,a);
+            console.log(_arr);//输出10,5,0,3,1
+            console.log(a);//输出10
+
+        }
+        f2();
+        */
+        
+        //引用数据类型和基础数据类型传参的面试题
+        function f3(){
+            var a={
+              n:1
+            };
+            var b=a;
+            a.x=a={n:2};
+            console.log(a.x);//输出undefined
+            console.log(b.x);//输出{n:2}
+        }
+        //f3();
+
+
+
+        //随机生成一个三位数的数字
+        function init(){
+            var _arr=[];
+            for(i=0; i<10; i++){
+               _arr[i]= Math.floor(Math.random()*900+100);//随机生成一个三位数的数字
+               //Math.random()生成的是一个0-1之间(0<=Math.random()<1)的随机数,
+               //Math.random()*900生成的是一个0-900之间(大于等于0小于900)的数,
+               //Math.random*900+100生成的是一个100-1000之间(大于等于100小于1000)的数,
+               //Math.floor()方法是向下取整,
+               //Math.floor(Math.random()*900+100)是把随机生成的100-1000之间的数向下取整
+               //(一定要向下取整,因为生成的数不能大于1000,
+               //向上取整的话，如果生成的是999.99999，向上取整会变成1000,但是不能等于1000)
+            }
+            return _arr;
+        }
+
+        //冒泡排序
+        function sort(){
+            var _list=init();
+            console.log(_list);
+            var _empty=null;
+            for(n=0;n<_list.length-1;n++){
+                for(i=_list.length-1; i>n; i--){
+                    if(_list[i]<_list[i-1]){
+                        _empty=_list[i-1];
+                        _list[i-1]=_list[i];
+                        _list[i]=_empty;
+                    }
+                }
+            }
+            console.log(_list);
+        }
+        //sort();
+
+        //选择排序
+        function sort1(){
+            var _list=init();
+            console.log(_list);
+            var _c=0,_empty=null;
+            for(var _flag=0; _flag<_list.length-1; _flag++){
+                _c=_flag;
+                for(i=_c+1; i<_list.length;i++){
+                    if(_list[_c]>_list[i]){
+                        _c=i;
+                    }
+                }
+                if(_flag!=b){
+                    _empty=_list[_flag];
+                    _list[_flag]=_list[_c];
+                    _list[_c]=_empty;
+                }
+               
+            }
+            console.log(_list);
+        }
+        //sort1();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript">
+    window.onload=function(){
+        //一：DOM元素操作
+        function Element(){
+            //增加元素:先创建一个元素，然后再添加
+            var _div=document.createElement("div");//创建元素
+            document.getElementsByTagName("body")[0].appendChild(_div);
+
+            //在元素的前面添加节点:也是要先创建才能添加
+            var _ul=document.createElement("ul");
+            document.getElementsByTagName("body")[0].insertBefore(_ul,_div);
+            var _img=document.getElementsByTagName("img")[0];
+            var _a=document.createElement("a");
+            document.getElementsByTagName("body")[0].insertBefore(_a,_img);
+
+
+            //替换元素：将要被替换进来的那个节点也要先创建再使用
+            //两个参数:第一个是将要被替换进来的节点，第二个是将要被替换的那个节点
+            var _span=document.createElement("span");
+            document.getElementsByTagName("body")[0].replaceChild(_span,_a);
+
+            //删除元素
+            document.getElementsByTagName("body")[0].removeChild(_span);
+
+        }
+        //Element();
+
+        //二：DOM属性节点操作
+        function attributeNode(){
+            //1.W3c非标准属性的操作
+            
+            //创建属性节点
+            var _sty=document.createAttribute("style");
+            
+           // document.getElementById("div1").setAttribute(_sty,"width:100px;");
+            
+            //setAttribute():添加修改DOM属性节点
+            var _div1=document.getElementById("div1");
+            _div1.setAttribute("class","div1");//给div1添加一个class属性，值为div1
+
+            //获取属性节点的值
+            console.log(_div1.getAttribute("class"));//获取div1的属性class的值
+
+            //修改DOM属性节点
+            _div1.setAttribute("class","demo");//修改div1的属性class的值为demo
+
+            //删除属性节点
+            _div1.removeAttribute("class");//把div1的class属性给删除了
+
+
+            //2.W3c标准属性的操作:对W3c中已有的属性进行操作
+            var _img=document.getElementById("img1");
+            _img.title="图片";//增加属性
+            _img.title="图片1";//修改
+            console.log(_img.title);//获取img的属性title的值
+            
+            //3.自定义属性的操作
+            _img.xyz="abc";//给img添加一个自定义属性xyz，不能再网页中显示
+            console.log(_img.xyz);//获取img的属性xyz的值
+
+            _img.setAttribute("x","def");//用setAttribute给img添加属性，可以在网页中显示
+            console.log(_img.getAttribute("x"));//用getAttribute获取img的x属性的值
+
+            //setAttributeNode()
+            var _sty=document.createAttribute("style");//创建一个属性style
+            _sty.value="width:100px";//给style属性赋值
+            _div1.setAttributeNode(_sty);//把style属性和值添加到div1里面
+            
+        }
+        //attributeNode();
+
+        //三:文本节点操作
+        function textNode(){
+            var _div1=document.getElementById("div1");
+            //文本内容在DOM中也是以节点的方式存在
+            _div1.innerHTML="abc";//能把文本abc写进div
+
+            //使用document.createTextNode()方法创建文本
+            var _txt=document.createTextNode("qwer");//先创建文本
+            _div1.appendChild(_txt);//然后再添加到div里面
+        }
+        //textNode();
+
+        //四:行内样式
+        function rowStyle(){
+            var _div1=document.getElementById("div1");
+            
+            _div1.style.width="200px";
+            _div1.style.backgroundColor="#ff0";//CSS中带横线(-)的属性在这里获取的时候那横线去掉，第二个单词的首字母大写
+            console.log(_div1.style.height);//获取属性值
+        }
+        //rowStyle();
+
+        //五:非行内样式的兼容
+        function noRowStyle(){
+            var _div1=document.getElementById("div1");
+            //1.非IE浏览器获取非行内样式
+            //第一个参数为元素节点，第二个参数为伪类选择器，如果没有就写null
+            //.后面是所要获取的属性名
+            var _width=window.getComputedStyle(_div1,null).width;
+            console.log(_width);
+
+            //2.IE浏览器获取非行内样式
+            // var _width=_div1.currentStyle["width"];
+            // console.log(_width);
+
+            /*两种写法不能同时存在，如果同时存在
+             *window.getComputedStyle(_div1,null).width在IE浏览器中会报错
+             *_div1.currentStyle["height"]在非IE浏览器中会报错
+            */
+
+            //3.两种方法的兼容写法
+
+            //兼容写法1
+            var _width;
+            if(window.getComputedStyle){//判断是否有这个函数，没有的话为underfined为false，不执行这条语句，
+                                       // 执行else里的语句，有的话就执行
+                _width=window.getComputedStyle(_div1,null).width;
+
+            }else{
+                _width=_div1.currentStyle["width"];
+            }
+            console.log(_width);
+
+            //兼容写法2:使用三目运算符
+            var _width=window.getComputedStyle(_div1,null).width?window.getComputedStyle(_div1,null).width:_div1.currentStyle["width"];
+            console.log(_width);
+
+            //兼容写法3:使用逻辑运算符
+            //这种写法有先后顺序，不能调换
+            //因为window.getComputedStyle是一个函数，如果写在前面，在IE浏览器中没有这个函数，会报错
+           
+            var _width=(_div1.currentStyle||window.getComputedStyle(_div1,null)).width;
+            console.log(_width);
+            
+
+        }
+        //noRowStyle();
+
+
+        //六：获取兄弟节点
+        function siblings(){
+            var _div1=document.getElementById("div1");
+            //在DOM中换行字符会被解析为文本节点，所以div的上一个元素和下一个元素都是text,如果没有换行会正常显示上一个或下一个元素
+            console.log(_div1.previousSibling);//输出text
+            console.log(_div1.nextSibling);//输出text
+            
+        }
+        //siblings();
+
+        //七：获取子、父节点
+        function parentAndChild(){
+            var _body=document.getElementsByTagName("body")[0];
+            console.log(_body.firstChild);//打印text,如果没有换行会显示第一个元素节点
+            console.log(_body.lastChild);//打印text,没有换行也会显示text
+            console.log(_body.childNodes);//打印body中的所有节点，包含文本节点
+            console.log(_body.children);//打印body中的子节点，不包含文本节点
+            console.log(_body.parentNode);//打印body的父节点
+            console.log(_body.children[0]);//打印body的第0个节点
+        }
+        //parentAndChild();
+
+        /* //八：文档碎片
+        function fragment(){
+            var _frag=document.createDocumentFragment();
+            var _image=document.createElement("img");
+            _frag.appendChild(_image);
+            _body.appendChild(_flag);
+
+        } */
+
+        //九：克隆DOM节点
+        function clone(){
+            var _div1=document.getElementById("div1");
+            var _body=document.getElementsByTagName("body")[0];
+            //克隆节点最好不要使用ID
+            _body.appendChild(_div1.cloneNode());//默认值为false,只克隆自己
+            _body.appendChild(_div1.cloneNode(true));//true表示深度克隆，就是div里面的所有元素都会被克隆
+            console.log(_body);
+        }
+        //clone();
+
+        //十：节点内容操作
+        function nodeContent(){
+            var _div1=document.getElementById("div1");
+            
+            //innerText:修改文本内容，不能接受HTML代码
+            _div1.innerText="1233";//div中会有一行文本1233
+            _div1.innerText="<span>12345</span>";//不会解析HTML代码<span></span>,会在div中显示一行文本<span>12345</span>
+
+            //innerHTML:修改文本内容，可以接受HTML代码
+            _div1.innerHTML="<span>12345</span>";//会解析HTML代码，把span当作一个标签在div中显示
+
+            //outerHTML:包含本身的HTML代码
+            console.log(_div1.outerHTML);//输出div自身和div里面的内容，也就是会输出整个div
+            
+            //获取值：没有赋值符号就是获取值
+            console.log(_div1.innerText);//可以获取innerText在div中添加的值
+            console.log(_div1.innerHTML);
+        }
+        //nodeContent();
+
+        //十一：常用的属性
+        function Attribute(){
+            var _div2=document.getElementById("div2");
+            _obj={
+                offsetLeft:"获取距离有定位的父元素的left值",
+                offsetTop:"获取距离有定位的父元素的top值",
+                小结:"以上两个属性获取相对于父元素的定位边距,margin-top,margin-left也会影响这两个属性的值",
+                clientWidth:"获取元素的可用宽度",
+                clientHeight:"获取元素的可用高度",
+                小结1:"以上两个属性获取可视区的宽度和高度,不包括边框,包含补白",
+                offsetWidth:"获取元素的整体包含边框的宽度",
+                offsetHeight:"获取元素的整体包含边框的高度",
+                小结2:"以上两个属性获取元素的整体包含边框和补白的宽高",
+                scrollLeft:"获取水平滚动条的位置",
+                scrollTop:"获取垂直滚动条的位置",
+                小结3:"以上两个属性获取或设置滚动条的位置",
+                scrollWidth:"获取可以滚动的宽度",
+                scrollHeight:"获取可以滚动的高度"
+            }
+            
+            for(var k in _obj){
+                _div2.innerText+=k+" : "+_obj[k];
+                _div2.innerHTML+="<br><br>";
+            //    document.write("<br>");
+            }
+        }
+        //Attribute();
+        
+    }
+        
+    </script>
+</head> 
+<body>
+    <div id="div1" style="width:100px; height:100px;margin-left:10px; background-color:#f00;">
+        <ul>
+            <li></li>
+        </ul>
+    </div>
+    <div id="div2" style="margin-top:20px; border:2px solid #0ff; border-right:none;"></div>
+    <img src="" alt="" id="img1">
+</body>
+</html>

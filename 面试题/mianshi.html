@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面试题</title>
+    <script type="text/javascript">
+        function aa(){
+            console.log(name);
+            console.log(age);
+            var name="aaa";
+            let age=21;
+        }
+        //aa();
+        function res(n) {
+            return n ==1 ? 1 : n * arguments.callee(n - 1);
+        };
+        var  data = res;
+        res = null;
+        console.log(data(4));//24
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

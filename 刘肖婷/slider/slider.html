@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+    <style>
+            *{margin:0;padding:0;}
+            html,body{width:100%;height:100%;}
+            #slider{width:782px;height:326px;margin:0 auto;position:relative;overflow:hidden;}
+            #big_ul{width:3910px;height:326px;position:absolute;}
+            #big_ul img{width:782px;height:326px;display:block;float:left;}
+            #small_ul{
+                position: absolute;
+                left:325px;
+                bottom: 20px;
+                width:100px;
+                height:15px;
+                background:rgba(255,255,255,0.5);
+                border-radius:20px;
+                /* opacity:0.5; */
+            }
+            #small_ul li{
+                width: 10px;
+                height: 10px;
+                background-color: #fff;
+                border-radius: 50%;
+                color: #fff;
+                
+                margin:2px 5px;
+                float:left;
+                list-style:none;
+            }
+            #small_ul .active{
+                background:rgb(255,0,0,0.5);
+            }
+            #slider .arrow{
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                font-size: 20px;
+               
+                line-height: 30px;
+                background-color: rgba(0,0,0,0.3);
+                color: #eee;
+                text-align: center;
+                top: 125px;
+               
+                display: none;
+                border-radius: 50%;
+            }
+            #slider #prev{
+                left: -10px;
+            }
+            #slider #next{
+                right: -10px;
+            }
+    </style> 
+    <script ref="text/javascript" src="animate.js"></script>
+    <script type="text/javascript">
+        function Slider(){
+            this.body=document.getElementsByTagName("body")[0];
+            this._slider=document.getElementById("slider");
+            this.lis=null;
+            this.timer=null;
+            this.index=0;
+            this._animate=new Animate();
+           
+            //图片移动时改变li标签的背景颜色
+            
+            this.change=function(_lc){
+                for(var i=0;i<this.lis.length;i++){
+                    this.lis[i].className="";
+                }
+
+                this.lis[_lc].className="active";
+                this.auto(_lc);
+            }
+            //点击向左的箭头时调用的方法
+            this.prev=function(index){
+                if(index==0){
+                   index=5;
+                }
+                index=index-1;
+                this.index=index;
+                this.change(index);
+                //this.move(index);
+            }
+
+            //点击向右的箭头时调用的方法
+            this.next=function(_index){
+                _index=_index+1;
+                
+                if(_index==5){
+                   _index=0;
+                }
+                this.index=_index;
+                this.change(_index);
+                // this.move(_index);
+            }
+
+
+            this.auto=function(i){
+                this.index=i;
+                var _me=this;
+                this._animate.clear();
+                new Animate(document.getElementById("big_ul")).move({
+                    left:-i*782+"px"
+                },600,function(){
+                    _me._animate.delay(function(){
+                        if(i>=4){
+                            i=-1;
+                        }
+                        // console.log(_ul.offsetLeft);
+                        
+                        _me.change(i+1);
+                    },2000);
+                })
+                
+            }
+
+            //事件
+            this.events=function(){
+                var _me=this;
+                var _prev=document.getElementById("prev");
+                var _next=document.getElementById("next");
+                
+                this._slider.onmouseover=function(){
+                    _prev.style.display="block";
+                    _next.style.display="block";
+                   
+                }
+                this._slider.onmouseout=function(){
+                    _prev.style.display="none";
+                    _next.style.display="none";
+                   
+                }
+               
+                _prev.onclick=function(){
+                   
+                    _me._animate.clear();
+                    _me.prev(_me.index);
+
+                }
+                _next.onclick=function(){
+                    
+                    _me._animate.clear();
+                    _me.next(_me.index);
+                
+                }
+                this.lis=document.getElementsByTagName("li");
+                
+                for( let n=0;n<this.lis.length;n++){
+                    // this.lis[this.n].index=this.n;
+                    
+                    if(n==0){
+                        this.lis[0].className="active";
+                    }
+                    this.lis[n].onclick=function(){
+                        _me._animate.clear();
+                        _me.index=n;
+                        console.log(this);
+                        _me.change(n);
+                        
+                    }
+                   
+                }
+            }
+        }
+        function main(){
+            var _slider=new Slider();
+            // _slider.createEle();
+            _slider.events();
+            _slider.auto(0);
+            // _shuffling.smallUl();
+        }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    <div id="slider">
+        <ul id="big_ul">
+            <img src="images/_01.jpg" alt="">
+            <img src="images/_02.jpg" alt="">
+            <img src="images/_03.jpg" alt="">
+            <img src="images/_04.jpg" alt="">
+            <img src="images/_05.jpg" alt="">
+        </ul>
+        <ul id="small_ul">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div id="prev" class="arrow"><</div>
+        <div id="next" class="arrow">></div>
+
+    </div>
+</body>
+</html>

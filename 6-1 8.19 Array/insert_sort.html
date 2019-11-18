@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>插入排序</title>
+    <script type="text/javascript">
+       function insert_sort(){
+            var _arr=[8,5,0,3,1];
+            var _empty=null;
+            for(var i=1;i<_arr.length; i++){//循环_arr数组中的所有元素
+                
+                 for(var n=i-1; n>=0; n--){//循环对i和i前面的元素进行比较
+                    if(_arr[n]>_arr[n+1]){//如果第n个上面的元素大于n+1上的元素就交换
+                        _empty=_arr[n];
+                        _arr[n]=_arr[n+1];
+                        _arr[n+1]=_empty;
+                     }
+                }
+            }
+            console.log(_arr);
+       }
+       insert_sort();
+    </script>
+
+</head>
+<body>
+    
+</body>
+</html>

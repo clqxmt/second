@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归输出多边形方法2</title>
+    <script type="text/javascript">
+        function shape2(a,b,c,d){
+            if(a<b){
+                return;
+            }
+            if(c>d){
+                document.write("<br>");
+                shape2(a-1,b,-(c-1),d);
+            }else{
+                if(Math.abs(a)+Math.abs(c)<=5){
+                  document.write("*");
+                }else{
+                  document.write("-");
+                 }
+                shape2(a,b,c+1,d);
+            }
+            
+        }
+        //shape2(5,-5,-5,5);
+        function shape3(a,b,c,d){
+            if(a<b){
+                return;
+            }
+            if(c>d){
+                document.write("<br>");
+                shape3(a-1,b,-(c-1),d);
+            }else{
+                if(Math.abs(a)+Math.abs(c)<=5){
+                    document.write("*");
+                }else{
+                    document.write("-");
+                }
+                shape3(a,b,c+1,d);
+            }
+
+        }
+        shape3(5,-3,-5,5);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

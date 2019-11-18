@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件对象知识点</title>
+    <style>
+      #history{width:200px;height:200px;background:#f00;}
+    </style>
+    <script type="text/javascript">
+        //事件对象用于保存事件信息
+        window.onload=function(){//当点击页面时在控制台输出事件对象获取到的信息
+            document.onclick=function(e){
+                console.log(e);
+            };
+
+            //组合键的使用
+            //把input里面的内容添加到div中
+            window.onkeydown=function(e){
+                var _msg=document.getElementById("msg");
+                var _history=document.getElementById("history");
+                e=e||event;
+                //四个键同时按下时才会把内容添加到div中
+                //e.keyCode==13是回车键
+                if(e.ctrlKey && e.altKey && e.shiftKey && e.keyCode==13){
+                    //_history.innerText+=_msg.value;
+                    _history.appendChild(document.createTextNode(_msg.value));
+                    //_msg.value是获取input中的值
+                    //获取表单元素的文本内容，使用.value的方式
+                }
+            };
+
+            //e.target||e.srcElement:获取事件源对象
+            var _div=document.getElementById("history");
+            _div.onclick=function(e){
+                e=e||event;
+                var _target=e.target||e.srcElement;//解决e.target在低版本IE中的兼容问题
+                //e.target表示鼠标点击的目标对象
+                //this表示事件的当前对象
+            };
+
+            //e.button:获取鼠标点击时的鼠标的值
+            //e.button在谷歌中0表示左击,1表示滚轮，2表示右击
+            //在低版本IE中1表示左击，4表示滚轮，2表示右击
+            //解决e.button在不同浏览器中的兼容问题
+            function left(){
+
+            };
+            function middle(){
+
+            };
+            function right(){
+
+            };
+            document.onmousedown=function(e){
+                e=e||event;
+                if(getComputedStyle){
+                    switch(e.button){
+                      case 0:left(); break;
+                      case 1:middle(); break;
+                      case 2:right();break;
+                    }
+                }else{
+                    switch(e.button){
+                       case 1:left();break;
+                       case 4:middle(); break;
+                       case 2:right(); break;
+                    }
+                }
+                
+            };
+
+            //e.preventDefault()||e.returnValue=false;阻止默认事件发生
+            var _a=document.getElementsByTagName("a")[0];
+            _a.onclick=function(e){//点击超链接时会阻止跳转到百度但是会跳转到bing网页
+                e=e||event;
+                //e.preventDefault();//非IE阻止默认事件
+                //e.returnValue=false;
+                //解决兼容性
+                e.preventDefault?e.preventDefault():e.returnValue=false;
+                window.location.href="http://www.bing.com";
+            };
+        }
+    </script>
+</head>
+<body>
+    <div id="history"></div>
+    <input type="text" id="msg" value="default">
+    <a href="http://www.baidu.com">skip to baidu</a>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        html,body{
+            margin:0; padding:0;
+            /*letter-spacing:10px;*/
+            /*line-height:20px;*/
+        }
+        div{
+            width:100%; height:30px;
+        }
+        div span{
+            padding:5px; font-size:14px; color:#555; float:left;
+        }
+        table{
+            width:100%;
+            
+        }
+        /* table tr{
+        } */
+    </style>
+    <script type="text/javascript">
+        var _data={
+            title:["ID","name","price","sold","praise"],
+            list:[{
+                ID:20,name:"小米",price:"1000",sold:8000,praise:899
+            },{
+                ID:18,name:"华为",price:"2000",sold:8999,praise:5000
+            },{
+                ID:30,name:"苹果",price:"5000",sold:5000,praise:5000
+            },{
+                ID:31,name:"vivo",price:"1500",sold:2000,praise:1500
+            },{
+                ID:28,name:"oppo",price:"1300",sold:1000,praise:1000
+            }]
+        };
+        function createDataRow(_data){
+            //TODO:在空白处填写代码，根据JSON数据创建表格的列表
+            var _table=document.getElementById("products");
+            var _tr,_td;
+           for(var i=0;i<5;i++){
+               _tr=document.createElement("tr");
+               _table.appendChild(_tr);
+               for(var n=0;n<5;n++){
+                    _td=document.createElement("td");
+                    _td.innerText=_data.list[i].name;
+                    _tr.appendChild(_td);
+                    
+               }
+           }
+            
+            
+        }
+        function createTitleRow(_data){
+            //TODO:在空白处填写代码，根据JSON数据创建表格的表头
+            var _table=document.getElementById("products");
+            var _tr=document.createElement("tr");
+            _table.appendChild(_tr);
+            var _th;
+            //console.log(_data.title);
+            for(var i=0;i<_data.title.length;i++){
+                
+                _th=document.createElement("th");
+                _th.innerText=_data.title[i];
+                _tr.appendChild(_th);
+            }
+            
+        }
+        function sort(_field,_asc,_index){//排序，参数可以自由删减
+            var _empty=null;
+            var _tr=document.getElementsByTagName("tr");
+            console.log(_tr.length);
+            for(var i=0;i<_field.length;i++){
+                for(var n=0;n<_field.length-1-i;n++){
+                    if(_field[n]>_field[n+1]){
+                        _empty=_field[n];
+                        _field[n]=_field[n+1];
+                        _field[n+1]=_empty;
+                        _empty=_asc[n];
+                        _asc[n]=_asc[n+1];
+                        _asc[n+1]=_empty;
+                    }
+                }
+            }
+            
+            if(_index==1){
+                for(var i=0;i<_field.length;i++){
+                    for(var n=0;n<_field.length-1-i;n++){
+                        if(_field[n]<_field[n+1]){
+                            _empty=_field[n];
+                            _field[n]=_field[n+1];
+                            _field[n+1]=_empty;
+                            _empty=_asc[n];
+                            _asc[n]=_asc[n+1];
+                            _asc[n+1]=_empty;
+                        }
+                    }
+                }
+            }
+            console.log(_field);
+            console.log(_asc);
+            for(var m=0;m<_tr.length-1; m++){
+                for(var j=0;j<_tr[m+1].children.length;j++){
+                    _tr[m+1].children[j].innerText=_asc[m];
+                }
+            }
+            
+        }
+        function _select(_data,_accord){
+            console.log(_accord);
+            var _field=[];
+            for(var i=0;i<_data.list.length;i++){
+                  _field[i]=_data.list[i][_accord];
+                 // _asc[i]=_data.list[i].name;
+              }
+              console.log(_field);
+            return _field;
+        }
+        function events(_data){
+          var _span=document.getElementsByTagName("span");
+          var _asc=[];
+          var _k=[];
+        //   for(var i=0;i<_data.list.length;i++){
+        //         _asc[i]=_data.list[i].name;
+        //    }
+          for(var k in _data.list[0]){
+                _k.push(k);
+          }
+
+        //    console.log(_k);
+          _span[0].onclick=function(){
+            
+            for(var i=0;i<_data.list.length;i++){
+                _asc[i]=_data.list[i].name;
+           }
+             var _field=_select(_data,_k[0]);
+             sort(_field,_asc,0);
+          }
+          _span[1].onclick=function(){
+            
+            for(var i=0;i<_data.list.length;i++){
+                _asc[i]=_data.list[i].name;
+           }
+            var _field=_select(_data,_k[2]);
+             sort(_field,_asc,1);
+          }
+          _span[2].onclick=function(){
+            for(var i=0;i<_data.list.length;i++){
+                _asc[i]=_data.list[i].name;
+           }
+            var _field=_select(_data,_k[3]);
+             sort(_field,_asc,2);
+          }
+          _span[3].onclick=function(){
+            for(var i=0;i<_data.list.length;i++){
+                _asc[i]=_data.list[i].name;
+           }
+            var _field=_select(_data,_k[4]);
+             sort(_field,_asc,3);
+          }
+        }
+        function main(){
+            createTitleRow(_data);
+            createDataRow(_data);
+            events(_data);
+        }
+        window.onload=main;
+
+    </script>
+</head>
+<body>
+<div>
+    <span>根据ID升序排序</span>
+    <span>根据price降序排序</span>
+    <span>根据sold升序排序</span>
+    <span>根据praise升序排序</span>
+</div>
+            
+<table id="products">
+
+</table>
+</body>
+</html>

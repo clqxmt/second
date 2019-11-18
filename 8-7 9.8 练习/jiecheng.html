@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算1+2!+3!+...+20!</title>
+    <script type="text/javascript">
+        var _sum=0;
+        function dep(m,n){
+            if(n<1){
+                return m;
+            }
+            if(m<1){
+                dep(n-1,n-1);
+            }else{
+               console.log(n*dep(m-1,n));
+            }
+            // console.log(_sum);
+        }
+        dep(20,20);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

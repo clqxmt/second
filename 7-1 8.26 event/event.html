@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>event课堂知识点</title>
+    <style>
+        #demo{width:200px;height:200px;background:#f00;}
+    </style>
+    <script type="text/javascript">
+        /*常用的鼠标事件和键盘事件：
+         *事件：表示发生一个动作，或者一种“行为”后产生有影响的的事
+         *事件的使用：
+         *   事件都是由浏览器驱动执行
+        */
+        //document.getElementsByTagName("body")[0];//undefined,因为此时body还没加载进来，网页里并没有body这个元素
+        window.onload=function(){//当网页加载完成后,浏览器会让onload事件执行
+        //也就是说,你需要把该事件定义好就行，至于什么时候执行，由浏览器决定
+            var _body=document.getElementsByTagName("body")[0];
+            var _demo=document.getElementById("demo");
+            _demo.onmousemove=function(){
+                console.log(this);//this执行_demo
+            };
+            console.log(_demo.onmousemove);//输出一个代码块
+            _demo.onmouseover=function(){
+                console.log(this);
+            };
+            _demo.onmouseout=function(){
+                console.log(this);
+            };
+            document.onkeypress=function(e){//e表示事件对象Event
+                e=e||event;//解决事件对象获取的兼容问题
+               console.log(e.keyCode);//获取键码值,按键盘A时输出65,按键盘a时输出97
+            };
+            document.onkeydown=function(e){
+                e=e||event;
+                console.log(e.keyCode);//获取键码值,按键盘A和a都输出65
+                e.keyCode||e.which;
+               
+
+            };
+        }
+
+        
+    </script>
+</head>
+<body>
+    <div id="demo"></div>
+</body>
+</html>

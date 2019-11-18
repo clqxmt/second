@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Es5中新增的数组方法map</title>
+    <script type="text/javascript">
+        //map():做数据映射，不会改变原数组，会返回新数组
+        function _map(){
+            var _arr=["a",1,2,"b"];
+            var _str=_arr.map(function(name,index,origin){
+                return {
+                    id:index,
+                    name:name,
+
+                }
+            });
+            console.log(_arr);
+            console.log(_str);
+        }
+        _map();
+
+        
+        var names = [ 'Will', 'Jack', 'Peter', 'Steve', 'John', 'Hugo', 'Mike' ];
+        function map1(){
+            var _empty=[];
+            var str="";
+            for(var n=0; n<names.length; n++){//遍历数组
+                str=(function(name,index){//自调用function函数，把每次遍历出来的值作为实参传给函数，
+                                         //函数接收到参数以后再把执行结果返给str
+                    return{
+                        name:name,
+                        id:index
+                    };
+                    
+
+                })(names[n],n);
+                _empty[n]=str;//把每次函数返给str的值存在一个空数组中
+            }
+            console.log(_empty);//把数组_empty输出,这就是我们想要输出的内容
+            console.log(names);//输出原数组,原数组不变
+        }
+        map1();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归输出六边形</title>
+    <script type="text/javascript">
+        function sexangle(r_s,r_o,c_s,c_o){
+            if(r_s<r_o){
+                return;
+            }
+            
+            (function fc(c_s,c_o){
+                if(c_s>c_o){
+                    return;
+                }
+                
+                if(Math.abs(r_s)+Math.abs(c_s)<=5){
+                    document.write("*");
+                }else{
+                    document.write("-");
+                }
+                fc(c_s+1,c_o);
+            })(c_s,c_o);
+            document.write("<br>");
+            sexangle(r_s-1,r_o,c_s,c_o);
+           
+        }
+        sexangle(5,-5,-5,5);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

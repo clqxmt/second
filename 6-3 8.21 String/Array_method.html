@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript">
+        var _arr=[1,2,3];
+            
+            var _arr1=[4,5,6];
+        function concat(){
+            var _qr=[];
+            for(var k=0;k<arguments.length;k++){
+                _qr[k]=arguments[k];
+            }
+            //console.log(_qr);
+            var _empty=[];
+            
+            /* for(var i=0,n=_empty.length;i<_arr.length;i++,n++){
+                    _empty[n]=_arr[i]; 
+                   
+            }
+            for(var j=0,m=_empty.length;j<_arr1.length;j++,m++){
+                         _empty[m]=_arr1[j];
+            } */
+            for(var n=0;n<_qr.length;n++){
+                for(var i=0,m=_empty.length;i<_qr[n].length;i++,m++){
+                    _empty[m]=_qr[n][i];
+                }
+            }
+            console.log(_arr);
+            console.log(_arr1);
+            console.log(_empty);
+        }
+       concat(_arr,_arr1);
+
+        function join(){
+            var _arr=[1,2,3,4,5];
+            var a="#";
+            var _empty="";
+            for(var i=0; i<_arr.length; i++){
+                if(i==_arr.length-1){
+                    _empty+=_arr[i];
+                }else{
+                   _empty+=_arr[i]+a;
+                    
+                }
+            }
+            console.log(_empty);
+            console.log(_arr.join("#"));
+        }
+        //join();
+
+        function pop(){
+            var _arr=[1,2,3,4,5];
+            var _empty=[];
+            for(var i=0; i<_arr.length;i++){
+                if(i==_arr.length-1){
+                    console.log(_arr[i])
+                }else{
+                    _empty[i]=_arr[i];
+                }
+                
+            }
+            _arr=_empty;
+            //console.log(_arr);
+        }
+        //pop();
+
+        function shift(){
+            var _arr=[1,2,3,4,5];
+            var _empty=[];
+            for(var i=0;i<_arr.length;i++){
+                if(i==0){
+                    console.log(_arr[i]);
+                    
+                }else{
+                    _empty[i-1]=_arr[i];
+                }
+                
+            }
+            _arr=_empty;
+            console.log(_arr);
+        }
+        //shift();
+
+
+        /* function push(){
+            var 
+        } */
+       // push();
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

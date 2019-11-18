@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GET方式请求</title>
+   
+</head>
+<body>
+    <!-- 总结：浏览器向服务器发出请求的两种方式
+        GET：
+            1.向服务器发送参数时，参数会显示在地址栏中
+            2.传输方式：参数随着头部报文一起被传递到服务器中
+            3.浏览器的地址栏中最长2048个长度，限制了GET方法方式传递参数较小
+        POST:
+            1.向服务器发送参数时，参数不会显示在地址栏中，所以相对安全
+            2.传输方式：参数在请求体中分两步发送到服务器。先是头部报文，才能发数据
+            3.post不需要通过地址栏，所以传递的数据由服务器决定最大值
+    
+        GET和POST算法是相同的。
+        头部报文：主要作用:向服务器表明身份
+        -->
+
+    <!--GET请求方式-->
+    <form action="http://localhost:8080/BKH51917/request.php" method="GET">
+        <input type="text" name="abc" value="hello world!">  <!--name的值是PHP文件中的请求参数-->
+        <input type="submit" value="提交"><!--点击提交按钮会通过PHP文件访问服务器得到hello world!-->
+    </form>
+
+    <!-- POST请求方式参数不会出现在地址栏中-->
+    <!--<form action="http://localhost:8080/BKH51917/request.php" method="POST">
+        <input type="text" name="abc" value="hello world!">
+        <input type="submit" value="提交">
+    </form> -->
+</body>
+</html>

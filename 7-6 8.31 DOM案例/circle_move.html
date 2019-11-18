@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>曲线运动</title>
+    <style type="text/css">
+        html,body{
+            width:100%; height:100%; margin:0; padding:0; position:relative;
+        }
+        #circle{
+            width:50px; height:50px; background-color:red; position:absolute;
+            border-radius: 50%;
+        }
+        .point{
+            width:3px; height:3px; position:absolute;  background-color:#555;
+            border-radius: 50%;
+        }
+    </style>
+    <script type="text/javascript">
+        function drawLine(_body){
+            var _width=document.documentElement.clientWidth||document.body.clientWidth;
+            var _sum=Math.floor(_width/3);//用可视区的宽度除以3(每个div的宽度)得到可以创建div的个数
+            var _point;
+            for(let i=0;i<_sum;i++){//循环创建div用来画曲线
+                _point=document.createElement("div");
+                _body.appendChild(_point);
+                _point.className="point";
+                _point.style.left=i*3+"px";//给每个div设置一个left值
+                _point.style.top=100+20*Math.sin(i*2*Math.PI/100)+"px";//给每个div设置top值，20表示曲线的振幅
+            }
+
+            
+        }
+        function createCircle(_body){
+            var _c=document.createElement("div");//创建一个圆
+            _body.appendChild(_c);
+            _c.id="circle";
+            _c.style.left=-25+"px";//设置圆的left值
+            _c.style.top="50px";//设置圆的top值
+        }
+        function move(_body){
+            let i=0;
+            var _width=document.documentElement.clientWidth||document.body.clientWidth;
+            var _circle=document.getElementById("circle");
+            var _timer=setInterval(function(){
+                _circle.style.left=_circle.offsetLeft+3+"px";//让圆的left值每次加3
+                _circle.style.top=50+20*Math.sin(i++*2*Math.PI/100)+"px";//使圆沿曲线运动，加50是让圆向下平移50
+                if(_circle.offsetLeft+50>=_width){//当圆运动到可视区的最右边或者大于可视区的宽度时
+                    // 
+                    var timer=setInterval(function(){
+                        _circle.style.left=_circle.offsetLeft+(-3)+"px";//让圆向反方向(左)运动
+                        _circle.style.top=50+20*Math.sin(i--*2*Math.PI/100)+"px";//i--是使每次运动减一个度数
+                        if(_circle.offsetLeft<=0){
+                            clearInterval(timer);
+                        }
+                    },30);
+                }
+            },20);
+            
+        }
+        function main(){
+            var _body=document.getElementsByTagName("body")[0];
+            drawLine(_body);//画一条曲线
+            createCircle(_body);//创造一个圆
+            move(_body);//让圆运动
+
+        }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>正则表达式的案例</title>
+    <script type="text/javascript">
+        /*
+         *正则表达式的书写原则：
+                //匹配html标记：<\/?\w+(\s*([\w-]+="[\/\w=,\s\.-]+")?)*>
+         *正则表达式的方法：
+            test():返回值为Boolean类型值
+
+         匹配中文：[\u4e00-\u9fa5]
+        */
+
+
+         function f1(){
+            //匹配手机号的正则表达式
+            var _s=prompt("","");
+            var _reg=/^1[3-9]\d{9}$/g;
+            if(_reg.test(_s)){
+                alert("true");
+            }else{
+                alert("false");
+            }
+            
+         }
+        //  f1();
+        // 匹配邮政编码
+        function f2(){
+            var _s=prompt("","");
+            var _postcode=/^[0-8][0-7]\d{4}$/g;
+            if(_psotcode.test(_s)){
+                alert("true");
+            }else{
+                alert("false");
+            }
+        }
+        // f2();
+
+        //电子邮箱的正则表达式
+        function f3(){
+            var _mail=/^\d+@[0-9a-z]+(-[0-9a-z]+)+(\.[a-z]+)+$/g;
+            var _email=/\w+@\w+(\.\w+)+/g;
+        }
+        //f3();
+
+        //Ipv4的正则表达式
+        function f4(){
+            var _ip1=/^\d{1,3}(\.\d{1,3}){3}$/g;
+            var _ip=/^\b(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d)\b(\.\b(25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d)\b){3}$/g;
+        }
+        // f4();
+
+        //匹配时间:8:52
+        function f5(){
+            var _reg=/\b(2[0-3]|[0-9]|1\d)\b:([0-5]\d)/g;
+            var _s=prompt("","");
+            if(_reg.test(_s)){
+                alert("true");
+            }else{
+                alert("false");
+            }
+        }
+        // f5();
+
+        //匹配日期2019/8/29
+        function f6(){
+            var _s=prompt("","");
+            var _reg=/^\d{4}\/(0?[1-9]|1[0-2])\/([0-2]\d|3[0-1])$/g;
+            if(_reg.test(_s)){
+                alert("true");
+            }else{
+                alert("false");
+            }
+        }
+        // f6();
+
+        // //匹配文件路径E:\Java\jdk-10.0.2\bin
+        // function f7(){
+        //     var _reg=/^[C-Zc-z]:(\\(\w+|\w+([-|]+(\w+.*\w*.*\w*))+)*)*$/g;
+        //     var _s=prompt("","");
+        //     if(_reg.test(_s)){
+        //         alert("true");
+        //     }else{
+        //         alert("false");
+        //     }
+        // }
+        // f7();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>   

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>set集合</title>
+    <script type="text/javascript">
+        /*
+            Set对象是以键值对方式存储的，键名==值
+            遍历的方式：for-of
+            方法：
+                add():添加成员
+                delete():删除成员
+                has():检查是否有此成员
+                clear():清空所有成员
+            总结:键值对方式存储数据，键名都不可以重复
+        */
+
+        let _set=new Set();
+        _set.add("anything");//添加一个成员，可以添加任意类型的
+        _set.add(function(){});//添加一个函数类型的成员
+        _set.add("abc");
+        _set.delete("abc");//删除一个指定的成员
+        _set.has("abc");//输出false,检查_set中是否有字符串abc，返回值为Boolean类型
+        _set.clear();//清除所有成员
+
+        //可以实现数组去重
+        let _items=[8,8,9,8,4,4,4,565,6,2,4];
+        let _set1=new Set(_items);//let _arr=new Array();
+        for(let v of _set1){//可以实现数组去重:因为set中的键是唯一的
+            console.log(v);//数组8,9,4,565,6,2
+        }
+        console.log(_set1.keys());//输出SetIterator {8, 9, 4, 565, 6, …}
+        console.log(_set1.values());//输出SetIterator {8, 9, 4, 565, 6, …}
+
+        for(let ele of _items){//能遍历数组，但不能遍历字面量对象
+            console.log(ele);//输出8,8,9,8,4,4,4,565,6,2,4
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

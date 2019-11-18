@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>透明图轮播</title>
+    <style>
+        html,body{
+            margin:0; padding:0; text-align:center;
+        }
+        #container{
+            width:782px; height:400px; border:solid 3px #ccc; margin:0 auto;
+        }
+        #container div:nth-child(1) img{
+            opacity:0.2;
+        }
+        #container div:nth-child(2) img{
+            float:left; height:60px; margin:3px; padding-left:5px;
+        }
+    </style>
+    <script type="text/javascript">
+        function createEle(_body){
+            let _div=document.createElement("div");
+            _body.appendChild(_div);
+            _div.id="container";
+            let _child=document.createElement("div");
+            _div.appendChild(_child);
+            let _img=document.createElement("img");
+            _img.src="images/_01.jpg";
+            _child.appendChild(_img);
+            _child=document.createElement("div");
+            _div.appendChild(_child);
+            for(let i=0;i<5;i++){
+                _img=document.createElement("img");
+                _child.appendChild(_img);
+                _img.src="images/_0"+(i+1)+".jpg";
+            }
+        }
+        function next(_big){
+            // timer=
+            //获取到此时的大图是第几张图
+            let url=_big.src.match(/\d\.jpg$/g)[0].replace(".jpg","");//使用match()方法在_big.src中匹配到0.jpg,match方法返回的是一个数组,使用数组的方法把.jpg替换掉
+            // console.log(url);
+            //如果此时的url大于等于5使url的值为0,因为一共5张图片
+            if(Number(url)>=5){
+                url=0;
+            }
+            //使url+1，变为下一张图的图片名
+            _big.src="images/_0"+(Number(url)+1)+".jpg";
+            //调用opacity()方法，改变此时这张图片的透明图
+            opacity(_big);
+        }
+        let timer;
+        function opacity(_big){
+            //给图片一个初始的透明度值
+            let _opacity=0.2;
+            //设置一个定时器改变图片的透明度
+            timer=setInterval(function(){
+                _opacity+=0.08;//让图片的透明度每次加0.08
+                _big.style.opacity=_opacity;//给图片的opacity样式赋值
+                //当图片的透明度大于等8时清除定时器不再让透明进行改变，然后调用next()方法显示下一张图片
+                //此处使透明度的值大于等于8的原因是可以使图片的透明度变为1，完全不透明时，不立即切换下一张图片
+                //而是依然停留在这张图片一段时间，便于用户看清图片上的内容
+                if(_opacity>=8){
+                    clearInterval(timer);
+                    next(_big);
+                }
+            },30);
+        }
+        function events(_hgroup){//接收到5张小图片
+            //循环，给每一个img添加onmouseover事件
+            for(let i=0;i<_hgroup.length;i++){
+                _hgroup[i].onmouseover=function(){
+                    //把此时鼠标悬停的这张小图片的src赋给大图
+                    this.parentNode.parentNode.children[0].children[0].src=this.src;
+                    //在调用opacity()方法之前先关闭opacity中的定时器，否则会造成多个定时器同时运行
+                    clearInterval(timer);
+                    //把此时的大图传给opacity
+                    opacity(this.parentNode.parentNode.children[0].children[0]);
+                    //next(this.parentNode.parentNode.children[0].children[0]);
+                };
+            }
+        }
+        function main(){
+            let _body=document.getElementsByTagName("body")[0];
+            createEle(_body);
+            opacity(_body.children[0].children[0].children[0]);
+            events(_body.children[0].children[1].children);
+        }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

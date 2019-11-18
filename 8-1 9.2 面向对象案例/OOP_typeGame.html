@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>打字游戏面向对象</title>
+    <style type="text/css">
+        *{margin:0;padding:0;}
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        div{
+            width:100%;
+            height:100%;
+            position:relative;
+        }
+        div p{
+            width:100px;
+            height:30px;
+            border:1px solid #e0e0e0;
+            position:absolute;
+            left:20px;
+            top:0;
+            color:#ccc;
+            font-size:16px;
+        }
+        div span{
+            display:inline-block;
+            width:20px;
+            height:20px;
+            text-align:center;
+            line-height:20px;
+            border:1px solid #ccc;
+            position:absolute;
+            top:0;
+        }
+    </style>
+    <script type="text/javascript">
+        function PrintChar(){
+            this.body=document.getElementsByTagName("body")[0];
+            this.timer=null;
+            this._div=document.getElementsByTagName("div")[0];
+            this._span=null;
+            this.p_score=document.getElementsByTagName("p")[0];
+            this.em=document.getElementsByTagName("em")[0];
+            this.sum=0;//计算总分数 
+            this.score=0;//1是打对了，0是打错了
+            this._spans=document.getElementsByTagName("span");
+            this.randomChar=function(){
+                var _me=this;
+                this.timer=setInterval(function(){
+                    var _char=String.fromCharCode(Math.floor((Math.random()*26)+65));
+                    var _color="rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")";
+                    
+                    var _left=Math.floor(Math.random()*800+200);
+                    // console.log(_left);
+                    _me._span=document.createElement("span");
+                    _me._span.style.color=_color;
+                    _me._span.innerText=_char;
+                    _me._span.style.left=_left+"px";
+                    _me._div.appendChild(_me._span);
+                    _me.drop();
+                },600);
+            };
+            this.drop=function(){
+                
+                // var _me=this;
+                // var _height=document.documentElement.clientHeight||docuemnt.body.clientHeight;
+                for(var i=0;i<this._spans.length;i++){
+                    this._spans[i].style.top=this._spans[i].offsetTop+20+"px";
+                    console.log(this._spans[i].offsetTop);
+                    if(this._spans[i].offsetTop>=500){
+                        this._div.removeChild(this._spans[i]);
+                    }
+                }
+            };
+            this.events=function(){
+                var _me=this;
+                var stop=0;//0停止，1开始
+                this.body.onkeypress=function(e){
+                    e=e||event;
+                    // alert(e.keyCode);
+                    if(e.keyCode==32){
+                        clearInterval(_me.timer);
+                        alert("您一共得了"+_me.sum+"分");
+                        stop=1;
+                    }
+                    if(e.keyCode==13 && stop==1){
+                        _me.randomChar();
+                       stop=0;
+                    }
+                }
+            };
+            this.compare=function(){
+                var _me=this;
+                
+                this.body.onkeydown=function(e){
+                    e=e||event;
+                   
+                    var _char=String.fromCharCode(e.keyCode);
+                   
+                    for(var i=0;i<_me._spans.length;i++){
+                       if(_char==_me._spans[i].innerText){
+                           _me._div.removeChild(_me._spans[i]);
+                           _me.sum+=1;
+                           _me.score=1;
+                           _me.em.innerText=Number(_me.em.innerText)+1;
+                           break;
+                       }
+                    }
+                    if(_me.score==0){
+                        _me.em.innerText=Number(_me.em.innerText)-1;
+                        
+                    }
+                    _me.score=0;
+                    if(_me.sum==0){
+                        clearInterval(_me.timer);
+                        alert("您目前分数为0，游戏结束");
+                    }
+                    // document.getElementsByTagName("p").innerText(_me.score+"分");
+                    // _me.p_score.innerText=_me.score+"分";
+                }
+            }
+        }
+       function main(){
+            var _pc=new PrintChar();
+            // _pc.create();//创建网页中的元素
+            _pc.randomChar();//随机出来一个字母，并让字母往下掉落
+            _pc.events();//当键盘按下空格键时停止并弹出一共打对了几个字，按下回车键时开始
+            _pc.compare();//对网页中的字母和键盘按下的字母进行对比
+       }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    <div>
+        <p><em></em>分</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <script type="text/javascript">
+        function shape(r_s,r_e,c_s,c_e){//r_s表示行开始，r_e表示行结束,c_s表示列开始,c_e表示列结束
+            for(var i=r_s;i>=r_e;i--){
+                for(var n=c_s;n<=c_e;n++){
+                    if(Math.abs(i)+Math.abs(n)<=10){
+                        document.write("0 ");
+                    }else{
+                        document.write("* ");
+                    }
+                }
+                document.write("<br>");
+            }
+        }
+        shape(7,-7,-7,7);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

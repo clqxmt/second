@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript">
+        //用JavaScript编写一个递归函数dep(), 实现需求：一年薪资是10k，涨幅每年0.5%，那么50年后薪资多少
+        
+        var _sum=0;
+        function dep(m,n){
+            if(n>50){
+                return m;
+            }
+            
+            // _sum+=10000*((1+0.5/100)*(n-1))+(1+0.5/100)*n;
+           return dep(m+m*0.005,n+1);
+            // dep(n+1);
+            // if(n==50){
+            //     console.log(m);
+            // }
+            // console.log(dep(m+m*0.005,n+1));
+        }
+        // console.log(dep(10000,1));
+        // dep(10000,1)
+       
+    function dep(a,i){
+        if (i<=50){
+            return dep(a + a * 0.005,++i);
+        }
+        return a;
+    }
+//    console.log( dep(10000,1)); //12832.2581493537
+ 
+
+        function color(){
+            var _color="rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")";
+            console.log(_color);
+        }
+        // color();
+
+//         var a = 123
+
+//  fn(a)
+
+//  function fn(a){a = 456;}
+
+//  document.write(a);
+var a=NaN,b=NaN;
+console.log(a==b);
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

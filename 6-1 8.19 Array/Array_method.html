@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组中的方法</title>
+    <script type="text/javascript">
+        var _arr=[8,5,0,3,1];
+        var _arr1=[1,2,3];
+        var _arr2=[4,5,6];
+       //concat()连接两个或更多的数组，并返回一个合并后的新数组，不改变原数组
+       function _concat(){
+            // console.log(_arr.concat(_arr1));
+            document.write(_arr.concat(_arr1));
+            document.write("<br>");
+            document.write(_arr.concat(_arr1).concat(_arr2));//连接多个数组
+            document.write("<br>");
+            document.write(_arr);//不改变原数组
+            
+       }
+       //_concat(_arr);
+       //document.write("<br>");
+       
+       //join():将数组的每个元素用指定的分隔符分隔拼接成字符并返回
+       function _join(){
+            document.write(_arr.join("#"));//输出8#5#0#3#1
+       }
+       //_join();
+       //document.write("<br>");
+
+       //pop():删除并返回数组的最后一个元素
+       function _pop(){
+           document.write(_arr.pop());//输出1
+       }
+       //_pop();
+
+        //shift():删除并返回数组的第一个元素
+       function _shift(){
+         document.write(_arr.shift());
+        }
+       //_shift();
+
+       //push():向数组的末尾添加一个或更多元素，并返回新的长度
+       function _push(){
+            document.write(_arr.push(1));//输出6(数组的长度)
+            document.write(_arr.push(1,2,3,4));//输出10
+       }
+       //_push();
+
+       //unshift():向元素的开头添加一个或更多元素，并返回长度
+       function _unshift(){
+            document.write(_arr.unshift(1,2,3));
+            document.write("<br>");
+            document.write(_arr);
+       }
+       //_unshift();
+
+       //reverse():颠倒数组中元素的顺序
+       function _reverse(){
+            document.write(_arr.reverse());//输出1,3,0,5,8
+       }
+      // _reverse();
+
+       /*slice():从某个已有的数组返回选定的元素。至少需要一个参数
+        表示规定从何处开始选取，如果参数为负数，就从数组的尾部开始算起
+        两个参数时，第二个参数表示规定在哪里结束，如果没有第二个参数就从开始的地方一直到最后，如果参数为负数，则从数值的尾部开始算起
+       */
+       function _slice(){
+           document.write(_arr.slice(1));//输出5,0,3,1
+           document.write("<br>");
+           document.write(_arr.slice(-1));//输出1
+           document.write("<br>");
+           document.write(_arr.slice(-3));//输出0,3,1
+           document.write("<br>");
+           document.write(_arr.slice(1,3));//输出5,3 slice()方法在给定的参数中包含头不包含尾
+           document.write("<br>");
+           document.write(_arr.slice(-3,-1));//输出0,3
+           document.write("<br>");
+           document.write(_arr.slice(1,-2));//输出5,0
+           document.write("<br>");
+           document.write(_arr.slice(-4,4));//输出5,0,3
+       }
+       //_slice();
+
+       //sort():对数组的元素进行排序
+       //sort()排序是先将元素转换成字符串，用字符串的首字符进行比较，如果相等比较第二个字符
+       function _sort(){
+           var _arr4=[8,95,0,31,1];
+            //document.write(_arr.sort());//输出0,1,3,5,8
+            //document.write("<br>");
+           //document.write(_arr4.sort());//输出0,1,31,8,95
+            //document.write("<br>");
+            document.write(_arr4.sort(function(a,b){
+                return a-b;
+            }));//输出0,1,8,31,95，
+       }
+      // _sort();
+
+      //splice():删除元素，并向数组添加新元素，并返回被删除的元素
+      function _splice(){
+          //document.write(_arr.splice(1,3))//删除从下标1开始的往后的两个元素，
+                                        //但是由于包含头不包含尾，所以只会删除5,0输出5,0
+          document.write("<br>");
+          document.write(_arr);
+          document.write("<br>");
+          //document.write(_arr.splice(1,3,100));//删除从下标1开始的往后的3个元素，
+           //删除的是5,0,3在此处_arr变为8,100,1                                   //然后添加100到下标索引值为1的地方
+          document.write("<br>");
+          document.write(_arr);//此时的数组里为8,100
+          document.write("<br>");
+          document.write(_arr.splice(1,3,100,101));//删除从小标1开始往后的3个元素
+          //上面一条语句删除的是5,0,3 此处的_arr变为8,100,101,1
+          document.write("<br>");
+          document.write(_arr);
+      }
+      //_splice();
+
+      //toString():把数组转换为字符串，并返回结果
+      function _toString(){
+            document.write(_arr.toString());  
+      }
+     // _toString();
+
+     
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

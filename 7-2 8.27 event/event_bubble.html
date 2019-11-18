@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件冒泡</title>
+    <style>
+        html,body{
+            width:100%; height:100%; margin:0; padding:0;
+        }
+        #outer{
+            width:500px; height:500px; background-color:red; margin: 10px;
+        }
+        #middle{
+            width:300px; height:300px; background-color:yellow;
+        }
+        #inner{
+            width:100px; height:100px; background-color:green;
+            position: absolute; top:80px; left:80px;
+        }
+    </style>
+    <script type="text/javascript">
+        /*
+         *事件冒泡：内层元素的事件会逐层向外扩散，一直扩散到根元素，然后执行父级元素相对应的事件
+        */
+        window.onload=function(){
+            var _outer = document.getElementById("outer");
+            var _middle = document.getElementById("middle");
+            var _inner = document.getElementById("inner");
+             _outer.onclick=function(e){
+                 e=e||event;
+                 console.log(this.id);//this.id是onclick事件所指向的那个对象的id
+                 console.log(e.target.id);
+             };
+            _middle.onclick = function (e) {
+                e = e || event;
+                console.log(this.id);
+                console.log(e.target.id);
+            };
+
+            _inner.onclick = function (e) {
+                e = e || event;
+                console.log(this.id);
+                console.log(e.target.id);
+            }
+        }
+        
+    </script>
+</head>
+<body>
+    <div id="outer">
+        <div id="middle">
+            <div id="inner"></div>
+        </div>
+    </div>
+</body>
+</html>

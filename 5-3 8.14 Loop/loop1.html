@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>嵌套循环</title>
+    <script type="text/javascript">
+       //输出10行0-10
+       function f1(){
+           var n=0;
+           for(n=0; n<10; n++){
+               for(var i=0; i<=10; i++){
+                   document.write(i+",");
+               }
+               document.write("<br>");
+           }
+       }
+       //f1();
+
+       //输出0-10，n的奇数行输出奇数，偶数行输出偶数
+       function f2(){
+           for(var n=0; n<10; n++){
+               for(var i=0; i<=10; i++){
+                   if(n%2!=0){
+                        if(i%2!=0){
+                            document.write(i+",");
+                        }
+                       
+                   }else{
+                       if(i%2==0){
+                           document.write(i+",");
+                       }
+                   }
+               }
+               document.write("<br>");
+           }
+       }
+       f2();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

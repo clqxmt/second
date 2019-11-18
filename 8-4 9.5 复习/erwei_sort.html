@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>二维数组排序</title>
+    <script type="text/javascript">
+        function Sort(){
+            this.sort1=function(_arr1){
+                var _empty=null;
+                for(var i=0;i<_arr1.length;i++){
+                    for(var n=0;n<_arr1.length-1-i;n++){
+                        if(_arr1[n]>_arr1[n+1]){
+                            _empty=_arr1[n];
+                            _arr1[n]=_arr1[n+1];
+                            _arr1[n+1]=_empty;
+                        }
+                    }
+                }
+                console.log(_arr1);
+            }
+            this.sort=function(_arr){
+                console.log(_arr);
+                var _arr1=[];
+                for(var n=0;n<_arr.length;n++){
+                    for(var i=0;i<_arr[n].length;i++){
+                        console.log(_arr[n][i]);
+                        _arr1.push(_arr[n][i]);
+                    }
+                }
+                console.log(_arr1);
+                this.sort1(_arr1);
+            }
+        }
+        function main(){
+            var _arr=[[8,5,0,3,1],[9,5,7,3,1],[7,8,6,4,5]];
+            console.log(_arr);
+            var _sort=new Sort();
+            _sort.sort(_arr);
+        }
+        main();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

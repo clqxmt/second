@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>解构赋值</title>
+    <script type="text/javascript">
+        /*
+            解开原有的结构，重新赋值的过程，称为解构赋值
+            前后的解构必须完全匹配，赋值是一一对应的
+            优点：
+                做数据交换时方便
+                可以一次返回多个值
+
+            ES6中的扩展运算符：...可以展开一个数组
+        */
+        function f1(){
+            let [a,b]=[77,88];
+            let [c,d,e]=[77,88,99,10];
+            let [f,g,h,i]=[77,88,99];
+            console.log(a,b);//输出77 88
+            console.log(c,d,e);//输出77 88 99
+            console.log(f,g,h,i);//输出77 88 99 undefined
+
+        }
+        // f1();
+        function f2(){
+            let {m,n}={m:10,n:20};//前后的m和n必须相同
+            console.log(m,n);//输出10 20
+
+            let {j,k}={a:10,b:20};//如果前后不相同
+            console.log(j,k);//输出undefined undefined
+
+        }
+        // f2();        
+
+        function f3(){
+            let {x:[y,z]}={x:[10,20]};//x只是一个映射关系，不是变量
+            console.log(x);// x is not defined
+            console.log(y,z);//输出10,20
+        }
+        // f3();
+
+        function f4(){
+            let [a,b]=[9,7];
+            console.log(a,b);//输出9,7
+            [a,b]=[b,a]//交换值
+            console.log(a,b);//输出7,9
+        }
+        // f4();
+
+        //可以一次返回多个值
+        function f5(){
+            return [1,2,3,4,5];
+        }
+        let [a,b,c,d,e]=f5();
+        console.log(a,b,c,d,e);//输出1,2,3,4,5
+        
+        function f6(){
+            console.log(...[1,2,3,4,5]);//输出1,2,3,4,5
+        }
+        f6();
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

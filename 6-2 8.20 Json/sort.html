@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sort排序的原理</title>
+    <script type="text/javascript">
+        //sort():对数组中的元素进行排序
+        function sort(){
+            var _arr=[8,5,0,3,1];
+            var _arr1=[8,95,31,1,5];
+            console.log(_arr.sort());//输出0,1,3,5,8
+            console.log(_arr1.sort());//输出1,31,5,8,95,因为会先将元素转换为字符串,用字符串的首字符进行比较，
+                                     //如果第一个字符相同，继续比较第二个字符
+            //针对上面的情况，使用以下方法解决
+            console.log(_arr1.sort(function(a,b){
+                return a-b;
+            }));//输出1,5,8,31,95
+        }
+        sort();
+
+        //sort(function(a,b){return a-b})方法的原理
+        //function(a,b){return a-b;}相当于是一个实参
+        //var _arr1=[8,95,31,1,5];
+/********这段代码是调用sort(function(a,b){return a-b})后系统执行的*****************************************************/
+       /* _arr1.sort=function(fx){//fx用来接收调用_arr1.sort时传过来的参数,此时fx=function(a,b){return a-b;}
+                //然后用冒泡排序从前往后进行比较，按由小到大的顺序排序
+                var _empty=null;
+                for(var n=0; n<_arr1.length-1;n++){
+                    for(var i=0;i<_arr1.length-1; i++){
+                        //因为fx接收过参数之后fx=function(a,b){return a-b},那么这里调用fx时传过去两个参数
+                        //就相当于给function传了两个参数,a=_arr1[i+1],b=_arr[i](因为返回的是a-b),用后一位数减前一位数
+                        if(fx(_arr1[i+1],_arr1[i])<0){//判断用第i+1个元素减去第i个元素是否小于0,如果小于0,说明i+1位置上的数较小，进行交换
+                                                      //例如95-8大于0,不交换,31-95小于0,进行交换,把较小的值放在前面
+                            _empty=_arr1[i];
+                            _arr1[i]=_arr1[i+1];
+                            _arr1[i+1]=_empty;
+                        }
+                    }
+                }
+                console.log(_arr1);
+
+        }*/
+/*****************************************************************************************/
+        //下面的代码是程序员写代码时使用的，使用这个方法就相当于给函数_arr1.sort传递了一个实参，fx用来接收这个实参
+       /*  _arr1.sort(function(a,b){
+            return a-b;
+        }); */
+       
+
+       
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

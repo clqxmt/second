@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组</title>
+    <script type="text/javascript">
+        //声明数组:
+        var _arr=[];//声明数组的第一种方式
+        var _arr1=new Array();//声明数组的第二种方式：构造函数声明数组
+        //构造函数只能由new关键字调用
+        //构造函数的作用：用来构造对象用
+        var _arr2=new Array(8)//给构造函数传递一个参数时，表示给数组设置一个长度
+        var _arr3=new Array(1,2,3,4);//给构造函数传递多个参数时，表示初始化数组
+        //访问
+        //console.log(_arr3[2])//2表示下标，输出3
+
+        //遍历
+        for(i=0;i<_arr3.length;i++){//length是数组的一个属性，表示数组的长度，因为数组下标是从0开始的，所以数组的长度永远比下标值大1
+            console.log(_arr3[i]);
+
+        }
+
+        //数组的动态初始化
+        //把1-50的数添加到数组中
+        function f1(){
+            for(var n=0;n<50;n++){
+                _arr[n]=n+1;
+           }
+           console.log(_arr);
+        }
+        //f1();
+
+         
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

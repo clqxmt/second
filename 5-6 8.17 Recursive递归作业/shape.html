@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归打印多边形</title>
+    <script type="text/javascript">
+       function shape(r_s,r_o,c_s,c_o){//r_s定义开始行，r_o定义结束行,c_s定义开始列,c_o定义结束列
+           if(r_s<r_o){//当开始行数大于传过来的结束行时结束递归
+               return;
+           }
+             
+             
+           (function fc(c_s,c_o){
+                if(c_s>c_o){//当开始列数递归到大于传过来的结束列数时，结束递归
+                    return;
+                }
+               
+                //var n=;
+                if(Math.abs(r_s)+Math.abs(c_s)<=5){//和for循环中一样，当列数加行数的和小于等于5是打印*,否则打印空格
+                    document.write("*");
+                }else{
+                    document.write("-");
+                }
+                fc(c_s+1,c_o);//相当于for循环中的列数循环，使c_s递增
+           })(c_s,c_o);
+           document.write("<br>");
+           shape(r_s-1, r_o,c_s,c_o);//相当于for循环中的行数循环,使r_s递减
+         
+       }
+      
+      shape(5,-5,-5,5) ;//输出菱形
+      document.write("<br>");
+      shape(3,0,-5,5);//输出等腰梯形
+      document.write("<br>");
+      shape(5,-3,-5,5);//输出五边形
+      document.write("<br>");
+      shape(4,-4,-5,5);//输出六边形
+      document.write("<br>");
+      shape(5,-4,-4,4);//输出七边形
+      document.write("<br>");
+      shape(4,-4,-4,4);//输出八边形
+      document.write("<br>");
+      shape(5,0,0,5); //输出直角边在左边的正三角形
+      document.write("<br>");
+      shape(0,-5,0,5);//输出直角边在左边的倒三角形
+      document.write("<br>");
+      shape(0,-5,-5,0);//输出直角边在右边的倒三角形
+      document.write("<br>");
+      shape(5,0,-5,0);//输出直角边在右边的正三角形
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

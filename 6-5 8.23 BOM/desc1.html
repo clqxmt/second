@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计时器over</title>
+    <style>
+        img {
+            vertical-align: middle;
+        }
+
+        body {
+            font-size: 30px;
+        }
+    </style>
+    <script type="text/javascript">
+        function desc() {
+
+            var _date = new Date("2019-12-13").getTime();
+            var _current = 0;
+            var _now = new Date().getTime();
+            _current = _date - _now;
+            console.log(_current);
+            var _day = Math.floor(_current / (1000 * 60 * 60 * 24));
+            var _h = Math.floor((_current - _day * 1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+            console.log(_h);
+            var _m = Math.floor((_current - _day * 1000 * 60 * 60 * 24 - _h * 1000 * 60 * 60) / 60000);
+            console.log(_m);
+            var _s = Math.floor((_current - _day * 1000 * 60 * 60 * 24 - _h * 3600000 - _m * 60000) / 1000);
+            console.log(_s);
+            var _arr = (function (a, b, c, d) {
+                for (var i = 0; i < arguments.length; i++) {
+                    if (arguments[i] < 10) {
+                        arguments[i] = "0" + arguments[i];
+                    }
+                }
+
+                return arguments;
+            })(_day, _h, _m, _s);
+            console.log(_arr);
+            document.write(_arr[0] + "天" + _arr[1] + "时" + _arr[2] + "分" + _arr[3] + "秒");
+
+        }
+        //desc();
+
+
+        window.onload = function () {
+            window.setInterval(function () {
+
+
+                var _date = new Date("2019-12-13").getTime();//给日期对象传一个日期.getTime()是获取到毫秒数
+                var _current = 0;
+                var _now = new Date().getTime();//获取现在的时间，也变成毫秒数
+                _current = _date - _now;//两个日期的差值
+                //console.log(_current);
+                /*
+                 1000=1s,1min=60s=60000ms,1h=60min=3600s=3600000ms
+                */
+                //1000*60*60*24就是1s乘60s乘60min乘24h就是一天的毫秒数,除以一天的毫秒数就能得到还有多少天
+                //Math.floor是向下取整，因为算出来的数有可能是小数
+                var _day = Math.floor(_current / (1000 * 60 * 60 * 24));
+                //此处是先把一天的的小时数转为毫秒数，然后用总的毫秒数减去_day天的毫秒数,然后再用剩下的毫秒数除以一小时的毫秒数,就得到了还有多少个小时
+                //下面的算法和这步相同
+                var _h = Math.floor((_current - _day * 1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+
+                var _m = Math.floor((_current - _day * 1000 * 60 * 60 * 24 - _h * 1000 * 60 * 60) / 60000);
+
+                var _s = Math.floor((_current - _day * 1000 * 60 * 60 * 24 - _h * 3600000 - _m * 60000) / 1000);
+
+                //这个函数的作用是当天、时、分、秒的数为个位数时在前面加上一个0
+                var _arr = (function (a, b, c, d) {
+                    for (var i = 0; i < arguments.length; i++) {
+                        if (arguments[i] < 10) {
+                            arguments[i] = "0" + arguments[i];
+                        }
+                    }
+
+                    return arguments;
+                })(_day, _h, _m, _s);
+                console.log(_arr);
+                //函数返回的arguments是一个伪数组，所以不能用toString()方法转为字符串
+
+                var _str ="";
+                //把函数返回的数组转为字符串
+                for (var n = 0; n < _arr.length; n++) {
+                    _str += _arr[n];
+                }
+                //console.log(_str); 
+
+                //把数字换为图片
+                var _img = document.getElementsByTagName("img");
+                for (var m = 0; m < _img.length; m++) {
+                    //给img的属性src赋值，_str.charAt(m)就是在_str中找到索引值为m的值,这个值对应的就是图片的名字
+                    _img[m].src = "images/" + _str.charAt(m) + ".png";
+                }
+            }, 60);
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    天
+    <img src="" alt="">
+    <img src="" alt="">
+    时
+    <img src="" alt="">
+    <img src="" alt="">
+    分
+    <img src="" alt="">
+    <img src="" alt="">
+    秒
+</body>
+
+</html>

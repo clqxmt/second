@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>字符串对象</title>
+    <script type="text/javascript">
+        //字符串的声明
+        var _str="abc";
+        var _str1=new String("edf");
+
+        //字符串的访问
+       // console.log(_str[0]);//输出a
+       // console.log(_str1.charAt(1));//输出d
+
+        //字符串的拼接
+       // console.log(_str.concat(_str1));//输出a,b,c,d,e,f
+      //  console.log(_str+_str1);//输出a,b,c,d,e,f
+
+        //字符串的length属性
+      //  console.log(_str.length);//输出3
+        for(var i=0; i<_str.length;i++){
+       //     console.log(_str[i]);//输出a,b,c
+        }
+
+        //转义字符:反斜杠\
+        //可以把某些普通字符转为有特殊意义的字符
+        //console.log("\n");//表示换行,n本来是一个普通字符
+        //可以把某些具有特殊意义的字符转为普通字符
+        //console.log("\\");//输出\，反斜杠\本来具有特殊意义，但是使用\转义以后，变为普通字符
+        //console.log("\"");//输出"，把"转为了普通字符
+
+        //字符串的大小写转换
+        //console.log(_str.toUpperCase());//输出ABC
+        var _str2="SDF";
+        //console.log(_str2.toLowerCase());//输出sdf
+
+        //charCodeAt():返回指定索引位置字符的Unicode值
+        //该方法中如果给的参数大于字符串的长度或者为负数，会返回NaN
+       // console.log(_str.charCodeAt(0));//输出a的Unicode值：97
+    //    console.log(_str2.charCodeAt(4));//NaN
+        
+        //fromCharCode():将Unicode转换为字符串,可以有一个或多个值
+        //该方法是String的静态方法,不能使用自己创建的对象去调用，只能使用String对象调用
+        //console.log(String.fromCharCode(97));//输出a
+        //console.log(String.fromCharCode(97,98,99));//输出abc
+
+        //统计字符串的中每个字符重复的次数
+        function statistics(){
+
+            var _str3="assdsdadscsgjfdtrssdssewtiwqibcnc";
+            var _obj={};
+            for(var i=0; i<_str3.length; i++){//遍历字符串
+                if(_obj[_str3[i]]){//_obj[_str3[i]]就是给_obj添加了一个属性_str3[i],
+                                //_str3[i]就是_str3中的某个字符
+                                //这句话判断_obj字面量对象中_str3[i]这个属性是否有值
+                                //如果这个属性没有值,_obj[_str3[i]]的值就为undefined,undefined是false
+                                //不执行if里面的语句，去执行else里的语句
+                    _obj[_str3[i]]++;//如果这个属性有值，就让这个属性的值自增1
+                }else{
+                    
+                    _obj[_str3[i]]=1;//因为_obj[_str3[i]]初始没有值,所以在这里把这个属性的值初始为1,
+                                    //代表这个属性在字符串中已经出现了一次
+                }
+            }
+            console.log(_obj);
+        }
+        //statistics();
+
+        //统计字符串中字符串重复出现的次数
+        function statistics1(){
+            var _str3="assdsdadscsgjfdtrssdssewtiwqibcnc";
+            var _temp=0;//定义一个变量用来累计该字符在字符串中出现的次数
+            var _pos;
+            // var
+            for(var n=0; n<_str3.length;){//遍历_str3,n一直为0
+            /*可以直接写为:var n=0;
+                           while{n<_str3.length}{
+                               循环语句;
+                           }
+            */
+            /*
+                *因为在下面有替换字符的字符操作,每当一个字符被替换后,后面的字符都会向前移动
+                *当n=0时,上面的字符a被替换掉,后面的字符会往前移动,
+                *如果依然进行n++,就会从下标为1的第2个元素进行比较,
+                *那么往前移动时移动到下标0位置的字符(例如w)就会比较不到它
+                *所以n不进行自增,一直从下标0的位置开始和后面字符进行比较
+                *由于字符串中的字符一直在被替换,最后会被替换完,_str3的长度会为0
+                *此时0<0不成立,会跳出循环
+            */
+                for(var i=0;i<_str3.length;i++){//用_str3中的第0个元素和_str3中的每个元素进行比较
+                    if(_str3[n]==_str3[i]){//
+                        _temp++;
+                    }
+                }
+                console.log(_str3[n]+"出现了"+_temp+"次");
+                _pos=_str3[n];
+                /*为什么需要将_str3[n]赋值给一个变量_pos
+                    *因为_str3[n]是一个变量，但是indexOf()里的参数是需要一个定数
+                    *用当n=0是时为例：_str3[n]=a;_str3.indexOf(a)>=0就是在_str3中能找到a,进行替换
+                    *a会被替换为"",就相当于把a删除了,这时后面的字符会往前移动,那么0位置上的字符就变为了w
+                    *接下来就是_str3.indexOf(w)>=0,就开始替换w了,后面的都会如此，替换到最后_str3就为空了
+                    *把_str3[n]赋值给一个变量,这个变量的值会一直等于_str3[n]的值,就不会出现上面的问题了
+                
+                */
+                //为了防止在下面的循环比较中对已经输出过次数的字符进行第二次比较，
+                //所以把已经遍历出重复出现次数的字符用""进行替换,就是删除
+                while(_str3.indexOf(_pos)>=0){//在_str3中寻找是否还有该字符，如果有就替换掉
+                   _str3= _str3.replace(_pos,"");
+                }
+                
+                _temp=0;//每次输出过一个字符的重复出现次数后就把_temp的值置为0,
+                       //开始计算下面一个字符的重复出现次数
+            }
+        }
+      //statistics1();
+
+
+        //String中常用的方法
+        
+        function method(){
+            var _str="abcdfr12345ldnasndadf12345";
+            //indexOf():返回字符串中检索指定字符第一次出现的位置
+            console.log(_str.indexOf("a"));//输出0
+            console.log(_str.indexOf("z"));//输出-1,因为_str字符串中没有字符z,找不到指定字符的时候返回-1
+            
+            //lastIndexOf():返回字符串中检索指定字符最后一次出现的位置
+            console.log(_str.lastIndexOf("a"));//输出17
+
+            //replace():替换字符串
+            //第一个参数为将要被替换的字符串
+            //第二个参数为将要被替换进来的字符串，
+            //返回一个新的字符串，不改变原来的字符串
+            console.log(_str.replace("12345","ABC"));//输出abcdfrABCldnasndadf12345，只替换一处
+            console.log(_str);//输出abcdfr12345ldnasndadf12345
+
+            //如果要字符串中有多个指定要被替换的字符串，如何替换
+            
+            while(_str.indexOf("12345")>=0){
+                 _str=_str.replace("12345","ABC");//把替换后的字符串赋值给了_str，原字符串会发生改变
+                
+            }
+            console.log(_str);//输出abcdfrABCldnasndadfABC
+
+            //slice():提取字符串的片断，并在新的字符串中返回被提取的片断
+            //第一个参数表示开始索引号,第二个参数表示结束索引号，
+            //包含开始不包含结束
+            console.log(_str.slice(1,2));
+
+            //split():把字符串分割为字符串组
+            var _str1="a*b*c*df";
+            console.log(_str1.split("*"));//输出["a", "b", "c", "df"]
+            var _str2="a,cc,d,f";
+            console.log(_str2.split(","));//输出["a", "cc", "d", "f"]
+            console.log(_str1);//a*b*c*df
+
+
+            //substr():从起始索引号提取字符串中指定数目的字符
+            //第一个参数代表开始的索引号
+            //第二个参数代表要提取的字符个数
+            console.log(_str.substr(1,4));//输出bcdf
+
+
+            //substring():提取字符串中两个指定的索引号之间的字符
+            //第一个参数代表开始的索引号
+            //第二个参数代表结束的索引号
+            //包含开始，不包含结束
+            console.log(_str.substring(1,4));//输出bcd
+
+            //toLowerCase():把字符串转换为小写
+            var _str4="ABCD";
+            console.log(_str4.toLowerCase());//输出abcd
+
+            //toUpperCase():把字符串转为大写
+            var _str5="defg";
+            console.log(_str5.toUpperCase());//输出DEFG
+
+            //trim():移除字符串首尾空白
+            var _str6="  abcd  efg  ";
+            console.log(_str6.trim());//输出abcd efg,因为只能去除首尾空白，不能去除中间的空白
+            
+        }
+        method();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选择排序</title>
+    <script type="text/javascript">
+    //选择排序是每一次比较完成之后再进行交换
+        var _arr=[8,5,0,3,1];
+        function selection_sort(_arr){
+            var _center=null;//声明一个空容器作为中间值，实现数值的交换
+           // var _flag=0;//声明flag，表示数组中每个元素的下标
+            for(var _flag=0; _flag<_arr.length-1; _flag++){
+                var b=_flag;//定义一个游标，初始值等于_flag，即每次游标从_flag指向的那个元素开始比较移动
+                for(var i=b+1; i<_arr.length; i++){//i等于游标的下标数加1，即比较游标所在下标位置和游标后面与游标相邻的那个数值相比较
+                    if(_arr[b]>_arr[i]){//如果游标所在位置的数值大于与它相邻的后一位数值
+                        b=i;//把后游标后一位的下标赋值给游标b，即把游标后移一位，游标每次指向的都是那个相对较小的值
+                    }
+                }
+                //内循环结束后，此时游标指向的是最小的那个数值，判断_flag和b指向的是否为同一个位置
+                //指向的不是同一个位置时进行交换数值
+                //如果指向的是同一个位置，没必要进行交换
+                if(_flag!=b){
+                    _center=_arr[_flag];//先把_flag位置的值放在_center容器中
+                    _arr[_flag]=_arr[b];//再把游标指向的这个数值放在_flag指向的那个位置
+                    _arr[b]=_center;//最后把_center赋值给_arr[b]
+               }
+            }
+            document.write(_arr);
+        }
+        selection_sort(_arr);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

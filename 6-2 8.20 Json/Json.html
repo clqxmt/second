@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>字面量对象</title>
+    <script type="text/javascript">
+        
+        function f1(){
+            //字面量对象的声明
+            var _obj={
+                name:"zhangsan",
+                age:10,
+                tall:190,
+                still:function(){
+                    console.log("he can progrem");
+                },
+                arrtibute:{
+                    hand:1,
+                    head:1,
+                    foot:2,
+                    eye:2
+                }
+            };
+
+            //字面量对象的访问
+           // console.log(_obj.name);//输出zhangsan
+            //console.log(_obj[name]);//输出undefined,中括号的这种访问方式,name相当于是一个变量
+
+            //遍历
+            for(var key in _obj){
+                console.log(key);//输出name,age,tall,still,arrtibute
+                //因为name,age,tall,still后面的值是数字，不能进行遍历，所以不会进行下面的内循环
+                for(var k in _obj[key]){
+                    console.log(k);//输出hand,head,foot,eye
+                }
+            }
+        }
+        f1();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

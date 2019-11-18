@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test_sum</title>
+    <script type="text/javascript">
+        
+        var _dimensional=[
+            [63,14,68,29,74,96],
+            [2,40,12,37,37,87],
+            [43,18,33,54,34,56],
+            [26,35,66,38,31,62],
+            [9,66,95,74,42,93],
+            [38,37,46,10,42,22]
+        ];
+        function dimensional(_dimensional){
+            var _sum=0;
+            //TODO:在空白处求出数组元素的总和
+            for(var i=0;i<_dimensional.length;i++){
+                for(var n=0;n<_dimensional[i].length;n++){
+                    _sum+=_dimensional[i][n];
+                }
+            }
+          
+            return _sum;
+        }
+        document.write(dimensional(_dimensional));//===1629
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

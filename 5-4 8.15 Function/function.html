@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用函数传参的方式输出多边形</title>
+    <script type="text/javascript">
+      //三角形
+      function shape(){
+          for(var n=5; n>=0; n--){
+              for(var i=-5; i<=0; i++){
+                  if(Math.abs(n)+Math.abs(i)<=5){
+                      document.write("*");
+                  }else{
+                      document.write("-");
+                  }
+              }
+
+              document.write("<br>");
+          }
+      }
+      //shape();
+
+      //使用函数传参的方式打印四个方向的三角形
+      function shape1(r_s,r_o,c_s,c_o){
+          //r_s代表行的开始位置,r_o代表行的结束位置,c_s代表列的开始位置,c_o代表列的结束位置
+          for(var n=r_s; n>=r_o; n--){
+              for(var i=c_s; i<=c_o; i++){
+                  if(Math.abs(n)+Math.abs(i)<=5){
+                      document.write("*");
+                  }else{
+                      document.write("-");
+                  }
+              }
+              document.write("<br>");
+          }
+          document.write("<br>");
+      }
+      shape1(5,0,-5,0);//直角边在右边的正直角三角形
+      shape1(5,0,0,5);//直角边在左边的正直角三角形
+     shape1(0,-5,-5,0);//直角边在右边的倒直角三角形
+      shape1(0,-5,0,5);//直角边在左边的倒直角三角形
+      shape1(5,-5,-5,5);//菱形
+      shape1(3,-5,-5,5);//五边形
+      shape1(3,-3,-5,5);//六边形
+      shape1(5,-4,-4,4);//七边形
+      shape1(4,-4,-4,4);//八边形
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

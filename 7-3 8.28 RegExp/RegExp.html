@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>正则表达式知识点</title>
+    <script type="text/javascript">
+        /*
+         *正则表达式：也称为规则表达式
+         *正则表达式的作用：用来匹配|替换|查找字符串
+         *正则思想：自己定义字符串的规则。用自己定义的规则去检索或者叫操作字符串
+         *正则表达式的基础语法：
+                /：斜杠表示正则表达式的开始和结束，斜杠中间必须有内容，否则就变成了单行注释
+                ^：匹配字符串的开始位置
+                $：匹配字符串的结束位置
+        *正则表达式的属性：
+                g：global，表示全局匹配，字符串从头到尾匹配叫全局匹配
+                m：multiple表示多行匹配
+                i：ignore忽略大小写
+                这三个属性可以任意组合使用，没有顺序，没有任何要求，也可以不写
+        *正则表达式元字符：
+                \w：word表示匹配字母数字下横线
+                \d：digital表示匹配0-9数字
+                \s：space表示匹配空白字符
+                \b：bound表示匹配单词边界
+
+                \W：表示匹配非字母数字下横线
+                \D：表示匹配非数字
+                \S：表示匹配非空白字符
+                \B：表示匹配非单词边界
+                .：表示匹配(\n和\r)以外的任意字符
+        *正则表达式的量词：就是表示数量的词叫做量词
+                ?：表示匹配0次或1次
+                +：表示匹配字符或者单元组连续出现1到正无穷次（至少出现1次）
+                *：表示匹配字符或者单元组连续出现0到正无穷次（至少出现0次）
+                {n}：表示匹配字符或者单元组连续出现n次，n是大于等于0的正整数
+                {n,}：表示匹配字符或者单元组连续出现n到正无穷次，（至少出现n次，n是大于等于0的正整数）
+                {n,m}:表示匹配字符或者单元组连续出现n到m次，(n>m),n是大于等于0的正整数
+        */
+
+        function fn(){
+            var _reg=/ /;//声明并初始化正则表达式对象。是引用数据类型
+            var _s="good good";
+            
+            var _reg=/^g/g;//表示全局匹配字符串开始位置的g
+            var _reg1=/d$/g;//表示全局匹配字符串结束位置的d
+            
+            console.log(_s.match(_reg));//输出一个数组["g"];
+           
+            console.log(_s.match(_reg1));//输出一个数组["d"];
+        }
+        //fn();
+
+        function f1(){
+            var _s="good good akjkj@123.com";
+            var _reg=/\w+/g;//匹配字符串中的字母数字下横线
+            console.log(_s.match(_reg));//输出["good", "good", "akjkj", "123", "com"]
+            console.log(_s.match(/\s/g));//输出[" ", " "]
+        }
+        f1();
+
+        function f2(){
+            var _s="good good akjkj@123.com";
+            var _reg=/\b\w|\w\b/g;//\b\w是匹配边界在左边的普通字符，\w\b是匹配边界在右边的普通字符，竖线表示或者的意思
+            console.log(_s.match(_reg));//输出["g", "d", "g", "d", "a", "j", "1", "3", "c", "m"]
+        }
+        //f2();
+
+        function f3(){
+            var _s="good good";
+            var _reg=/o?/g;//匹配字符o出现0次或1次
+            console.log(_s.match(_reg));//输出["", "o", "o", "", "", "", "o", "o", "", ""]，o出现次数为0的位置会输出""
+            document.write(_s.match(_reg));//输出,o,o,,,,o,o,,
+        }
+        //f3();
+
+        function f4(){
+            var _s="god good";
+            var _reg=/o+/g;//匹配字符o至少出现1次
+            console.log(_s.match(_reg));//输出 ["o", "oo"]
+            document.write(_s.match(_reg));//输出o,oo
+        }
+        //f4();
+
+        function f5(){
+            var _s="god good";
+            var _reg=/o*/g;//匹配o至少出现0次
+            var _reg1=/o{2}/g;//匹配o至少出现2次
+            console.log(_s.match(_reg));//输出["", "o", "", "", "", "oo", "", ""]
+            console.log(_s.match(_reg1));//输出["oo"]
+        }
+        //f5();
+
+        function f6(){
+            var _s="god gooooooooooooooooooood";
+            var _reg=/o{2,}/g;//匹配字符o出现次数为2到正无穷大
+            console.log(_s.match(_reg));//输出["oooooooooooooooooooo"]
+        }
+        //f6();
+        function f7(){
+            var _s="god gooooooooooooooooooood";
+            var _reg=/o{2,3}/g;
+            console.log(_s.match(_reg));//输出 ["ooo", "ooo", "ooo", "ooo", "ooo", "ooo", "oo"]
+        }
+       // f7();
+
+        function f8(){
+            var _s="12345678900WERTYUIO";
+            console.log(_s.search(/\d/g));//输出0，第一个数字的索引值
+            console.log(_s.search(/\W/g));//输出-1
+            //search方法结合正则表达式可以实现模糊查询,
+            //如果能找到就返回第一次出现的下标值，
+            //如果没找到就返回-1
+        }
+        // f8();
+
+        function f9(){
+            var _s="qwert#yuio%pqw&ertyu*isdfghjk";
+            console.log(_s.split(/\W/g));//根据匹配到的特殊字符分隔字符串
+            //输出["qwert", "yuio", "pqw", "ertyu", "isdfghjk"]
+            //split方法可以实现多元化的分隔字符串
+        }
+        // f9();
+
+        function f10(){
+            //此处有bug
+            var _s="eertyuioiugfdfghjkl;lkkjuytrertttttyuiooiuytruuuuufghjkl";
+            console.log(_s.replace(/\w{2,}/g,"00"));//把出现次数至少为2的字符替换为00
+            //replace方法结合正则表达式可以一次替换多处
+        }
+        // f10();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

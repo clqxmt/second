@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>放大镜</title>
+    <style type="text/css">
+        *{margin:0;padding:0}
+        html,body{width:100%;height:100%;}
+        #left{width:300px;height:300px;position:relative;float:left;top:50px;}
+        #small{
+            width:100px;height:100px;position:absolute;
+            left:0;top:0;background:#ccc;opacity:0.5;display:none;
+        }
+        #left img{width:300px;height:300px;display:block;}
+        
+        #right{width:500px;height:500px;position:relative;float:left; overflow:hidden;display:none;}
+        #right img{width:1500px;height:1500px;display:block;position:absolute;}
+        #bottom{width:300px;height:100px;position: relative;top:350px;}
+        ul{width:210px;height:100px;position:absolute;overflow:hidden;left:50px;top:25px;}
+        #bottom li{width:400px;height:50px;position:absolute;}
+        #bottom li img{width:50px;height:50px;display:block;float:left;margin-right:20px;}
+        .arrow{
+            position: absolute;
+           
+            font-size: 35px;
+            font-family: "黑体";
+            line-height: 50px;
+            color: #ccc;
+           
+            top:25px;
+           
+        }
+       #prev{
+            left:0;
+        }
+       #next{
+            right:0;
+        }
+        .active{
+            border:2px solid #f00;
+        }
+    </style>
+    <script type="text/javascript">
+       function Expand(){
+            this.left=document.getElementById("left");
+            this.right=document.getElementById("right");
+            this.li=document.getElementById("li");
+            this.timer=null;
+            this.url=0;
+            this.expand=function(){
+                var _small=document.getElementById("small");
+                var _me=this;
+                
+                this.left.onmousemove=function(e){
+                    _me.right.style.display="block";
+                    e=e||event;
+                    var _x=e.clientX;
+                    var _y=e.clientY;
+                    _small.style.display="block";
+                    _small.style.left=_x-_small.offsetWidth/2+"px";
+                    _small.style.top=_y-_small.offsetHeight/2-50+"px";
+                    if(_small.offsetLeft<=0){
+                        _small.style.left=0;
+                    }
+                    if(_small.offsetLeft>=_me.left.offsetWidth-_small.offsetWidth){
+                        _small.style.left=_me.left.offsetWidth-_small.offsetWidth+"px";
+                    }
+                    if(_small.offsetTop<=0){
+                        _small.style.top=0;
+                    }
+                    if(_small.offsetTop>=_me.left.offsetHeight-_small.offsetHeight){
+                        _small.style.top=_me.left.offsetHeight-_small.offsetHeight+"px";
+                    }
+                    _me.right.children[0].style.left=-_small.offsetLeft*5+"px";
+                    _me.right.children[0].style.top=-_small.offsetTop*5+"px";
+                }
+                this.left.onmouseout=function(){
+                    _small.style.display="none";
+                    _me.right.style.display="none";
+                }
+            }
+            this.change=function(i){
+                for(var n=0;n<this.li.children.length;n++){
+                    this.li.children[n].className="";
+                }
+                this.li.children[i].className="active";
+                this.url=this.li.children[i].src.match(/\d\.jpg$/g)[0].replace(".jpg","");
+                console.log(this.url);
+                
+                this.left.children[0].src="images/_0"+Number(this.url)+".jpg";
+                this.right.children[0].src="images/_0"+Number(this.url)+".jpg";
+            }
+            this.events=function(){
+                var _me=this;
+                var  _step;
+                var _total=0;
+                var _prev=document.getElementById("prev");
+                var _next=document.getElementById("next");
+                
+                // var _step1=;
+                _prev.onclick=function(){
+                    _step=Math.floor((_me.li.offsetLeft-0)/20);
+                    
+                    clearInterval(_me.timer);
+                    _total=0;
+                    _me.timer=setInterval(function(){
+                        
+                        // 
+                        _total++;
+                        
+                        _me.li.style.left=_me.li.offsetLeft-_step+"px";
+                        if(_total>=20){
+                            clearInterval(_me.timer);
+                        }
+                    },30);
+                    
+                    
+                }
+                _next.onclick=function(){
+                    total=0;
+                    clearInterval(_me.timer);
+                    // console.log(_me.ul.offsetLeft);
+                    _step=Math.floor((_me.li.offsetLeft-(-_me.li.parentNode.offsetWidth))/20)
+                    
+                    _me.timer=setInterval(function(){
+                        // clearInterval(_me.timer);
+                        _total++;
+                        
+                        _me.li.style.left=_me.li.offsetLeft-_step+"px";
+                        if(_total>=20){
+                            clearInterval(_me.timer);
+                        }
+                    },30);
+                    
+                }
+                for(let i=0;i<this.li.children.length;i++){
+                        this.li.children[i].onmouseover=function(){
+                            _me.change(i);
+                        }
+                        
+                } 
+        }
+       }
+       function main(){
+           var _expand=new Expand();
+           _expand.events();
+           _expand.expand();
+       }
+        window.onload=main;
+    </script>
+</head>
+<body>
+    <div id="left">
+        
+        <img src="images/_01.jpg" alt="">
+        <div id="small"></div>
+        
+    </div>
+    
+    <div id="right">
+        <img src="images/_01.jpg" alt="">
+
+    </div>
+    <div id="bottom">
+                
+            <ul >
+                <li id="li">
+                        <img src="images/_01.jpg" alt="">
+                        <img src="images/_02.jpg" alt="">
+                        <img src="images/_03.jpg" alt="">
+                        <img src="images/_04.jpg" alt="">
+                        <img src="images/_05.jpg" alt="">
+                </li>
+                
+                <!-- <img src="images/_01.jpg" alt="">
+                <img src="images/_02.jpg" alt="">
+                <img src="images/_03.jpg" alt=""> -->
+            </ul>
+            
+        <div id="prev" class="arrow"><</div>
+        <div id="next" class="arrow">></div>
+    </div>
+</body>
+</html>

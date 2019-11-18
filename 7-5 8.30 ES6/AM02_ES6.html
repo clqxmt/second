@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>声明常量变量</title>
+    <script type="text/javascript">
+        /*
+            ES6中声明常量的关键字
+                const:声明常量
+                    规则：*声明和初始化必须同时进行
+                         *不能被重新赋值
+                         *同一个作用域中不能被重复声明
+                    优点：方便代码维护，降低代码的逻辑错误。
+                    习惯：常量的名称全部大写
+            ES6中声明变量的关键字
+                let:用于声明变量，和var作用一样，但是比var要求严格一些
+                规则：*同一个作用域变量名不能重名
+                    *ES6中let方式声明的变量，具有块级作用域
+                    一个大括号就是一个代码块
+                    子集作用域可以访问父级作用域
+                    父级作用域不能访问子集作用域
+                    不再变量提升
+
+        */
+        const PI=3.14;//声明一个常量
+        function f1(){
+            const a=10;
+            console.log(a);//输出10
+
+            // const b;
+            // b=11;//会报错Missing initializer in const declaration:在const声明中缺少初始化器
+            //a=90;//会报错Assignment to constant variable.赋值给常变量。
+            //const a=90;//会报错Identifier 'a' has already been declared标识符“a”已经声明
+        }
+        // f1();
+
+        //使用let声明变量
+        function f2(){
+            let a=10;
+            console.log(a);//输出10
+            //let a=11;//会报错Identifier 'a' has already been declared变量a已经被声明过
+            a=20;
+            console.log(a);//输出20
+        }
+        // f2();
+        function f3(){
+            console.log(a);
+            let a=10;//会报错Cannot access 'a' before initialization无法在初始化之前访问'a'
+        }   
+        // f3();
+        function f4(){
+            for(let i=0;i<10;i++){}
+            console.log(i);//报错i is not defined
+        }
+        // f4();
+
+        //let声明的变量具有块级作用域
+        function f5(){
+            let a=10;
+            {
+                let a=9;
+                console.log(a);//输出9
+            }
+            console.log(a);//输出10
+        }
+        // f5();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

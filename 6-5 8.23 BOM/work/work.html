@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D08作业</title>
+    <script type="text/javascript">
+        //敏感词过滤
+        function work1(){
+            var _str=window.prompt("请输入内容","");
+            var _arr=["TMD","abc","xcv"];
+            _arr.forEach(function(_ele,_index){
+                    while(_str.indexOf(_ele)>=0){
+                       _str= _str.replace(_ele,"***");
+                    }
+            });
+            console.log(_str);
+        }
+       // work1();
+
+        //密码格式要求
+        /*
+         *有小写字母
+         *有大写字母
+         *有数字
+         *大于等于6个字符
+        */
+        function work2(){
+            var _str=prompt("请输入密码","");
+            var _c=false;
+            var _f=false;
+            var _a=false;
+            
+            for(var i=0;i<_str.length;i++){
+                if(_str[i].charCodeAt()>=48 && _str[i].charCodeAt()<=57){//检测数字
+                    _c=true;                
+                }
+                if(_str[i].charCodeAt()>=65 && _str[i].charCodeAt()<=90){//检测大写
+                    _f=true;
+                }
+                if(_str[i].charCodeAt()>=97 && _str[i].charCodeAt()<=122){//检测小写
+                    _a=true;
+                }
+                
+            }
+            
+            console.log(_c && _f && _a && _str.length>=6);
+        }
+        //work2();
+
+        //统计字符串中每个字符的个数？
+        function work3(){
+            var _str=prompt("请输入内容","");
+            var _obj={};
+            for(var i=0;i<_str.length;i++){
+                if(_obj[_str[i]]){
+                    _obj[_str[i]]++;
+                }else{
+                    _obj[_str[i]]=1;
+                }
+            }
+            console.log(_obj);
+        }
+       // work3();
+
+        //数字字母混合验证码
+        /* for(var n=0;n<=10;n++){
+            document.write('"'+n+'",');
+        }
+        for(var i=65;i<=90;i++){
+            document.write('"'+String.fromCharCode(i)+'",');
+        } */
+        function work4(){
+            var _arr=["0","1","2","3","4","5","6","7","8","9","10","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+            var _str="";
+            for(var i=0;i<6;i++){
+                _str+=_arr[Math.floor(Math.random()*_arr.length)];
+            }
+            document.write(_str);
+        }
+        //work4();
+
+        //aabccd统计每个字符出现的次数，结果显示 a 2、b 1、c 2、d1，去掉重复的字符，使结果显示 abcd
+        function work5(){
+            var _str="aabccd";
+            var _obj={};
+            for(var n=0;n<_str.length;n++){
+                if(_obj[_str[n]]){
+                    _obj[_str[n]]++;
+                }else{
+                    _obj[_str[n]]=1;
+                }
+                
+            }
+            /* console.log(_obj);
+            document.write(_obj); */
+            for(var k in _obj){
+                document.write(k+" "+_obj[k]+" ,");
+            }
+
+        }
+        //work5();
+
+        //去掉重复的字符，使结果显示 abcd
+        function work6(){
+            var _str="aabccd";
+            var _obj={};
+            
+            for(var n=0;n<_str.length;n++){
+                _obj[_str[n]]=_str[n];
+                
+            }
+            console.log(_obj);
+            for(var k in _obj){
+                document.write(k);
+            }
+            
+        }
+        work6();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

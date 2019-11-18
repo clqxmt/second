@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <style>
+      select{
+        font-size:#000;
+      }
+    </style> -->
+    <script type="text/javascript">
+      window.onload=function(){
+        /*  var _aTxt=document.getElementById("txt") ;
+         var _aTxt1=document.getElementById("txt1");
+         var _aTxt2=document.getElementById("txt2");
+         var _oBtn=document.getElementById("btn");
+         var _result=document.getElementById("result");       
+         var _Sel=document.getElementById("sel"); 
+         _oBtn.onclick=function(){
+          
+          if(_aTxt1.value=="+"){
+           _result.value=parseInt(_aTxt.value)+parseInt(_aTxt2.value);
+         }else if(_aTxt1.value=="-"){
+           _result.value=_aTxt.value-_aTxt2.value;
+         }else if(_aTxt1.value=="*"){
+          _result.value=Math.round(_aTxt.value*_aTxt2.value);
+         }else{
+          _result.value=Math.round(_aTxt.value/_aTxt2.value);
+         }
+        
+      } */
+
+
+      function jisuan(){
+        var _aTxt=document.getElementsByTagName("input");
+        _aTxt[3].onclick=function(){
+          
+          if(_aTxt[1].value=="+"){
+            _aTxt[4].value=parseInt(_aTxt[0].value)+parseInt(_aTxt[2].value);
+          }else if(_aTxt[1].value=="-"){
+          _aTxt[4].value=_aTxt[0].value-_aTxt[2].value;
+           }else if(_aTxt[1].value=="*"){
+          _aTxt[4].value=Math.round(_aTxt[0].value*_aTxt[2].value);
+          }else{
+          _aTxt[4].value=Math.round(_aTxt[0].value/_aTxt[2].value);
+          }
+        }
+      }
+      jisuan();
+    }
+    </script>
+</head>
+<body>
+   
+       <input type="text" id="txt">
+       <input type="text" id="txt1" value="+" style="width:20px; text-align:center;">
+      
+       <input type="text" id="txt2">
+       <input type="button" id="btn" value="=">
+       <input type="text" id="result">
+   
+</body>
+</html>

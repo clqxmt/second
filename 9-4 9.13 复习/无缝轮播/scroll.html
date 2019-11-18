@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>无缝滚动</title>
+    <style type="text/css">
+        *{
+            margin:0;padding:0;
+        }
+        #container{
+            width:680px;
+            height:132px;
+            margin:100px auto;
+            position:relative;
+            border:1px solid #f00;
+            overflow:hidden;
+        }
+        #pic{
+            width:400%;
+            height:132px;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+        #pic img{
+            display:block;
+            width:150px;
+            height:132px;
+            float:left;
+            margin:0 10px;
+        }
+        .arrow{
+            position:absolute;
+            /* width:65px;
+            height:70px; */
+            width:50px;
+            height:50px;
+            text-align:center;
+            line-height:50px;
+            background:rgba(204,204,204,0.5);
+            font-size:50px;
+            color:#fff;
+            /* opacity:0.5; */
+            top:40px;
+        }
+        #prev{
+            left:0;
+            /* background:url(images/btn.jpg) no-repeat -70px -65px; */
+        }
+        #next{
+            right:0;
+            /* background:url(images/btn.jpg) no-repeat 0 -65px; */
+        }
+    </style>
+    <script type="text/javascript">
+        function $(id){
+            return document.getElementById(id);
+        }
+        window.onload=function(){
+            var timer=null;
+            var _left=0;
+            // var _sign
+            var _pic=document.getElementById("pic");
+            var _container=document.getElementById("container");
+            var _step=(_pic.offsetLeft-(-container.offsetWidth))/180;//计算出一个步长
+            timer=setInterval(scroll,30);
+            function scroll(){
+                // _left=--(_pic.offsetLeft);
+                _pic.style.left=_pic.offsetLeft-_step+"px";
+                if(_pic.offsetLeft<-_container.offsetWidth){//如果ul的left值小于负的容器div的宽度就使ul的left值为0
+                    _pic.style.left=0;
+                }
+            }
+            function right_scroll(){
+                _pic.style.left=_pic.offsetLeft+_step+"px";
+                if(_pic.offsetLeft>=0){//如果ul的left值大于等于0就使ul的left值为负的容器div的宽度
+                    _pic.style.left=-$("container").offsetWidth+"px";
+                }
+            }
+            $("prev").onclick=function(){
+                clearInterval(timer);
+                timer=setInterval(scroll,30);
+            }
+            $("next").onclick=function(){
+                clearInterval(timer);
+                timer=setInterval(right_scroll,30);
+            }
+            _pic.onmouseover=function(){
+                clearInterval(timer);
+            }
+            _pic.onmouseout=function(){
+                timer=setInterval(scroll,30);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="container">
+        <ul id="pic">
+            <img src="images/1.jpg" alt="">
+            <img src="images/2.jpg" alt="">
+            <img src="images/3.jpg" alt="">
+            <img src="images/4.jpg" alt="">
+            <img src="images/1.jpg" alt="">
+            <img src="images/2.jpg" alt="">
+            <img src="images/3.jpg" alt="">
+            <img src="images/4.jpg" alt="">
+            <!-- <img src="../../images/_04.jpg" alt="">
+            <img src="../../images/_05.jpg" alt=""> -->
+        </ul>
+        <div id="prev" class="arrow"><</div>
+        <div id="next" class="arrow">></div>
+    </div>
+</body>
+</html>

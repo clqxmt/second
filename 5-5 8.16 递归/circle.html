@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D打印正圆</title>
+    <script type="text/javascript">
+    //2π=2*Math.PI=360度
+    //2*Math.PI/100表示把360度分为100份，想把360度分为几份就除以几
+       function circle(){
+           var _r=300;//声明一个变量_r表示圆的半径
+           var _x,_y;//声明变量_x表示div的横坐标，_y表示div的纵坐标
+         for(var i=0; i<100;i++){//循环100次,输出100个div,使每个div在不同的坐标位置
+            
+            _x=Math.cos(2*Math.PI/100*i)*_r+310; //计算出横坐标，加110是使圆全部显示在浏览器中，
+                                                //因为圆的半径为100，div的宽度为5，所以加110
+            _y=Math.sin(2*Math.PI/100*i)*_r+310; //计算出纵坐标
+
+            document.write("<div style=\"text-align:center;overflow:hidden;width:20px; height:20px; background:#f00; position:absolute; left:"+_x+"px;top:"+_y+"px;\">"+i+"</div>");
+            
+         }
+       }
+       circle();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

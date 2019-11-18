@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cookie</title>
+    <script type="text/javascript">
+        /**
+            cookie:文本文件，4-10KB左右的大小
+            cookie：跟随http请求被带到服务器中
+            cookie：只能被带到同源的服务器上
+            cookie：可以跨页面使用
+
+            同源的规则：协议相同、域名相同、端口号相同。同协议，同域名，同端口号
+
+            localStorage：同样遵循同源策略
+        */
+
+        /**
+            cookie的使用：
+                存：document.cookie="key=value;";
+                取：document.cookie;
+                删：设置cookie的expires来实现删除的
+                改：document.cookie="a=5";
+                延长cookie有效期，直接指定expires就可以了
+        */
+
+        document.cookie="a=5;expires="+new Date().getDate()+7;
+        /**
+            添加多个cookie:document.cookie="a=1;b=2;";//b不会被存到cookie中
+        */
+
+        // document.cookie="a=1;path=/;expires="+new Date(new Date().getTime()+7*24*3600*1000);
+        // document.cookie="b=2;path=/;expires="+new Date(new Date().getTime()+7*24*3600*1000);
+    
+        /**
+            遍历cookie
+                先将cookie以分号空格为分隔符，分隔成数组
+        */
+        var _cookies=document.cookie.split("; ");
+        console.log(_cookies);
+        var _item;
+        for(var i=0;i<_cookies.length;i++){
+            _item=_cookies[i].split("=");  
+            console.log(_item[0],_item[1]);
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

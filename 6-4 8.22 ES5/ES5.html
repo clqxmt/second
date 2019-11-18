@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Es5</title>
+    <script type="text/javascript">
+        //*ES5中提出的严格模式"use strict"
+        /*使用严格模式的好处：
+            *代码执行效率高
+            *代码可读性好
+            *一定程度上可以改善代码习惯
+        */
+        //非严格模式称为：怪异模式
+        //一般情况下"use strict"这句话都放在函数内
+        /*使用"use strict"后浏览器不再做静默处理
+            *比如给NaN赋值
+            *禁止删除变量和对象中不可删除的属性，显示报错
+            *禁止函数参数重名
+            *禁止使用八进制数字
+        */
+        
+        function fn(){
+            "use strict";
+            //不能给NaN(常量)赋值
+            //alert(NaN=1);//非严格模式下会弹出false,严格模式下会报错
+        
+            //禁止删除变量和对象中不可删除的属性
+            var a=10;
+            //delete a;//不会执行这个操作,禁止删除变量
+            var _obj={};
+            //Object.defineProperty方法直接在一个对象上添加一个新属性，或者修改一个对象的现有属性
+            Object.defineProperty(_obj,"abc",{
+                configurable:false,
+                value:12
+            });
+            console.log(_obj);
+            //delete _obj.abc;// 严格模式下会报错：Cannot delete property 'abc' of #<Object>
+            
+            //function f1(a,a){//函数参数重名会报错:Duplicate parameter name not allowed in this context
+
+            //}
+
+            //禁止使用with语句
+            var _obj1={
+                a:1,
+                b:2,
+                c:3
+            }
+           /*  with(_obj1){//严格模式下会报错:Strict mode code may not include a with statement
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            } */
+
+            //禁止函数内this默认指向全局
+            console.log(this);//严格模式下输出undefined
+        }
+        fn();
+
+        var _empty=null;
+        var _result=1;
+        function f1(a,b){
+            
+            if(a<b){
+                _empty=a;
+                a=b;
+                b=_empty;
+            }
+            if(a%b==0){
+                return b;
+            }else{
+                _empty=a;
+                a=b;
+                b=_empty%b;
+                _result*=f1(a,b);
+            }
+            return _result;
+        }
+       console.log(f1(40,60)) ;
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

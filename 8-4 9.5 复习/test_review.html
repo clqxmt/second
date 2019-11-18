@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>周考题复习</title>
+    <script type="text/javascript">
+        console.log("null的数据类型"+typeof null);//object
+        console.log("undefined的数据类型"+typeof undefined);//undefined
+        console.log("NaN的数据类型"+typeof NaN);//number
+        console.log("isNaN的数据类型"+typeof isNaN);//function
+        console.log('""是'+Number(""));//0
+        console.log("null是"+Boolean(null));//false
+        console.log("undefined"+Boolean(undefined));//false
+        console.log("NaN"+Boolean(NaN));//false
+        console.log("isNaN"+Boolean(isNaN));//true;
+        console.log(Boolean(""));//false
+        /**
+        *!""===true
+        *!" "===false
+        *!0===true
+        *!"0"===false
+        *!null====true
+        *!undefined===true
+        */
+        console.log(typeof typeof 10);//string
+        console.log(typeof typeof typeof 10);//string
+        // var a = b = 10; 
+
+        // (function(){       
+
+        //     var a=b=20
+
+        // })(); 
+
+        //console.log(b);//20
+///////////////////////////////////////////
+        /* let a = b = 10; 
+
+        (function(){       
+
+            a=b=20;
+
+        })(); 
+        console.log(b);//20 */
+
+///////////////////////////////////////////////
+        /* function test(){
+            let a = b = 10; 
+
+            (function(){       
+
+                a=b=20;
+
+            })(); 
+            return b;
+        }
+        console.log(test());//20 */
+////////////////////////////////////////////////////
+        console.log(2===true);//false
+        console.log((2===true)+1);//1
+        /*
+        *NaN指not a number，但是typeof(NaN)返回值却是“number”，所以他是数字类型，A正确
+
+        *Boolean(NaN)返回值为false，B错误
+
+        *NaN与任何值进行运算，都得到NaN，C正确
+
+        *NaN不能用关系运算符跟任意值比较都返回false，判断一个数是否为NaN需使用全局函数isNaN()，
+        */
+
+        /*
+        *元素节点的节点名始终是标签名
+
+        *文本节点的节点名始终是#text
+
+        *属性节点的节点名始终是属性名
+        */
+
+        /*
+            - 为什么要使用严格模式：速度快，语法更严格。
+            - 非严格模式也称为：怪异模式
+            - 使用："use strict";
+            - 一般情况下："use strict" 这句话都放到函数内。
+            - 不在做静默处理
+                - - 比如给NaN赋值
+                - - 禁止删除变量和对象中不可删除的属性，显示报错
+                - - 禁止函数参数重名
+                - - 禁止使用八进制数字
+            - 禁止使用with语句
+            - 禁止函数内this默认指向全局
+        */
+
+        //join():将数组的每个元素用指定的分隔符分隔拼接成字符串并返回。
+        function fn(){
+            var _arr1=[8,5,0,3,1];
+            console.log(_arr1.join("#"));//8#5#0#3#1
+        }
+        //fn();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

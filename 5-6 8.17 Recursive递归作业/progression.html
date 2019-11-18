@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>等差等比数列</title>
+    <script type="text/javascript">
+        //等差等比数列：1，3，7，15，31，63，127，......一共打印出20个数列出来
+        var _sum=0;
+        function progression(n){
+            if(_sum==20){
+                return;
+            }
+            document.write(n+"<br>");
+            _sum++;
+            progression(2*n+1);
+
+        }
+        progression(1);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

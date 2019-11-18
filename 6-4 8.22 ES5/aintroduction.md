@@ -1,0 +1,5 @@
+Es5.html:Es5严格模式下的一些规范用法
+Es5_forEach.html:Es5中新增的数组方法forEach的用法
+Es5_map.html:Es5中新增的数组方法map方法的用法
+Es5_reduce.html:Es5中新增的数组方法reduce方法的用法
+Es5_filter.html:Es5中新增的数组方法filter的用法

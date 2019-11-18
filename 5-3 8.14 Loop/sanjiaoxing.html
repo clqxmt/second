@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>三角形</title>
+    <script type="text/javascript">
+      //三角形
+      function f1(){
+          for(var n=1; n<=5; n++){
+              for(var i=1; i<=n; i++){
+                  document.write("*");
+              }
+              document.write("<br>");
+          }
+      }
+    // f1();
+     //直角边在右边的三角形
+     function f2(){
+       for(var n=0; n<5; n++){
+           for(var i=4; i>=0; i--){
+               if(i<=n){
+                   document.write("*");
+               }else{
+                   document.write("-");
+               }
+           }
+           document.write("<br>");
+       }
+     }
+     //f2();
+
+     //菱形
+     function f3(){
+       for(var n=5; n>=-5; n--){//循环打印行
+            for(var i=-5; i<=5; i++){//循环打印列
+                if(Math.abs(n)+Math.abs(i)<=5){//当行和列的绝对值相加<=5时，打印*
+                    document.write("*");
+                }else{//否则打印空格，这里用-代替
+                    document.write("-");
+                }
+            }
+            document.write("<br>");//第一行打印完成，换行显示
+       }
+     }
+     //f3();
+
+     //菱形转为三角形
+     function f4(){
+         for(var n=5; n>=0; n--){
+             for(var i=0; i<=5; i++){
+                 if(Math.abs(n)+Math.abs(i)<=5){
+                     document.write("*");
+                 }else{
+                     document.write("-");
+                 }
+             }
+             document.write("<br>");
+         }
+     }
+     //f4();
+     //三角形
+     function f5(){
+         for(var n=5; n>=0; n--){
+             for(var i=-5; i<=0; i++){
+                 if(Math.abs(n)+Math.abs(i)<=5){
+                     document.write("*");
+                 }else{
+                     document.write("-");
+                 }
+
+             }
+             document.write("<br>");
+         }
+     }
+     //f5();
+     //菱形转为等腰三角形
+     function f6(){
+         for(var n=5; n>=0; n--){
+             for(var i=-5; i<=5; i++){
+                 if(Math.abs(n)+Math.abs(i)<=5){
+                     document.write("*");
+                 }else{
+                     document.write("-");
+                 }
+             }
+             document.write("<br>");
+         }
+     }
+    // f6();
+     //等腰三角形
+     function f7(){
+        for(var m=0; m<5; m++){
+             for(var i=4; i>=0; i--){
+                 if(i<=m){
+                     document.write("*");
+                 }else{
+                     document.write("-");
+                 }
+                 
+             }
+          
+        
+             for(var i=1; i<=m; i++){
+                 document.write("*");
+             }
+             document.write("<br>");
+             
+        }
+     }
+    // f7();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

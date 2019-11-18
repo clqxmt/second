@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Es5中新增的数组方法filter</title>
+    <script type="text/javascript">
+        //filter():检索数组元素，并返回所有符合条件的元素的数组
+        function _filter(){
+            var str="";
+            var arr = [
+             {"name":"apple","count": 2},
+             {"name":"orange","count": 5},
+             {"name":"pear","count": 3},
+             {"name":"orange","count": 16}
+            ];
+            str=arr.filter(function(item,index,origin){//item表示数组的元素
+                return item.name=="orange";
+            });
+            console.log(str);
+        }
+        _filter();
+
+        function filter1(){
+            var str="";
+            var arr = [
+             {"name":"apple","count": 2},
+             {"name":"orange","count": 5},
+             {"name":"pear","count": 3},
+             {"name":"orange","count": 16}
+            ];
+            for(var n=0; n<arr.length; n++){
+                str=(function(item,index,origin){
+                    return item.name=="orange";
+                })(arr[n],n,arr);
+            } 
+            console.log(str);
+        }
+        filter1();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

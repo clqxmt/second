@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽</title>
+    <style>
+        *{margin:0;padding:0;}
+        #div1{width:500px;height:500px;background:#0ff;position:absolute;}
+    </style>
+    <script type="text/javascript">
+        /*
+        *拖拽分为三步：
+            *1.鼠标按下：鼠标按下时获取鼠标的位置
+            *2.鼠标移动：计算div的left值和top值
+            *3.鼠标抬起：清除鼠标移动事件，使鼠标移动时div不再移动
+        */
+        function move(){
+            var _div1=document.getElementById("div1");
+            //1.鼠标在div上按下时获取鼠标在div上的位置
+            _div1.onmousedown=function(e){
+                e=e||event;
+                //e.offsetX是获取鼠标和被点击对象左边之间的水平距离
+                //e.offsetY是获取鼠标和被点击对象上边之间的垂直距离
+                var _x=e.offsetX;
+                var _y=e.offsetY;
+                //当鼠标点击的位置在div最上边的50px时执行onmousemove事件，点击其他地方无效
+                if(_y<_div1.offsetHeight-450){
+                    //执行onmousemove事件
+                    //使用document的原因:如果使用_div1,拖拽的过程中鼠标可能会脱离div，使用document可以保证鼠标的移动有效
+                    //document.onmousemove事件写在div1.onmousedown事件里面的原因：因为只有当鼠标点击后才能移动，如果写在外面，会出现鼠标没有点击但是移动,div也会动的bug
+                    document.onmousemove=function(e){
+                        e=e||event;
+                        //使div的left值等于鼠标的水平位置减去获取到的鼠标距离被点击对象的left距离
+                        _div1.style.left=e.clientX-_x+"px";
+
+                        //使div的top值等于鼠标的垂直位置减去获取到的鼠标距离被点击对象的top距离
+                        _div1.style.top=e.clientY-_y+"px";
+                    };
+                }
+                
+            };
+
+            //当鼠标抬起时清除document.onmousemove函数中的内容
+            _div1.onmouseup=function(){
+                document.onmousemove=null;
+            }
+        }
+        window.onload=function(){
+            move();
+        }
+    </script>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+</html>

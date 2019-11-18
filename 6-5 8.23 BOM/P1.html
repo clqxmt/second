@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>P1.html</title>
+    <script type="text/javascript">
+        window.onload=function(){
+            document.getElementById("btn").onclick=function(){
+                window.history.forward();//从P2页面返回来以后再点击forward可以跳转到P2页面
+            }
+            document.getElementById("btn1").onclick=function(){
+                window.history.back();
+                //window.history.go(-1);//值为1时是前进，为-1时是后退
+            }
+            // console.log(window.location.portocal);
+        }
+    </script>
+</head>
+<body>
+    <a href="P2.html">Go P2</a><!-- 跳转到P1页面 -->
+    <input type="button" id="btn" value="forward">
+    <input type="button" id="btn1" value="back">
+</body>
+</html>
